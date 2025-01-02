@@ -1,6 +1,6 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
+name: Bug Issue Template
+about: 버그가 발생한경우 해당 템플릿을 사용하세요.
 title: ''
 labels: Bug
 assignees: ''
