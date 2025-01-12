@@ -6,8 +6,8 @@
 - **배포용 브랜치**: `main`
 - **개발용 브랜치**: `develop`
 - **기능별 브랜치**: 맡은 기능에 따라 별도의 브랜치 생성
-기능 구현이 끝난 이후에는 PR을 올리고, 세명의 개발자중 두명 이상의 Approve를 받은 후 Merge한다.
-이후 Issue를 Close하고, Branch를 파기한다. 
+- 기능 구현이 끝난 이후에는 PR을 올리고, 세명의 개발자중 두명 이상의 Approve를 받은 후 Merge한다.
+- 이후 Issue를 Close하고, Branch를 파기한다. 
 
 
 ## Issue / PR / Commit 컨벤션
