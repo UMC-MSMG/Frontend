@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="radius_button">24</integer>
+    <integer name="radius_input_window">24</integer>
+    <integer name="radius_widget">16</integer>
+    <integer name="radius_shop_item">7</integer>
+</resources>
