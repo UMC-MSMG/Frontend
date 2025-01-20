@@ -45,3 +45,4 @@
 - **Target SDK**: 34  
 - **Min SDK**: 24  
 - 개발 시 **에뮬레이터 사용**
+- 패키지명은 `com.UMC_MSMG.Frontend`사용
