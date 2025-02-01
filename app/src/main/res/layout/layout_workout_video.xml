@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_background">
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="500dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="#CC000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="100dp"/>
+
+    <ImageView
+        android:id="@+id/check_img"
+        android:layout_width="219dp"
+        android:layout_height="31dp"
+        android:elevation="200dp"
+        android:src="@color/color_primary"
+        android:background="@drawable/round_corner_primary"
+        app:layout_constraintTop_toBottomOf="@id/warning_tv_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <ImageView
+        android:id="@+id/warning_logo"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:src="@color/purple_200"
+        app:layout_constraintTop_toTopOf="@id/warning_bg"
+        android:elevation="101dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/warning_tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/warning_line_down"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        android:elevation="101dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/pretendard_medium"
+        android:paddingBottom="5dp"
+        android:text="해당되는 사항이 없다면 다음을 눌러주세요"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/check_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/check_img"
+        app:layout_constraintBottom_toBottomOf="@id/check_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="201dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/pretendard_bold"
+        android:paddingBottom="5dp"
+        android:text="다음"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/warning_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/warning_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:elevation="101dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/pretendard_medium"
+        android:paddingBottom="5dp"
+        android:text="운동 시작 전 다음 체크리스트 중\n해당되는 사항이 있는지 체크해주세요"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/warning_tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/warning_line_up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:elevation="101dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/pretendard_bold"
+        android:paddingBottom="5dp"
+        android:text="취기가 있어요\n가슴통증이 있어요\n입 안이 건조해요\n정형외과적 질환이 있어요"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/warning_line_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line"
+        app:layout_constraintTop_toBottomOf="@id/warning_tv"
+        android:elevation="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <ImageView
+        android:id="@+id/warning_line_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/warning_tv_2"
+        android:elevation="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/warning_bg"
+        android:layout_width="300dp"
+        android:layout_height="356dp"
+        android:src="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_corner_white"
+        android:elevation="100dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    <TextView
+        android:id="@+id/a1_top_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="70dp"
+        android:elevation="31dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:paddingBottom="5dp"
+        android:text="영상을 틀고, 같이 따라하세요"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+<ImageView
+    android:layout_width="412dp"
+    android:layout_height="700dp"
+    android:src="@color/color_primary"
+    android:elevation="50dp"
+    app:layout_constraintTop_toTopOf="@id/bg"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"
+        android:id="@+id/bg"
+        android:layout_width="412dp"
+        android:layout_height="900dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/round_corner_secondary"
+        android:src="#F8F8F8" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

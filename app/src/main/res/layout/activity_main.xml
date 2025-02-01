@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:fitsSystemWindows="true">
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/icon" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/search"
+                    android:layout_width="25dp"
+                    android:layout_height="26dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/search" />
+
+                <ImageView
+                    android:id="@+id/alarm"
+                    android:layout_width="23dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="28dp"
+                    android:src="@drawable/alarm" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/exercise_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/userStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginTop="40dp"
+                    android:text="김할배 님은 3일째 운동 중이에요."
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="33dp"
+                    android:text="오늘 하루도 활기차게 보내볼까요?"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="오늘 목표 달성률은"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="36dp"
+                    android:textSize="20sp"
+                    android:textColor="#2E2E2E" />
+
+                <com.umc_msmg.frontend.ui.view.CircularProgressView
+                    android:id="@+id/circularProgressBar"
+                    android:layout_width="139dp"
+                    android:layout_height="139dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:max="100"
+                    android:progress="75"
+                    android:indeterminate="false"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp">
+
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘의 운동 하러가기"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:src="@drawable/right_arrow"
+                        android:alpha="0.6"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/walk_today">
+
+                <TextView
+                    android:id="@+id/walk_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="오늘의 걸음 수"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="51dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="우리, 조금만 더 움직여 볼까요?"
+                    app:layout_constraintTop_toBottomOf="@id/walk_text1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="48dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/walk_today"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="1024"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginEnd="54dp"
+                    android:textSize="36sp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="운동 일지"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="36dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/box_week"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="월\t\t\t\t화\t\t\t\t수\t\t\t\t목\t\t\t\t금\t\t\t\t토\t\t\t\t일"
+                    android:textColor="#606060"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginEnd="0.5dp">
+                    <ImageView
+                        android:id="@+id/calendar_check_monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_unchecked" />
+                    <ImageView
+                        android:id="@+id/calendar_check_tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_checked"
+                        android:layout_marginStart="@dimen/calendar_space"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_checked"
+                        android:layout_marginStart="@dimen/calendar_space"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_checked"
+                        android:layout_marginStart="@dimen/calendar_space"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_yet_checked"
+                        android:layout_marginStart="@dimen/calendar_space"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_yet_checked"
+                        android:layout_marginStart="@dimen/calendar_space"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_yet_checked"
+                        android:layout_marginStart="@dimen/calendar_space"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/shop_button"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:layout_gravity="bottom"
+        android:background="#DCECE0"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:id="@+id/point_button"
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:layout_gravity="center"
+            android:translationY="-35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/point_button"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 포인트"
+                android:layout_gravity="center"
+                android:textSize="13sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="14dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/coin"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/my_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:layout_marginStart="9dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="원"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="-26dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상점 가기"
+                android:textSize="13sp"
+                android:layout_marginStart="20dp"
+                android:textColor="#606060"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/right_arrow"
+                android:alpha="0.6"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

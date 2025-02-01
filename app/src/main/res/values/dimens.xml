@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="calendar_space">24dp</dimen>
+    <dimen name="my_page_gap">2dp</dimen>
+</resources>
