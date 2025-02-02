@@ -34,7 +34,7 @@ class TempFragment : Fragment() {
 
         binding.button2.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, StepperFragment())
+                .replace(R.id.fragment_container, WalkOutFragment())
                 .addToBackStack(null)
                 .commit()
         }

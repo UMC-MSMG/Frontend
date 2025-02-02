@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.LayoutStepperBinding
 
-class StepperFragment : Fragment() {
+class WalkOutFragment : Fragment() {
     private var _binding: LayoutStepperBinding? = null
     private val binding get() = _binding!!
 

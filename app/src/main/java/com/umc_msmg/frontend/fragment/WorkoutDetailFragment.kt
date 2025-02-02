@@ -46,7 +46,7 @@ class WorkoutDetailFragment : Fragment() {
                     R.anim.enter_from_left,
                     R.anim.exit_to_right
                 )
-                .replace(R.id.fragment_container, StepperFragment())
+                .replace(R.id.fragment_container, WalkOutFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -59,7 +59,7 @@ class WorkoutDetailFragment : Fragment() {
                     R.anim.enter_from_left,
                     R.anim.exit_to_right
                 )
-                .replace(R.id.fragment_container, StepperFragment())
+                .replace(R.id.fragment_container, WalkOutFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -72,7 +72,7 @@ class WorkoutDetailFragment : Fragment() {
                     R.anim.enter_from_left,
                     R.anim.exit_to_right
                 )
-                .replace(R.id.fragment_container, StepperFragment())
+                .replace(R.id.fragment_container, WalkOutFragment())
                 .addToBackStack(null)
                 .commit()
         }
