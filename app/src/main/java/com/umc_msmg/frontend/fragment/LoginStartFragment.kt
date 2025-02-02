@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc_msmg.frontend.R
+import com.umc_msmg.frontend.SignUpFragment
 import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.databinding.FragmentLoginStartBinding
 
