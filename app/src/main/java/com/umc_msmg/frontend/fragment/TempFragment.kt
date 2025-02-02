@@ -25,19 +25,6 @@ class TempFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.button1.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, WorkoutFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        binding.button2.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, WalkOutFragment())
-                .addToBackStack(null)
-                .commit()
-        }
     }
 
     override fun onDestroyView() {

@@ -2,17 +2,10 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config>
-        <device id="_android_virtual_device_id_UMC_API_35" />
-      </config>
+      <config />
     </shared>
     <layouts>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-        <config>
-          <theme>@style/Theme.Msmg</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_shop.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
         </config>
@@ -72,7 +65,37 @@
           <theme>@style/Theme.Msmg</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_null.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_selected.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_step_point.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_stepper.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_temp.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_workout_detail.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_workout_main.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
         </config>
@@ -89,87 +112,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidPluginAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxActivityLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxComposeLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxCoreLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxEspressoLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleRuntimeLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiTestLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiToolingLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$KakaoLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$KotlinPluginAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$PlayLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$PlayServicesLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibs.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidPluginAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxActivityLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxComposeLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxCoreLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleRuntimeLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiTestLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiToolingLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$KakaoLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PlayLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PlayServicesLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/migrations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/adapter/ShopAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/data/ShopItem.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/DiaryFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/MyPageFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/PaymentFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/ShopFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back_button.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dialog_box.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/diary_button.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/divider.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/payment_dialog_button.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/setting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shop_box.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_payment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_payment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shop.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_shop.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/StepperFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/metadata.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/metadata.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibs.java" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/activity/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/StepperFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WalkOutFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/MapFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/SignUpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/SignUpFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/TempFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/TempFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutDetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutDetailFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/ui/view/CircularProgressView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/ui/view/CircularProgressView.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/alarm.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/diary_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/diary_box.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/point_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/point_button.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/walk_today.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/walk_today.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_diary.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_diary.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WalkOutFragment.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_page.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_shop.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_temp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_temp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +143,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=R3CTC008TYY)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/ku/.android/avd/Small_Phone_API_35.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -229,8 +193,8 @@
         <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
         <option value="layoutResourceFile" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -243,12 +207,12 @@
     &quot;assignee&quot;: &quot;dolimpan&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/UMC-MSMG/Frontend.git&quot;,
-    &quot;accountId&quot;: &quot;203746cc-82f0-400f-91cc-bd6495829ee1&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/UMC-MSMG/Frontend.git",
+    "accountId": "d748112f-4f2a-41ee-a954-5f56ef4991dd"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -277,7 +241,7 @@
     "git-widget-placeholder": "#13 on dev",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/younm/Desktop/Yonsei/2024/2024-2/Github/app/src/main/res/drawable",
+    "last_opened_file_path": "/Users/ku/Desktop/umc_msmg/Frontend",
     "project.structure.last.edited": "Dependencies",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
@@ -285,7 +249,7 @@
   },
   "keyToStringList": {
     "kotlin-gradle-user-dirs": [
-      "C:\\Users\\younm\\.gradle"
+      "/Users/ku/.gradle"
     ]
   }
 }]]></component>

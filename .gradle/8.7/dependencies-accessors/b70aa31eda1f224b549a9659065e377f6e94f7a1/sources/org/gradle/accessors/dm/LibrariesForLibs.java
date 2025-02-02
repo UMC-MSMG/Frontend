@@ -529,7 +529,7 @@ public class LibrariesForLibs extends AbstractExternalDependencyFactory {
         public Provider<String> getEspressoCore() { return getVersion("espressoCore"); }
 
         /**
-         * Version alias <b>fragment</b> with value <b>1.8.3</b>
+         * Version alias <b>fragment</b> with value <b>1.8.5</b>
          * <p>
          * If the version is a rich version and cannot be represented as a
          * single version string, an empty string is returned.

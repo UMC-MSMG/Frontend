@@ -11,7 +11,8 @@ import com.umc_msmg.frontend.databinding.ActivityMainBinding
 import com.umc_msmg.frontend.fragment.DiaryFragment
 import com.umc_msmg.frontend.fragment.MyPageFragment
 import com.umc_msmg.frontend.fragment.ShopFragment
-import com.umc_msmg.frontend.fragment.WalkOutFragment
+import com.umc_msmg.frontend.fragment.StepperFragment
+import com.umc_msmg.frontend.fragment.WorkoutFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -20,6 +21,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.exBtn.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                .replace(R.id.fragment_container, WorkoutFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        binding.stepperBtn.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                .replace(R.id.fragment_container, StepperFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         binding.calendar.setOnClickListener {
             supportFragmentManager.beginTransaction()
@@ -47,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        binding.exerciseButton.setOnClickListener {
+        binding.exBtn.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.enter_from_right,
@@ -55,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     R.anim.enter_from_left,
                     R.anim.exit_to_right
                 )
-                .replace(R.id.fragment_container, WalkOutFragment())
+                .replace(R.id.fragment_container, WorkoutFragment())
                 .addToBackStack(null)
                 .commit()
         }

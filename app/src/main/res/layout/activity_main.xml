@@ -51,7 +51,8 @@
                     android:src="@drawable/setting" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/exercise_button"
+                android:elevation="20dp"
+                android:id="@+id/ex_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -122,6 +123,7 @@
                 </LinearLayout>
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/stepper_btn"
                 android:layout_width="match_parent"
                 android:layout_height="113dp"
                 android:background="#F0F0F0">

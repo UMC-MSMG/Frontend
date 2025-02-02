@@ -33,7 +33,7 @@ class MapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mapView = view.findViewById(R.id.mv)
-        KakaoMapSdk.init(requireContext(), "appKey")
+        KakaoMapSdk.init(requireContext(), "b20c9e88746f0241b52beeabf5618f1f")
 
         mapView.start(
             object : MapLifeCycleCallback() {

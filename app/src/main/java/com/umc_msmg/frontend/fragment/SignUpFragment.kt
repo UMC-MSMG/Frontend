@@ -24,7 +24,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvSignUp.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SignUpBasicInfoFragment())
+                .replace(R.id.fragment_container, SignUpFragment())
                 .addToBackStack(null)
                 .commit()
         }
