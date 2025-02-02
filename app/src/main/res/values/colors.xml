@@ -10,4 +10,6 @@
     <color name="color_primary">#6DD099</color>
     <color name="color_secondary">#FFFFFF</color>
     <color name="color_background">#DCECE0</color>
+    <color name="kakao_bg">#FEE500</color>
+    <color name="color_warning">#F68D8D</color>
 </resources>
