@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc_msmg.frontend.R
-import com.umc_msmg.frontend.SignUpFragment
+import com.umc_msmg.frontend.SignUpStartFragment
 import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.databinding.FragmentLoginStartBinding
 
@@ -40,7 +40,7 @@ class LoginStartFragment : Fragment() {
 
         binding.btnSignUp.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SignUpFragment())
+                .replace(R.id.fragment_container, SignUpStartFragment())
                 .addToBackStack(null)
                 .commit()
         }

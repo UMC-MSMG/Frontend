@@ -4,4 +4,6 @@
     <string name="back">back</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_name">김할배</string>
+    <string name="greeting_sign_up">%1$s님 안녕하세요,\n기본 운동을 추천드릴게요.</string>
 </resources>
