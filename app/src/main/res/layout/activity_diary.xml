@@ -98,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/diary_box"
+                android:layout_marginTop="41dp"
                 android:elevation="8dp"
                 android:padding="32dp">
                 <TextView
