@@ -26,14 +26,14 @@ class CircularProgressView(context: Context, attrs: AttributeSet) : View(context
         color = Color.parseColor("#FFFFFF")
         isAntiAlias = true
         style = Paint.Style.STROKE
-        strokeWidth = 20f
+        strokeWidth = 40f
         strokeCap = Paint.Cap.ROUND
     }
 
     private val textPaint = Paint().apply {
         color = Color.WHITE
         isAntiAlias = true
-        textSize = 50f
+        textSize = 60f
         textAlign = Paint.Align.CENTER
     }
 
@@ -51,7 +51,7 @@ class CircularProgressView(context: Context, attrs: AttributeSet) : View(context
         val centerX = width / 2f
         val centerY = height / 2f
         val radius = (width / 2f)
-        val gap = 30f
+        val gap = 60f
 
         canvas.drawCircle(centerX, centerY, radius, outerCirclePaint)
 

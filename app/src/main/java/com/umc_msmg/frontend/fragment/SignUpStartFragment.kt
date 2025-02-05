@@ -1,4 +1,3 @@
-// SignUpStartFragment.kt
 package com.umc_msmg.frontend
 
 import android.os.Bundle
