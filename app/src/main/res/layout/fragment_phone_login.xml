@@ -9,6 +9,15 @@
     tools:context=".fragment.PhoneLoginFragment">
 
     <ImageView
+        android:id="@+id/btn_back_phone_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_button"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
         android:id="@+id/imgSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

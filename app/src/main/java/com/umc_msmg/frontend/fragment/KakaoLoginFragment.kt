@@ -11,7 +11,7 @@ import com.umc_msmg.frontend.databinding.FragmentKakaoLoginBinding
 class KakaoLoginFragment : Fragment() {
 
     private var _binding: FragmentKakaoLoginBinding? = null
-    private val binding get() = _binding!! // 안전한 언래핑
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,12 +24,16 @@ class KakaoLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 여기에 뷰 초기화 코드 작성 예시:
-        // binding.btnLogin.setOnClickListener { ... }
+
+        // btn_back_kakao_login 버튼에 클릭 리스너 추가
+        binding.btnBackKakaoLogin.setOnClickListener {
+            // 이전 화면으로 돌아가기
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     override fun onDestroyView() {
-        _binding = null // 메모리 누수 방지
+        _binding = null
         super.onDestroyView()
     }
 

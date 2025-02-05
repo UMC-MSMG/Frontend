@@ -23,6 +23,10 @@ class SignUpStartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBackSignUp.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
         binding.btnSignUp.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SignUpBasicInfoFragment())
