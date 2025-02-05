@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.umc_msmg.frontend.R
-import com.umc_msmg.frontend.SignUpFragment
 import com.umc_msmg.frontend.databinding.LayoutStepperBinding
 
 class StepperFragment : Fragment() {
