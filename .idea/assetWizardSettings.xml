@@ -11,27 +11,12 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/settings/outline_settings_24.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="848484" />
-                            <entry key="outputName" value="chart__line" />
-                            <entry key="sourceFile" value="C:\Users\younm\Downloads\Chart_ Line.svg" />
+                            <entry key="outputName" value="msmg" />
+                            <entry key="sourceFile" value="C:\Users\82106\Downloads\만수무강.svg" />
                           </map>
                         </option>
                       </PersistentState>
