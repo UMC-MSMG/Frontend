@@ -17,6 +17,17 @@
         android:theme="@style/Theme.Msmg"
         tools:targetApi="31">
         <receiver
+            android:name=".widget.CompositeWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/composite_widget_provider_info" />
+        </receiver>
+        <receiver
             android:name=".widget.CallWidgetProvider"
             android:exported="false">
             <intent-filter>
