@@ -20,8 +20,10 @@
             android:id="@+id/stepper_widget_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="오늘의 걸음수"
-            android:textSize="16sp"
+            android:textSize="25sp"
+            android:textColor="@color/black"
             android:fontFamily="@font/pretendard_bold"/>
         <ImageView
             android:id="@+id/widget_stepper_icon"
@@ -47,9 +49,23 @@
             android:id="@+id/workout_widget_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:text="내 운동 바로가기"
-            android:textSize="16sp"
+            android:textSize="25sp"
+            android:textColor="@color/black"
             android:fontFamily="@font/pretendard_bold"/>
+
+        <ProgressBar
+            android:id="@+id/widget_progress_bar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="30"
+            android:rotation="-90"
+            android:background="@drawable/circle_shape"
+            android:progressDrawable="@drawable/circular_progress"/>
     </LinearLayout>
 
 </LinearLayout>

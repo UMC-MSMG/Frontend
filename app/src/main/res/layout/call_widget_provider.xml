@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:fontFamily="@font/pretendard_medium"
+        android:fontFamily="@font/pretendard_bold"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:text="기본 통화 위젯 텍스트"/>
+        android:text="통화"/>
 
     <ImageView
         android:id="@+id/call_icon"

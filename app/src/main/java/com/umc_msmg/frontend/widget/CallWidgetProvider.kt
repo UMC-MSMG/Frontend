@@ -24,7 +24,7 @@ class CallWidgetProvider : AppWidgetProvider() {
         appWidgetId: Int
     ) {
         val views = RemoteViews(context.packageName, R.layout.call_widget_provider)
-        views.setTextViewText(R.id.call_widget_text, "보호자 긴급 전화")
+        views.setTextViewText(R.id.call_widget_text, "통화")
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 }

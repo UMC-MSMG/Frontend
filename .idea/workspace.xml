@@ -15,6 +15,16 @@
           <theme>@style/Theme.Msmg</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/call_widget_provider.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/composite_widget_provider.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_payment.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
@@ -26,6 +36,16 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_kakao_login.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login_start.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
         </config>
@@ -46,6 +66,26 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_shop.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sign_up_add_info.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sign_up_done.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sign_up_start.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sign_up_terms_agreement.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
         </config>
@@ -85,6 +125,11 @@
           <theme>@style/Theme.Msmg</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_stepper_stepper.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_temp.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
@@ -100,6 +145,11 @@
           <theme>@style/Theme.Msmg</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_workout_video.xml">
+        <config>
+          <theme>@style/Theme.Msmg</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/map_fragment.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
@@ -111,18 +161,52 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="회원가입 수정">
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-af3851e4-e9e1-43e5-8b15-ee9e1b07390b/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxActivityLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-af3851e4-e9e1-43e5-8b15-ee9e1b07390b/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-af3851e4-e9e1-43e5-8b15-ee9e1b07390b/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-af3851e4-e9e1-43e5-8b15-ee9e1b07390b/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleRuntimeLibraryAccessors.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-af3851e4-e9e1-43e5-8b15-ee9e1b07390b/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiToolingLibraryAccessors.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
+    <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="composite widget">
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidPluginAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxActivityLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxComposeLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxCoreLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxEspressoLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleRuntimeLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiTestLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiToolingLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$KakaoLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$KotlinPluginAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$PlayLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$PlayServicesLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibs.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidPluginAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxActivityLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxComposeLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxCoreLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleRuntimeLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiTestLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiToolingLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$KakaoLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PlayLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PlayServicesLibraryAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1-65cc78ea-322b-41a0-b053-bbcf4d6351e0/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_shape.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circular_progress.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_divider.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/metadata.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/metadata.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibs.java" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/dependencies-accessors/b70aa31eda1f224b549a9659065e377f6e94f7a1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
@@ -131,27 +215,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/activity/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/MapFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/SignUpStartFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/SignUpStartFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/StepperFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/StepperFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/TempFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/TempFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutDetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutDetailFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/ui/view/CircularProgressView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/ui/view/CircularProgressView.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/alarm.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/diary_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/diary_box.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/point_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/point_button.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/walk_today.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/walk_today.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_diary.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_page.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_shop.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_temp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_temp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/widget/CallWidgetProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/widget/CallWidgetProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/widget/CompositeWidgetProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/widget/CompositeWidgetProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/call_widget_provider.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/call_widget_provider.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/composite_widget_provider.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/composite_widget_provider.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/call_widget_provider_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/call_widget_provider_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,11 +279,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
         <option value="layoutResourceFile" />
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -225,12 +296,12 @@
     &quot;assignee&quot;: &quot;dolimpan&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/UMC-MSMG/Frontend.git&quot;,
-    &quot;accountId&quot;: &quot;d748112f-4f2a-41ee-a954-5f56ef4991dd&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/UMC-MSMG/Frontend.git",
+    "accountId": "95760b94-6f6c-43c2-ad88-5e935bb674f2"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -245,32 +316,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Android App.app.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "#13 on Merging dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ku/Desktop/umc_msmg/Frontend",
-    "project.structure.last.edited": "Dependencies",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#13 on dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ku/Desktop/umc_msmg/Frontend&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Dependencies&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   },
-  "keyToStringList": {
-    "kotlin-gradle-user-dirs": [
-      "/Users/ku/.gradle"
+  &quot;keyToStringList&quot;: {
+    &quot;kotlin-gradle-user-dirs&quot;: [
+      &quot;C:\\Users\\82106\\.gradle&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\younm\Desktop\Yonsei\2024\2024-2\Github\app\src\main\res\drawable" />
@@ -357,11 +428,57 @@
       <option name="presentableId" value="Default" />
       <updated>1737351960395</updated>
     </task>
+    <task id="LOCAL-00001" summary="SignUp 문제 해결">
+      <option name="closed" value="true" />
+      <created>1738725157359</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738725157359</updated>
+    </task>
+    <task id="LOCAL-00002" summary="뒤로가기 버튼">
+      <option name="closed" value="true" />
+      <created>1738727043289</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738727043289</updated>
+    </task>
+    <task id="LOCAL-00003" summary="기본 splash 수정">
+      <option name="closed" value="true" />
+      <created>1738741371011</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738741371011</updated>
+    </task>
+    <task id="LOCAL-00004" summary="call widget">
+      <option name="closed" value="true" />
+      <created>1738744993433</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738744993433</updated>
+    </task>
+    <task id="LOCAL-00005" summary="composite widget">
+      <option name="closed" value="true" />
+      <created>1738747724350</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738747724351</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="회원가입 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="회원가입 수정" />
+    <MESSAGE value="SignUp 문제 해결" />
+    <MESSAGE value="뒤로가기 버튼" />
+    <MESSAGE value="기본 splash 수정" />
+    <MESSAGE value="call widget" />
+    <MESSAGE value="composite widget" />
+    <option name="LAST_COMMIT_MESSAGE" value="composite widget" />
   </component>
 </project>
