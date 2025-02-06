@@ -1,0 +1,36 @@
+<!-- res/drawable/selector_checkbox.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <layer-list>
+            <!-- 배경 박스 -->
+            <item>
+                <shape android:shape="rectangle">
+                    <stroke
+                        android:width="1dp"
+                        android:color="@color/color_primary"/>
+                    <solid android:color="@color/color_primary"/>
+                    <corners android:radius="4dp"/>
+                </shape>
+            </item>
+            <!-- 체크 표시 -->
+            <item android:top="4dp" android:bottom="4dp"
+                android:left="4dp" android:right="4dp">
+                <vector android:width="16dp" android:height="16dp"
+                    android:viewportWidth="24" android:viewportHeight="24">
+                    <path
+                        android:fillColor="@color/color_primary"
+                        android:pathData="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                </vector>
+            </item>
+        </layer-list>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="1dp"
+                android:color="@color/gray"/>
+            <corners android:radius="4dp"/>
+        </shape>
+    </item>
+</selector>

@@ -1,60 +1,72 @@
-package com.umc_msmg.frontend.fragment
+package com.umc_msmg.frontend
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.umc_msmg.frontend.R
+import androidx.fragment.app.Fragment
+import com.umc_msmg.frontend.databinding.FragmentSignUpTermsAgreementBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpTermsAgreementFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpTermsAgreementFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentSignUpTermsAgreementBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var isAllAgreed = false
+    private var isRequiredAgreed = false
+    private var isOptionalAgreed = false
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentSignUpTermsAgreementBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+        // 전체 동의 버튼 클릭
+        binding.tvAgreeAll.setOnClickListener {
+            isRequiredAgreed = !isAllAgreed
+            isOptionalAgreed = !isAllAgreed
+            binding.tvAgreeRequired.isSelected = isRequiredAgreed
+            binding.tvAgreeOptional.isSelected = isOptionalAgreed
+            updateAgreeStates()
+        }
+
+        // 필수 동의 클릭
+        binding.tvAgreeRequired.setOnClickListener {
+            isRequiredAgreed = !isRequiredAgreed
+            it.isSelected = isRequiredAgreed
+            updateAgreeStates()
+        }
+
+        // 선택 동의 클릭
+        binding.tvAgreeOptional.setOnClickListener {
+            isOptionalAgreed = !isOptionalAgreed
+            it.isSelected = isOptionalAgreed
+            updateAgreeStates()
+        }
+
+        // 확인 버튼 클릭
+        binding.btnConfirm.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, SignUpBasicInfoFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up_terms_agreement, container, false)
+    private fun updateAgreeStates() {
+        isAllAgreed = isRequiredAgreed && isOptionalAgreed
+        binding.tvAgreeAll.isSelected = isAllAgreed
+        binding.btnConfirm.isEnabled = isRequiredAgreed
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpTermsAgreementFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpTermsAgreementFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
