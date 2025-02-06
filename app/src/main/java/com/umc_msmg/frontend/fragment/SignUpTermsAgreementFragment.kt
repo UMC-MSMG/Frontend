@@ -11,7 +11,6 @@ class SignUpTermsAgreementFragment : Fragment() {
     private var _binding: FragmentSignUpTermsAgreementBinding? = null
     private val binding get() = _binding!!
 
-    private var isAllAgreed = false
     private var isRequiredAgreed = false
     private var isOptionalAgreed = false
 
@@ -22,35 +21,29 @@ class SignUpTermsAgreementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupClickListeners()
+        updateConfirmButton()
     }
 
     private fun setupClickListeners() {
-        // 전체 동의 버튼 클릭
         binding.tvAgreeAll.setOnClickListener {
-            isRequiredAgreed = !isAllAgreed
-            isOptionalAgreed = !isAllAgreed
-            binding.tvAgreeRequired.isSelected = isRequiredAgreed
-            binding.tvAgreeOptional.isSelected = isOptionalAgreed
-            updateAgreeStates()
+            val newState = !(isRequiredAgreed && isOptionalAgreed)
+            updateAllAgreementStates(newState, newState)
         }
 
-        // 필수 동의 클릭
         binding.tvAgreeRequired.setOnClickListener {
             isRequiredAgreed = !isRequiredAgreed
             it.isSelected = isRequiredAgreed
-            updateAgreeStates()
+            updateAllAgreeState()
+            updateConfirmButton()
         }
 
-        // 선택 동의 클릭
         binding.tvAgreeOptional.setOnClickListener {
             isOptionalAgreed = !isOptionalAgreed
             it.isSelected = isOptionalAgreed
-            updateAgreeStates()
+            updateAllAgreeState()
         }
 
-        // 확인 버튼 클릭
         binding.btnConfirm.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SignUpBasicInfoFragment())
@@ -59,10 +52,25 @@ class SignUpTermsAgreementFragment : Fragment() {
         }
     }
 
-    private fun updateAgreeStates() {
-        isAllAgreed = isRequiredAgreed && isOptionalAgreed
-        binding.tvAgreeAll.isSelected = isAllAgreed
+    private fun updateAgreementStates(required: Boolean, optional: Boolean) {
+        isRequiredAgreed = required
+        isOptionalAgreed = optional
+        binding.tvAgreeRequired.isSelected = required
+        binding.tvAgreeOptional.isSelected = optional
+    }
+
+    private fun updateAllAgreeState() {
+        binding.tvAgreeAll.isSelected = isRequiredAgreed && isOptionalAgreed
+    }
+
+    private fun updateConfirmButton() {
         binding.btnConfirm.isEnabled = isRequiredAgreed
+    }
+
+    private fun updateAllAgreementStates(required: Boolean, optional: Boolean) {
+        updateAgreementStates(required, optional)
+        updateAllAgreeState()
+        updateConfirmButton()
     }
 
     override fun onDestroyView() {

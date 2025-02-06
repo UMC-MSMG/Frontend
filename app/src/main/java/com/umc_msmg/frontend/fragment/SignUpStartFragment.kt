@@ -29,7 +29,7 @@ class SignUpStartFragment : Fragment() {
 
         binding.btnSignUp.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SignUpBasicInfoFragment())
+                .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
                 .addToBackStack(null)
                 .commit()
         }
