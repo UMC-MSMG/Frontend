@@ -74,7 +74,7 @@
         android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="동의하기"
+        android:text="다음"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:fontFamily="@font/pretendard_medium"
