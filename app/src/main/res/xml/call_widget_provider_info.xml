@@ -4,11 +4,11 @@
     android:description="@string/app_widget_description"
     android:initialKeyguardLayout="@layout/call_widget_provider"
     android:initialLayout="@layout/call_widget_provider"
-    android:minWidth="40dp"
+    android:minWidth="60dp"
     android:minHeight="40dp"
     android:resizeMode="none"
     android:widgetCategory="home_screen"
     android:targetCellWidth="1"
     android:targetCellHeight="1"
-    android:minResizeWidth="40dp"
+    android:minResizeWidth="60dp"
     android:minResizeHeight="40dp" />

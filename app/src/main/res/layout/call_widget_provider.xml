@@ -3,7 +3,8 @@
     style="@style/Widget.Msmg.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background"
+    android:background="@drawable/rounded_button"
+    android:backgroundTint="@color/color_background"
     android:padding="16dp"
     android:theme="@style/Theme.Msmg.AppWidgetContainer">
 
