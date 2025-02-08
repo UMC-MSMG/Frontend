@@ -375,6 +375,78 @@
             android:fontFamily="@font/pretendard_bold"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layoutBMI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/combined_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tv_bmi_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/BMI_normal"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:lineSpacingExtra="8sp"
+            android:fontFamily="@font/pretendard_medium"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="차근차근 할 수 있는 운동을\n 추천해드릴게요."
+            android:padding="15dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:lineSpacingExtra="8sp"
+            android:fontFamily="@font/pretendard_medium"/>
+
+        <LinearLayout
+            android:id="@+id/bmi_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@color/color_background">
+            <TextView
+                android:id="@+id/bmi_box_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="키\n___cm"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_medium"/>
+            <TextView
+                android:id="@+id/bmi_box_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="몸무게\n__kg"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_medium"/>
+            <TextView
+                android:id="@+id/bmi_box_bmi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="체질량지수\n__.__"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_medium"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
     <!-- 다음 버튼 -->
     <TextView
         android:id="@+id/tvNext"

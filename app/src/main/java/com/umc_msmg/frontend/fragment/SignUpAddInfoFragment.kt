@@ -1,20 +1,23 @@
 package com.umc_msmg.frontend
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.umc_msmg.frontend.databinding.FragmentSignUpAddInfoBinding
 import com.umc_msmg.frontend.fragment.SignUpDoneFragment
-import kotlin.math.max
+import kotlin.math.pow
 
 class SignUpAddInfoFragment : Fragment() {
     private var _binding: FragmentSignUpAddInfoBinding? = null
     private val binding get() = _binding!!
     private var currentStep = 1
     private var isTakingMedicine = false
+    private val selectedDays = mutableSetOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,9 +39,9 @@ class SignUpAddInfoFragment : Fragment() {
         binding.tvNext.setOnClickListener {
             when (currentStep) {
                 1 -> showWeightInput()
-                2 -> showMedicineQuestion()
-                3 -> handleMedicineResponse()
-                4 -> showMedicineSchedule()
+                2 -> showBMIResults()
+                3 -> showMedicineQuestion()
+                4 -> handleMedicineResponse()
                 5 -> showNotificationConfirm()
                 6 -> finishSignUp()
             }
@@ -46,6 +49,17 @@ class SignUpAddInfoFragment : Fragment() {
 
         binding.btnLater.setOnClickListener {
             navigateToSignUpDoneFragment()
+        }
+
+        val dayButtons = listOf(
+            binding.mon, binding.tue, binding.wed,
+            binding.thu, binding.fri, binding.sat, binding.sun
+        )
+
+        dayButtons.forEach { button ->
+            button.setOnClickListener {
+                toggleDaySelection(button)
+            }
         }
     }
 
@@ -97,32 +111,62 @@ class SignUpAddInfoFragment : Fragment() {
     private fun setupMedicineQuestion() {
         binding.btnYes.setOnClickListener {
             isTakingMedicine = true
-            binding.btnYes.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.color_primary)
-            )
+            updateButtonStyles(binding.btnYes, binding.btnNo)
             binding.tvNext.visibility = View.VISIBLE
         }
         binding.btnNo.setOnClickListener {
             isTakingMedicine = false
-            binding.btnNo.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.color_primary)
-            )
+            updateButtonStyles(binding.btnNo, binding.btnYes)
             binding.tvNext.visibility = View.VISIBLE
         }
     }
 
+    private fun updateButtonStyles(selectedButton: TextView, unselectedButton: TextView) {
+        selectedButton.setBackgroundResource(R.drawable.rounded_button)
+        selectedButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.color_primary))
+        selectedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+        unselectedButton.setBackgroundResource(R.drawable.rounded_button)
+        unselectedButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+        unselectedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_primary))
+    }
+
+
     private fun showWeightInput() {
         binding.layoutHeight.visibility = View.GONE
         binding.layoutWeight.visibility = View.VISIBLE
-        binding.tvNext.text = "다음"
         currentStep = 2
     }
 
-    private fun showMedicineQuestion() {
+    private fun showBMIResults() {
+        val height = binding.npHeight.value
+        val weight = binding.npWeight.value
+        val bmi = weight / ((height/100f).pow(2))
+
         binding.layoutWeight.visibility = View.GONE
+        binding.layoutBMI.visibility = View.VISIBLE
+
+        val resultStringRes = when {
+            bmi < 18.5 -> R.string.BMI_underweight
+            bmi < 23 -> R.string.BMI_normal
+            bmi < 25 -> R.string.BMI_overweight
+            else -> R.string.BMI_obese
+        }
+
+        binding.tvBmiResult.text = getString(resultStringRes)
+        binding.bmiBoxHeight.text = height.toString()
+        binding.bmiBoxWeight.text = weight.toString()
+        binding.bmiBoxBmi.text = "%.1f".format(bmi)
+
+        currentStep = 3
+    }
+
+
+    private fun showMedicineQuestion() {
+        binding.layoutBMI.visibility = View.GONE
         binding.layoutMedicineExist.visibility = View.VISIBLE
         binding.tvNext.visibility = View.GONE
-        currentStep = 3
+        currentStep = 4
     }
 
     private fun handleMedicineResponse() {
@@ -136,20 +180,37 @@ class SignUpAddInfoFragment : Fragment() {
     private fun showMedicineSchedule() {
         binding.layoutMedicineExist.visibility = View.GONE
         binding.layoutMedicineSchedule.visibility = View.VISIBLE
-        currentStep = 4
+        currentStep = 5
+    }
+
+    private fun toggleDaySelection(button: TextView) {
+        val day = button.text.toString()
+        if (selectedDays.contains(day)) {
+            selectedDays.remove(day)
+            button.setBackgroundResource(R.drawable.day_unselected)
+        } else {
+            selectedDays.add(day)
+            button.setBackgroundResource(R.drawable.day_selected)
+        }
+    }
+
+    private fun saveMedicineSchedule() {
+        val morningTime = "${binding.morningHour.value}:${binding.morningMin.value}"
+        val lunchTime = "${binding.lunchHour.value}:${binding.lunchMin.value}"
+        val dinnerTime = "${binding.dinnerHour.value}:${binding.dinnerMin.value}"
     }
 
     private fun showNotificationConfirm() {
         binding.layoutMedicineSchedule.visibility = View.GONE
         binding.layoutNotificationConfirm.visibility = View.VISIBLE
         binding.tvNext.text = "확인"
-        currentStep = 5
+        currentStep = 6
     }
 
     private fun finishSignUp() {
         val height = binding.npHeight.value
         val weight = binding.npWeight.value
-        // TODO: 약 복용 정보 저장 로직 추가
+        saveMedicineSchedule()
 
         navigateToSignUpDoneFragment()
     }
