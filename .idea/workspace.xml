@@ -2,7 +2,9 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <device id="_android_virtual_device_id_Custom_Size" />
+      </config>
     </shared>
     <layouts>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -70,6 +72,7 @@
           <theme>@style/Theme.Msmg</theme>
         </config>
       </layout>
+<<<<<<< Updated upstream
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sign_up_add_info.xml">
         <config>
           <theme>@style/Theme.Msmg</theme>
@@ -91,6 +94,9 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sign_up_terms_agreement.xml">
+=======
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/gpt_fragment.xml">
+>>>>>>> Stashed changes
         <config>
           <theme>@style/Theme.Msmg</theme>
         </config>
@@ -166,15 +172,39 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="BMI 추가">
+=======
+    <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/adapter/AudioVisualizer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/GptFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/interfaces/ChatRequest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/interfaces/OpenAIApi.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/interfaces/RetrofitClient.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/ui/view/WaveformView.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/gpt_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/call_widget_provider.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/call_widget_provider.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/call_widget_provider_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/call_widget_provider_info.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/LoginStartFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/LoginStartFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,8 +262,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
-        <option value="layoutResourceFile" />
         <option value="Kotlin File" />
+        <option value="layoutResourceFile" />
         <option value="Kotlin Class" />
         <option value="resourceFile" />
       </list>
@@ -251,7 +281,11 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/UMC-MSMG/Frontend.git&quot;,
+<<<<<<< Updated upstream
     &quot;accountId&quot;: &quot;95760b94-6f6c-43c2-ad88-5e935bb674f2&quot;
+=======
+    &quot;accountId&quot;: &quot;d748112f-4f2a-41ee-a954-5f56ef4991dd&quot;
+>>>>>>> Stashed changes
   }
 }</component>
   <component name="ProblemsViewState">
@@ -282,6 +316,10 @@
     &quot;git-widget-placeholder&quot;: &quot;#13 on dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+<<<<<<< Updated upstream
+=======
+    &quot;last_directory_selection&quot;: &quot;/Users/ku/Desktop/umc_msmg/Frontend/app/src/main/java&quot;,
+>>>>>>> Stashed changes
     &quot;last_opened_file_path&quot;: &quot;/Users/ku/Desktop/umc_msmg/Frontend&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Dependencies&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
@@ -290,7 +328,11 @@
   },
   &quot;keyToStringList&quot;: {
     &quot;kotlin-gradle-user-dirs&quot;: [
+<<<<<<< Updated upstream
       &quot;C:\\Users\\82106\\.gradle&quot;
+=======
+      &quot;/Users/ku/.gradle&quot;
+>>>>>>> Stashed changes
     ]
   }
 }</component>
