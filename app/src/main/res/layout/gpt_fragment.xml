@@ -1,0 +1,49 @@
+<androidx.constraintlayout.widget.ConstraintLayout layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_background">
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp"
+        android:id="@+id/tvText"
+        android:fontFamily="@font/pretendard_bold"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:hint="이곳에 입력이 표시됩니다 "
+        android:textSize="24sp"/>
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvText"
+        android:id="@+id/tvResponse"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:hint="이곳에 답변이 표시됩니다"
+        android:textSize="24sp"/>
+
+    <Button
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvResponse"
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start" />
+
+    <Button
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnStart"
+        android:id="@+id/btnStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
