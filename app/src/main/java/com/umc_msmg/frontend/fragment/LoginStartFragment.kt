@@ -40,11 +40,7 @@ class LoginStartFragment : Fragment() {
 
         binding.btnSignUp.setOnClickListener {
             parentFragmentManager.beginTransaction()
-<<<<<<< Updated upstream
                 .replace(R.id.fragment_container, SignUpStartFragment())
-=======
-                .replace(R.id.fragment_container, GptFragment())
->>>>>>> Stashed changes
                 .addToBackStack(null)
                 .commit()
         }

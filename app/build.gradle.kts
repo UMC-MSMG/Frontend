@@ -79,4 +79,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.material)
     implementation(libs.work.runtime)
+    implementation(libs.exoplayer.core)
+    implementation(libs.exoplayer.ui)
 }

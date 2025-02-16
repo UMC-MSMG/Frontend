@@ -1,12 +1,15 @@
+// WorkoutVideoFragment.kt
 package com.umc_msmg.frontend.fragment
 
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.MediaController
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.LayoutWorkoutVideoBinding
 
@@ -14,6 +17,10 @@ class WorkoutVideoFragment : Fragment() {
 
     private var _binding: LayoutWorkoutVideoBinding? = null
     private val binding get() = _binding!!
+    private var playCount = 0
+    private var exerciseCount = 0
+    private val handler = Handler(Looper.getMainLooper())
+    private var setNumber = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,13 +32,80 @@ class WorkoutVideoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.checkImg.setOnClickListener {
-            binding.checkbox.visibility = GONE
+            binding.checkbox.visibility = View.GONE
+        }
+
+        setupVideoPlayer()
+        startExerciseCounter()
+    }
+
+    private fun setupVideoPlayer() {
+        val videoPath = "android.resource://${requireActivity().packageName}/${R.raw.low_slow_chair_stand_up}"
+        binding.exerciseVideo.apply {
+            setVideoURI(Uri.parse(videoPath))
+            setMediaController(MediaController(context).also {
+                it.setAnchorView(this)
+            })
+            setOnPreparedListener { mediaPlayer ->
+                mediaPlayer.isLooping = false
+                mediaPlayer.setVolume(0f, 0f)
+            }
+            rotation = -90f
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+
+            setOnCompletionListener {
+                playCount++
+                if (playCount < 3) {
+                    start()
+                    setNumber++
+                    updateSetNumber()
+                    resetExerciseCounter()
+                }
+            }
+
+            start()
+        }
+        updateSetNumber()
+    }
+
+    private fun startExerciseCounter() {
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if (exerciseCount < 10) {
+                    exerciseCount++
+                    updateCountText()
+                    handler.postDelayed(this, 5300) // 5.3초마다 실행
+                }
+            }
+        }, 5300) // 처음 5.3초 후 시작
+    }
+
+    private fun resetExerciseCounter() {
+        exerciseCount = 0
+        updateCountText()
+        handler.removeCallbacksAndMessages(null)
+        startExerciseCounter()
+    }
+
+    private fun updateCountText() {
+        activity?.runOnUiThread {
+            binding.countText.text = "$exerciseCount/10"
+        }
+    }
+
+    private fun updateSetNumber() {
+        activity?.runOnUiThread {
+            binding.exerciseSetNumber.text = "${setNumber}세트"
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.exerciseVideo.stopPlayback()
+        handler.removeCallbacksAndMessages(null)
         _binding = null
     }
 }
