@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
+import android.widget.VideoView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.LayoutWorkoutVideoBinding
 
@@ -42,7 +44,7 @@ class WorkoutVideoFragment : Fragment() {
     }
 
     private fun setupVideoPlayer() {
-        val videoPath = "android.resource://${requireActivity().packageName}/${R.raw.low_slow_chair_stand_up}"
+        val videoPath = "android.resource://${requireActivity().packageName}/${R.raw.low_slow_chair_stand_ups}"
         binding.exerciseVideo.apply {
             setVideoURI(Uri.parse(videoPath))
             setMediaController(MediaController(context).also {
@@ -51,10 +53,10 @@ class WorkoutVideoFragment : Fragment() {
             setOnPreparedListener { mediaPlayer ->
                 mediaPlayer.isLooping = false
                 mediaPlayer.setVolume(0f, 0f)
+
+                // 비디오 크기 조정
+                adjustVideoSize(this)
             }
-            rotation = -90f
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
 
             setOnCompletionListener {
                 playCount++
@@ -69,6 +71,29 @@ class WorkoutVideoFragment : Fragment() {
             start()
         }
         updateSetNumber()
+    }
+
+    private fun adjustVideoSize(videoView: VideoView) {
+        videoView.post {
+            val parentWidth = (videoView.parent as View).width
+            val parentHeight = (videoView.parent as View).height
+            val videoWidth = videoView.width
+            val videoHeight = videoView.height
+
+            val aspectRatio = videoWidth.toFloat() / videoHeight.toFloat()
+            val newWidth = (parentHeight * aspectRatio).toInt()
+
+            val params = videoView.layoutParams as ConstraintLayout.LayoutParams
+            params.width = newWidth
+            params.height = parentHeight
+            videoView.layoutParams = params
+
+            // 비디오를 가운데 정렬
+            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+            params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+            params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        }
     }
 
     private fun startExerciseCounter() {
