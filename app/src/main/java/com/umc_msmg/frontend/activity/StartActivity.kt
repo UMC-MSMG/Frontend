@@ -13,6 +13,7 @@ class StartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        setTheme(R.style.Theme_Msmg)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 /*
