@@ -28,6 +28,7 @@ class WorkoutDetailFragment : Fragment() {
 
         workoutType = arguments?.getString("workoutType")
 
+        /*
         // 운동 종류에 따라 상세 정보 설정
         when (workoutType) {
             "유산소" -> {
@@ -96,7 +97,7 @@ class WorkoutDetailFragment : Fragment() {
             )
             .replace(R.id.fragment_container, workoutVideoFragment)
             .addToBackStack(null)
-            .commit()
+            .commit()*/
     }
 
     override fun onDestroyView() {

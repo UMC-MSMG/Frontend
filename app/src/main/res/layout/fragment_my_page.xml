@@ -5,7 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F0F0F0"
     android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/box_profile"
@@ -31,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="31dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile"
@@ -58,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/weight"
             app:layout_constraintTop_toBottomOf="@id/gender"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="10dp"
             android:text="156 cm"
             android:textColor="@color/black"
@@ -73,7 +75,7 @@
             app:layout_constraintStart_toEndOf="@id/height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gender"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="14dp"
             android:layout_marginStart="10dp"
             android:text="56 kg"
             android:textColor="@color/black"
@@ -171,11 +173,40 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/box_point"
+        android:id="@+id/box_edit_medicine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/my_page_gap"
         app:layout_constraintTop_toBottomOf="@id/box_medicine"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/edit_medicine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:text="약 수정하기"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/edit_medicine_list"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/right_arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/my_page_gap"
+        app:layout_constraintTop_toBottomOf="@id/box_edit_medicine"
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -187,7 +218,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="30dp"
             android:layout_weight="1"
-            android:text="포인트 사용 내역 보기"
+            android:text="내 상점"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -200,11 +231,68 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/box_terms"
+        android:id="@+id/box_level"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/my_page_gap"
         app:layout_constraintTop_toBottomOf="@id/box_point"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:text="난이도 바꾸기"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/level_list"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/right_arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/my_page_gap"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/box_terms">
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:text="로그아웃"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/arrow_logout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/right_arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_terms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/my_page_gap"
+        app:layout_constraintTop_toBottomOf="@id/box_level"
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="16dp">
@@ -227,33 +315,6 @@
             android:src="@drawable/right_arrow" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/box_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/my_page_gap"
-        app:layout_constraintTop_toBottomOf="@id/box_terms"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tv_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="로그아웃"
-            android:layout_weight="1"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/arrow_logout"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/right_arrow" />
-    </LinearLayout>
 
     <View
         android:id="@+id/box_empty"

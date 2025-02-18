@@ -1,14 +1,20 @@
 package com.umc_msmg.frontend.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
+import android.webkit.WebStorage
+import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.umc_msmg.frontend.R
+import com.umc_msmg.frontend.activity.MainActivity
+import com.umc_msmg.frontend.activity.StartActivity
 import com.umc_msmg.frontend.databinding.FragmentMyPageBinding
 
 class MyPageFragment : Fragment() {
@@ -53,6 +59,13 @@ class MyPageFragment : Fragment() {
             navigateToFragment(TermsFragment())
         }
 
+        binding.logout.setOnClickListener {
+            logout()
+            val intent = Intent(requireContext(), StartActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
 
         return view
     }
@@ -90,5 +103,22 @@ class MyPageFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun logout() {
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        clearWebViewData()
+        Log.d("Logout", "로그아웃 완료 / 웹뷰 데이터 초기화됨")
+    }
+
+    private fun clearWebViewData() {
+        val webView = WebView(requireContext())
+        webView.clearCache(true)
+        webView.clearHistory()
+        CookieManager.getInstance().removeAllCookies(null)
+        CookieManager.getInstance().flush()
+        WebStorage.getInstance().deleteAllData()
     }
 }
