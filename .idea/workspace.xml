@@ -176,31 +176,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="비디오뷰 수정">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/high_cardio_mountain_climbers.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/high_strength_lunges.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/high_strength_plank.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/high_strength_side_lunges.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/high_strength_squats.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/low_cardio_brisk_walking.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/low_side_leg_raises.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/low_slow_chair_stand_ups.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/low_strength_heel_raises.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/low_strength_leg_raises.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/mid_cardio_jumping_jacks.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/mid_strength_chair_assisted_squats.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/mid_strength_lying_hip_raises.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/mid_strength_prone_leg_lifts.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/mid_strenth_knee_push_ups.mov" afterDir="false" />
+    <list default="true" id="e9a3751d-1a8d-4ec3-a95c-c638fef316f1" name="Changes" comment="비디오 업데이트">
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutDetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutDetailFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutVideoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/umc_msmg/frontend/fragment/WorkoutVideoFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_workout_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_workout_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_workout_video.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_workout_video.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +270,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="_Designer_Tab" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -527,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739792476533</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="비디오 업데이트">
+      <option name="closed" value="true" />
+      <created>1739808665659</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1739808665659</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -559,6 +555,7 @@
     <MESSAGE value="영상/count/set" />
     <MESSAGE value="SplashTheme 생성" />
     <MESSAGE value="비디오뷰 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="비디오뷰 수정" />
+    <MESSAGE value="비디오 업데이트" />
+    <option name="LAST_COMMIT_MESSAGE" value="비디오 업데이트" />
   </component>
 </project>

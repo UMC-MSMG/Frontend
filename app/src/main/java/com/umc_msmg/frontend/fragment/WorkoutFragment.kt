@@ -1,3 +1,4 @@
+// WorkoutFragment.kt
 package com.umc_msmg.frontend.fragment
 
 import android.os.Bundle
@@ -20,60 +21,51 @@ class WorkoutFragment : Fragment() {
         _binding = LayoutWorkoutMainBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.a3LeftTv.text = "유산소"
+        binding.a4LeftTv.text = "근력"
+        binding.a5LeftTv.text = "유연성"
+        binding.a6LeftTv.text = "균형"
+
         binding.area3.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                .replace(R.id.fragment_container, WorkoutDetailFragment())
-                .addToBackStack(null)
-                .commit()
+            navigateToWorkoutDetail("유산소")
         }
 
         binding.area4.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                .replace(R.id.fragment_container, WorkoutDetailFragment())
-                .addToBackStack(null)
-                .commit()
+            navigateToWorkoutDetail("근력")
         }
 
         binding.area5.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                .replace(R.id.fragment_container, WorkoutDetailFragment())
-                .addToBackStack(null)
-                .commit()
+            navigateToWorkoutDetail("유연성")
         }
 
         binding.area6.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                .replace(R.id.fragment_container, WorkoutDetailFragment())
-                .addToBackStack(null)
-                .commit()
+            navigateToWorkoutDetail("균형")
         }
+    }
+
+    private fun navigateToWorkoutDetail(workoutType: String) {
+        val bundle = Bundle().apply {
+            putString("workoutType", workoutType)
+        }
+
+        val workoutDetailFragment = WorkoutDetailFragment().apply {
+            arguments = bundle
+        }
+
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
+            .replace(R.id.fragment_container, workoutDetailFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {
