@@ -1,71 +1,94 @@
-// MyPageFragment.kt
 package com.umc_msmg.frontend.fragment
 
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.CookieManager
-import android.webkit.WebStorage
-import android.webkit.WebView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.umc_msmg.frontend.R
-import com.umc_msmg.frontend.activity.MainActivity
-import com.umc_msmg.frontend.activity.StartActivity
-import com.umc_msmg.frontend.databinding.FragmentLoginBinding
 import com.umc_msmg.frontend.databinding.FragmentMyPageBinding
 
 class MyPageFragment : Fragment() {
+
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var sharedPreferences : SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        val view = binding.root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        binding.boxLogout.setOnClickListener()
-        {
+        loadUserProfile()
 
-            sharedPreferences.edit().clear().apply()
-            clearWebViewData() // 🔥 웹뷰 데이터 삭제 (쿠키, 캐시, 히스토리)
-            Log.d("Logout", "✅ 로그아웃 완료 & 웹뷰 데이터 초기화됨")
-            val intent = Intent(requireContext(), StartActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+        binding.boxExercise.setOnClickListener {
+            binding.switchExercise.isChecked = !binding.switchExercise.isChecked
         }
-        binding.name.text = sharedPreferences.getString("user_name", null)
-        binding.gender.text = sharedPreferences.getString("user_gender", null)
-        binding.height.text = sharedPreferences.getInt("user_height", 0).toString() + "cm"
-        binding.weight.text = sharedPreferences.getInt("user_weight", 0).toString() + "kg"
+
+        binding.boxMedicine.setOnClickListener {
+            binding.switchMedicine.isChecked = !binding.switchMedicine.isChecked
+        }
+
+        binding.boxEditProfile.setOnClickListener {
+            navigateToFragment(EditProfileFragment())
+        }
+
+        binding.boxEditMedicine.setOnClickListener {
+            navigateToFragment(EditMedicineFragment())
+        }
+
+        binding.boxPoint.setOnClickListener {
+            navigateToFragment(MyShopFragment())
+        }
+
+        binding.boxLevel.setOnClickListener {
+            navigateToFragment(EditLevelFragment())
+        }
+
+        binding.boxTerms.setOnClickListener {
+            navigateToFragment(TermsFragment())
+        }
+
+
+        return view
     }
 
-    private fun clearWebViewData() {
-        val webView = WebView(requireContext())
+    private fun loadUserProfile() {
+        val sharedPreferences = requireContext().getSharedPreferences("DifficultyPrefs", Context.MODE_PRIVATE)
+        val name = sharedPreferences.getString("name", "사람1")
+        val gender = sharedPreferences.getString("gender", "남성")
+        val height = sharedPreferences.getInt("height", 156)
+        val weight = sharedPreferences.getInt("weight", 56)
+        val difficulty = sharedPreferences.getString("difficulty", "중") ?: "중"
 
-        // 1️⃣ 웹뷰 캐시 삭제
-        webView.clearCache(true)
-
-        // 2️⃣ 웹뷰 히스토리 삭제 (뒤로 가기 방지)
-        webView.clearHistory()
-        // 3️⃣ 쿠키 삭제
-        CookieManager.getInstance().removeAllCookies(null)
-        CookieManager.getInstance().flush() // 비동기 삭제
-        // 4️⃣ 웹 스토리지 삭제
-        WebStorage.getInstance().deleteAllData()
-
-        Log.d("WebView", "✅ WebView 캐시 및 쿠키 삭제 완료")
+        binding.name.text = name
+        binding.gender.text = gender
+        binding.height.text = "$height cm"
+        binding.weight.text = "$weight kg"
+        Log.d("MyPageFragment", "사용자 정보 조회 성공, 난이도: $difficulty")
     }
 
 
+    private fun navigateToFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
+    }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
