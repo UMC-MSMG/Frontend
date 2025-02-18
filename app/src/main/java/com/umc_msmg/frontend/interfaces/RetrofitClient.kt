@@ -1,5 +1,5 @@
 package com.umc_msmg.frontend.interfaces
-
+import com.umc_msmg.frontend.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,8 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = "https://api.openai.com/" // ✅ OpenAI API 기본 주소
-    private const val API_KEY = "openaikey"
-
+    private const val API_KEY = BuildConfig.OPENAI_API
     private val httpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -26,6 +25,7 @@ object RetrofitClient {
         }).build()
 
 
+    private val client = OkHttpClient.Builder().build()
 
     val apiService: OpenAIApi by lazy {
         Retrofit.Builder()
@@ -39,9 +39,16 @@ object RetrofitClient {
     val ttsService: OpenAITTSApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(httpClientTTS)
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(OpenAITTSApi::class.java)
     }
+
+    val loginService: ApiService = Retrofit.Builder()
+        .baseUrl("http://43.202.104.127:3000/")
+        .addConverterFactory(GsonConverterFactory.create()) // JSON 변환
+        .client(client)
+        .build()
+        .create(ApiService::class.java)
 }

@@ -9,13 +9,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
-        android:id="@+id/tvText"
+        android:layout_marginTop="50dp"
+        android:id="@+id/tvInfo"
         android:fontFamily="@font/pretendard_bold"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="건강 확인을 위해 \n몇가지 질문을 드릴게요!"
+        android:textColor="@color/black"
+        android:textSize="26sp"/>
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="170dp"
+        android:id="@+id/tvText"
+        android:fontFamily="@font/pretendard_regular"
         android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:hint="이곳에 입력이 표시됩니다 "
-        android:textSize="24sp"/>
+        android:textSize="22sp"/>
 
     <TextView
         app:layout_constraintStart_toStartOf="parent"
@@ -23,27 +36,10 @@
         app:layout_constraintTop_toBottomOf="@id/tvText"
         android:id="@+id/tvResponse"
         android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:fontFamily="@font/pretendard_bold"
+        android:layout_height="300dp"
+        android:fontFamily="@font/pretendard_regular"
         android:hint="이곳에 답변이 표시됩니다"
-        android:textSize="24sp"/>
+        android:textSize="22sp"/>
 
-    <Button
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvResponse"
-        android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start" />
-
-    <Button
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnStart"
-        android:id="@+id/btnStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

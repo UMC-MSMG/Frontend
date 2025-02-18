@@ -1,6 +1,8 @@
 package com.umc_msmg.frontend.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +23,17 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences = requireContext().getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+        val count = sharedPreferences.getInt("stepCount", 0)
+        binding.wt.text = count.toString()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

@@ -1,12 +1,14 @@
 // StartActivity.kt
 package com.umc_msmg.frontend.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.ActivityStartBinding
 import com.umc_msmg.frontend.fragment.SplashFragment
+import com.umc_msmg.frontend.service.LocationTrackingService
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
@@ -16,11 +18,10 @@ class StartActivity : AppCompatActivity() {
 //        setTheme(R.style.Theme_Msmg)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-/*
-        binding.header.btnBack.setOnClickListener {
-            onBackPressed()
-        }
-*/
+
+        val serviceIntent = Intent(this, LocationTrackingService::class.java)
+        startService(serviceIntent)
+
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 replace(R.id.fragment_container, SplashFragment())

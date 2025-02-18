@@ -21,6 +21,6 @@ data class Choice(
 data class TTSRequest(
     val model: String = "tts-1", // ✅ 사용할 모델 (tts-1 / tts-1-hd)
     val input: String,
-    val voice: String = "ash"// ✅ 변환할 텍스트
+    val voice: String = "alloy"// ✅ 변환할 텍스트
 )
 

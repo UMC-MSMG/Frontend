@@ -227,6 +227,34 @@
             android:src="@drawable/right_arrow" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/box_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/my_page_gap"
+        app:layout_constraintTop_toBottomOf="@id/box_terms"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="로그아웃"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/arrow_logout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/right_arrow" />
+    </LinearLayout>
+
     <View
         android:id="@+id/box_empty"
         android:layout_width="match_parent"
@@ -235,7 +263,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/box_terms" />
+        app:layout_constraintTop_toBottomOf="@id/box_logout" />
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

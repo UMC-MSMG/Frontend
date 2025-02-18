@@ -1,5 +1,6 @@
 package com.umc_msmg.frontend
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.umc_msmg.frontend.databinding.FragmentSignUpAddInfoBinding
+import com.umc_msmg.frontend.fragment.GptFragment
 import com.umc_msmg.frontend.fragment.SignUpDoneFragment
 import kotlin.math.pow
+import com.umc_msmg.frontend.viewModel.SignUpViewModel
 
 class SignUpAddInfoFragment : Fragment() {
     private var _binding: FragmentSignUpAddInfoBinding? = null
@@ -30,11 +34,17 @@ class SignUpAddInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupHeightPicker()
-        setupWeightPicker()
-        setupMedicineQuestion()
-        setNumberPicker()
+        if(currentStep == 1) {
+            setupHeightPicker()
+            setupWeightPicker()
+            setupMedicineQuestion()
+            setNumberPicker()
+        }
+        else
+        {
+            binding.layoutHeight.visibility = View.GONE
+            showMedicineQuestion()
+        }
 
         binding.tvNext.setOnClickListener {
             when (currentStep) {
@@ -45,10 +55,6 @@ class SignUpAddInfoFragment : Fragment() {
                 5 -> showNotificationConfirm()
                 6 -> finishSignUp()
             }
-        }
-
-        binding.btnLater.setOnClickListener {
-            navigateToSignUpDoneFragment()
         }
 
         val dayButtons = listOf(
@@ -141,6 +147,11 @@ class SignUpAddInfoFragment : Fragment() {
     private fun showBMIResults() {
         val height = binding.npHeight.value
         val weight = binding.npWeight.value
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putInt("user_weight", weight)
+            .putInt("user_height", height)
+            .apply()
         val bmi = weight / ((height/100f).pow(2))
 
         binding.layoutWeight.visibility = View.GONE
@@ -157,23 +168,22 @@ class SignUpAddInfoFragment : Fragment() {
         binding.bmiBoxHeight.text = height.toString()
         binding.bmiBoxWeight.text = weight.toString()
         binding.bmiBoxBmi.text = "%.1f".format(bmi)
-
         currentStep = 3
     }
 
 
     private fun showMedicineQuestion() {
+        currentStep = 4
         binding.layoutBMI.visibility = View.GONE
         binding.layoutMedicineExist.visibility = View.VISIBLE
         binding.tvNext.visibility = View.GONE
-        currentStep = 4
     }
 
     private fun handleMedicineResponse() {
         if (isTakingMedicine) {
             showMedicineSchedule()
         } else {
-            finishSignUp()
+            navigateToSignUpDoneFragment()
         }
     }
 
@@ -211,14 +221,12 @@ class SignUpAddInfoFragment : Fragment() {
         val height = binding.npHeight.value
         val weight = binding.npWeight.value
         saveMedicineSchedule()
-
         navigateToSignUpDoneFragment()
     }
 
     private fun navigateToSignUpDoneFragment() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, SignUpDoneFragment())
-            .addToBackStack(null)
             .commit()
     }
 
@@ -226,4 +234,9 @@ class SignUpAddInfoFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+
+
+
 }

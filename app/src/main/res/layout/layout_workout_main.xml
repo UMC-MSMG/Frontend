@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_background">
+    android:background="@color/color_background"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/a1_top_tv1"
@@ -12,14 +14,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="70dp"
-        android:elevation="31dp"
         android:fontFamily="@font/pretendard_bold"
         android:paddingBottom="5dp"
         android:text="김할배님 \n오늘 열심히 \n운동 하셨나요?"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="40sp" />
 
 
     <ImageView
@@ -28,7 +29,6 @@
         android:layout_height="88dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_corner_primary"
-        android:elevation="15dp"
         android:src="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,10 +43,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/area_2"
-        android:elevation="31dp"
         android:text="다 완료하고 포인트 받기"
-        android:layout_marginTop="10dp"
-        android:textSize="13sp"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
         android:textColor="@color/white"
         />
 
@@ -54,7 +53,6 @@
         android:id="@+id/a2_mid_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="31dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="25 원"
         android:textColor="@color/white"
@@ -85,18 +83,16 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@color/color_primary"
-        android:elevation="50dp"
         app:layout_constraintStart_toStartOf="@id/a3_left_tv"
         app:layout_constraintTop_toTopOf="@id/a3_left_tv"
         app:layout_constraintBottom_toBottomOf="@id/a3_left_tv"
-        android:layout_marginStart="150dp"/>
+        android:layout_marginStart="170dp"/>
 
     <ImageView
         android:id="@+id/a3_done_2"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@color/color_primary"
-        android:elevation="50dp"
         app:layout_constraintStart_toEndOf="@id/a3_done_1"
         app:layout_constraintTop_toTopOf="@id/a3_left_tv"
         app:layout_constraintBottom_toBottomOf="@id/a3_left_tv"
@@ -107,7 +103,6 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@color/color_primary"
-        android:elevation="50dp"
         app:layout_constraintStart_toEndOf="@id/a3_done_2"
         app:layout_constraintTop_toTopOf="@id/a3_left_tv"
         app:layout_constraintBottom_toBottomOf="@id/a3_left_tv"
@@ -118,207 +113,25 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@color/color_primary"
-        android:elevation="50dp"
         app:layout_constraintStart_toEndOf="@id/a3_done_3"
         app:layout_constraintTop_toTopOf="@id/a3_left_tv"
         app:layout_constraintBottom_toBottomOf="@id/a3_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a3_done_5"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a3_done_4"
-        app:layout_constraintTop_toTopOf="@id/a3_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a3_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a4_done_1"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toStartOf="@id/a4_left_tv"
-        app:layout_constraintTop_toTopOf="@id/a4_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a4_left_tv"
-        android:layout_marginStart="150dp"/>
-
-    <ImageView
-        android:id="@+id/a4_done_2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a4_done_1"
-        app:layout_constraintTop_toTopOf="@id/a4_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a4_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a4_done_3"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a4_done_2"
-        app:layout_constraintTop_toTopOf="@id/a4_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a4_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a4_done_4"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a4_done_3"
-        app:layout_constraintTop_toTopOf="@id/a4_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a4_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a4_done_5"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a4_done_4"
-        app:layout_constraintTop_toTopOf="@id/a4_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a4_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a5_done_1"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toStartOf="@id/a5_left_tv"
-        app:layout_constraintTop_toTopOf="@id/a5_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a5_left_tv"
-        android:layout_marginStart="150dp"/>
-
-    <ImageView
-        android:id="@+id/a5_done_2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a5_done_1"
-        app:layout_constraintTop_toTopOf="@id/a5_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a5_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a5_done_3"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a5_done_2"
-        app:layout_constraintTop_toTopOf="@id/a5_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a5_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a5_done_4"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a5_done_3"
-        app:layout_constraintTop_toTopOf="@id/a5_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a5_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a5_done_5"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a5_done_4"
-        app:layout_constraintTop_toTopOf="@id/a5_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a5_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a6_done_1"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toStartOf="@id/a6_left_tv"
-        app:layout_constraintTop_toTopOf="@id/a6_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a6_left_tv"
-        android:layout_marginStart="150dp"/>
-
-    <ImageView
-        android:id="@+id/a6_done_2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a6_done_1"
-        app:layout_constraintTop_toTopOf="@id/a6_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a6_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a6_done_3"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a6_done_2"
-        app:layout_constraintTop_toTopOf="@id/a6_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a6_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a6_done_4"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a6_done_3"
-        app:layout_constraintTop_toTopOf="@id/a6_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a6_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <ImageView
-        android:id="@+id/a6_done_5"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@color/color_primary"
-        android:elevation="50dp"
-        app:layout_constraintStart_toEndOf="@id/a6_done_4"
-        app:layout_constraintTop_toTopOf="@id/a6_left_tv"
-        app:layout_constraintBottom_toBottomOf="@id/a6_left_tv"
         android:layout_marginStart="10dp"/>
 
     <TextView
         android:id="@+id/a3_left_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="31dp"
         android:fontFamily="@font/pretendard_medium"
         android:text="유산소 >"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_3"
         app:layout_constraintTop_toTopOf="@id/area_3"
         app:layout_constraintStart_toStartOf="@id/area_3"/>
 
     <ImageView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/area_3"
-
         android:id="@+id/area_4"
         android:layout_width="372dp"
         android:layout_height="67dp"

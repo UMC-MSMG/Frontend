@@ -1,11 +1,14 @@
 package com.umc_msmg.frontend.fragment
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.os.Looper.prepare
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
@@ -15,7 +18,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.umc_msmg.frontend.adapter.AudioVisualizer
 import com.umc_msmg.frontend.databinding.GptFragmentBinding
 import android.speech.SpeechRecognizer
 import com.umc_msmg.frontend.interfaces.ChatMessage
@@ -26,7 +28,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.speech.tts.TextToSpeech
+import android.util.Log
+import com.umc_msmg.frontend.R
+import com.umc_msmg.frontend.SignUpAddInfoFragment
 import com.umc_msmg.frontend.interfaces.TTSRequest
+import kotlinx.coroutines.Job
 import okhttp3.ResponseBody
 import java.io.File
 import java.io.FileOutputStream
@@ -41,8 +47,9 @@ class GptFragment : Fragment() {
     private var isListening = false
     private val chatHistory = mutableListOf<ChatMessage>()
     private var first = true;
-    private lateinit var audioVisualizer: AudioVisualizer
     private var mediaPlayer: MediaPlayer? = null
+    private var count = 0
+    private var corutineJob = Job()
 
 
     override fun onCreateView(
@@ -61,24 +68,11 @@ class GptFragment : Fragment() {
             != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 100)
         }
-
-        // ✅ 버튼 클릭 시 녹음 시작
-        binding.btnStart.setOnClickListener {
-            //audioVisualizer.startListening()
-            startListening()
-
-        }
-
-        // ✅ 버튼 클릭 시 녹음 중지
-        binding.btnStop.setOnClickListener {
-            //audioVisualizer.stopListening()
-            stopListening()
-        }
+        sendMessageToChatGPT("")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        audioVisualizer.stopListening() // ✅ Fragment가 종료될 때 녹음 정지
         _binding = null
     }
 
@@ -86,7 +80,6 @@ class GptFragment : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            audioVisualizer.startListening()
         }
     }
 
@@ -121,7 +114,7 @@ class GptFragment : Fragment() {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireContext()).apply {
                 setRecognitionListener(object : RecognitionListener {
                     override fun onReadyForSpeech(params: Bundle?) {
-                        binding.tvText.text = "🎤 듣고 있어요..."
+                        binding.tvText.text = "듣고 있어요..."
                     }
 
                     override fun onBeginningOfSpeech() {}
@@ -131,13 +124,13 @@ class GptFragment : Fragment() {
                     override fun onBufferReceived(buffer: ByteArray?) {}
 
                     override fun onEndOfSpeech() {
-                        binding.tvText.text = "✅ 인식 완료!"
                         isListening = false
                     }
 
                     override fun onError(error: Int) {
-                        binding.tvText.text = "❌ 오류 발생: ${error}"
+                        binding.tvText.text = "다시 한번 말해주세요!"
                         isListening = false
+                        startListening()
                     }
 
                     override fun onResults(results: Bundle?) {
@@ -162,14 +155,14 @@ class GptFragment : Fragment() {
 
 
     private fun sendMessageToChatGPT(userText: String) {
-
-        if(first)
+        if(count == 0)
         {
-            chatHistory.add(ChatMessage("system", "너는 내가 60대의 노인이고, 신체가 건강한지 잘 모른다고 가정하고 무조건 3번에 걸쳐서 하나의 질문씩 던질꺼야. 질문 내용은 간결해야하고 어르신이 들었을때 이해가 쉬워야해. 3번의 user-assistant간 대화가 끝난 후에는 이사람의 신체 운동 수행능력이 좋으면 '상', 그저 그렇다면 '중', 형편없다면 '하' 라는 단 한글자만 출력하도록해. 말투는 다정하고 정중하며 부드럽게해줘"))
-            first = false;
+            chatHistory.add(ChatMessage("system", "너는 내가 60대의 노인이고, 신체가 건강한지 잘 모른다고 가정하고 무조건 3번에 걸쳐서 하나의 질문씩 던질꺼야. 질문 내용은 간결해야하고 어르신이 들었을때 이해가 쉬워야해. 무조건 반드시 3번의 user-assistant간 대화가 끝난 후에는 이사람의 신체 운동 수행능력이 좋으면 '상', 그저 중간이면 '중', 낮은수준이면 '하' 라는 단 한 글자만 전달해. 전달할때 오직 한 글자만 전하고, 어르신을 대하는게 아니라 그냥 api 제공하는거야 제발. 한글자만 말해. 말투는 다정하고 정중하며 부드럽게해줘. 첫번째 질문 앞에는 꼭 안녕하세요! 어르신의 건강상태를 확인하기 위해 몇가지 질문을 해볼거에요! 를 붙여줘. 모든 대답은 빠르고 간결하게해"))
+            count++
         }
         else {
             chatHistory.add(ChatMessage("user", userText))
+            count++;
         }
 
         val request = ChatRequest(
@@ -182,9 +175,22 @@ class GptFragment : Fragment() {
 
                     val chatResponse = response.body()?.choices?.firstOrNull()?.message?.content
                     chatHistory.add(ChatMessage("assistant", chatResponse ?: "응답 없음"))
-                    binding.tvResponse.text = chatResponse ?: "응답 없음"
                     if (chatResponse != null) {
-                        generateSpeech(chatResponse)
+
+                        if(count == 4) {
+                            Log.e("!!!!!", chatResponse)
+                            val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                            sharedPreferences.edit()
+                                .putString("user_diff", chatResponse) //상/중/하
+                                .apply()
+                            generateSpeech("모든 질문이 끝났어요. 성실히 답해주셔서 감사합니다!")
+                            binding.tvResponse.text = "모든 질문이 끝났어요. 성실히 답해주셔서 감사합니다!"
+                        }
+                        else
+                        {
+                            binding.tvResponse.text = chatResponse ?: "응답 없음"
+                            generateSpeech(chatResponse)
+                        }
                     }
                 } else {
                     binding.tvResponse.text = "❌ 오류 발생: ${response.errorBody()?.string()}"
@@ -218,6 +224,7 @@ class GptFragment : Fragment() {
     }
 
     private fun saveAndPlayWav(body: ResponseBody) {
+        if (_binding == null) return //
         val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC), "output.wav")
 
         try {
@@ -239,8 +246,23 @@ class GptFragment : Fragment() {
             setVolume(1.0f, 1.0f) // ✅ MediaPlayer 볼륨 최대
             prepare()
             start()
+            setOnCompletionListener {
+                if(count == 4)
+                {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, SignUpAddInfoFragment())
+                            .commit()
+                    }, 1500) // 2초 (2000ms)
+                }
+                else {
+                    binding.tvText.text = "다음 질문을 듣고 있어요..."
+                    startListening() // ✅ 음성이 끝나면 자동으로 다시 듣기 시작
+                }
+            }
         }
-        binding.tvText.text = "🔊 음성 재생 중..."
+        binding.tvText.text = "음성 재생 중..."
     }
+
 
 }
