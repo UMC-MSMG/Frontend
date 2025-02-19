@@ -26,7 +26,7 @@ class CircularProgressView(context: Context, attrs: AttributeSet) : View(context
         color = Color.parseColor("#FFFFFF")
         isAntiAlias = true
         style = Paint.Style.STROKE
-        strokeWidth = 40f
+        strokeWidth = 30f
         strokeCap = Paint.Cap.ROUND
     }
 
@@ -51,7 +51,7 @@ class CircularProgressView(context: Context, attrs: AttributeSet) : View(context
         val centerX = width / 2f
         val centerY = height / 2f
         val radius = (width / 2f)
-        val gap = 60f
+        val gap = 40f
 
         canvas.drawCircle(centerX, centerY, radius, outerCirclePaint)
 

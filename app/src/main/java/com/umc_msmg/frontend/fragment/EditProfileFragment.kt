@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
+import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.FragmentEditProfileBinding
 
 class EditProfileFragment : Fragment() {
@@ -28,6 +29,10 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadUserProfile()
+
+        binding.btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
         binding.cancel.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -51,7 +56,11 @@ class EditProfileFragment : Fragment() {
         val phone = sharedPreferences.getString("user_phone", "")
 
         binding.editName.setText(name)
-        binding.editGender.setText(gender)
+        if (gender == "남성") {
+            binding.maleRadioButton.isChecked = true
+        } else if (gender == "여성") {
+            binding.femaleRadioButton.isChecked = true
+        }
         binding.editHeight.setText(height.toString())
         binding.editWeight.setText(weight.toString())
         binding.editPhone.setText(phone)
@@ -63,7 +72,12 @@ class EditProfileFragment : Fragment() {
             requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("user_name", binding.editName.text.toString())
-        editor.putString("user_gender", binding.editGender.text.toString())
+        val selectedGender = when (binding.genderRadioGroup.checkedRadioButtonId) {
+            R.id.maleRadioButton -> "남성"
+            R.id.femaleRadioButton -> "여성"
+            else -> throw IllegalArgumentException("성별을 선택해야 합니다.")
+        }
+        editor.putString("user_gender", selectedGender)
         editor.putInt("user_height", binding.editHeight.text.toString().replace(" cm", "").toIntOrNull() ?: 0)
         editor.putInt("user_weight", binding.editWeight.text.toString().replace(" kg", "").toIntOrNull() ?: 0)
         editor.putString("user_phone", binding.editPhone.text.toString())

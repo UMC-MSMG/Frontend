@@ -1,4 +1,5 @@
 package com.umc_msmg.frontend.interfaces
+import android.util.Log
 import com.umc_msmg.frontend.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,13 +20,16 @@ object RetrofitClient {
             level = HttpLoggingInterceptor.Level.BODY
         }).build()
 
-    private val httpClientTTS = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }).build()
+    val loggingInterceptor = HttpLoggingInterceptor { message ->
+        Log.d("OkHttp", message) // ✅ 요청 & 응답 데이터를 Raw로 찍어줌!
+    }.apply {
+        level = HttpLoggingInterceptor.Level.BODY // ✅ 요청 & 응답 전체 출력
+    }
 
 
-    private val client = OkHttpClient.Builder().build()
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor) // ✅ 요청 & 응답 로그 출력 추가
+        .build()
 
     val apiService: OpenAIApi by lazy {
         Retrofit.Builder()

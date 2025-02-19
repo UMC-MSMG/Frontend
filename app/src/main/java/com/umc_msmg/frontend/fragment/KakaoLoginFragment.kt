@@ -90,13 +90,14 @@ class KakaoLoginFragment : Fragment() {
             .putString("user_image", loginResponse.user.image)
             .putString("access_token", loginResponse.accessToken)
             .putString("refresh_token", loginResponse.refreshToken)
+            .putBoolean("new", loginResponse.newUser)
             .apply()
 
         requireActivity().runOnUiThread {
             Toast.makeText(requireContext(), "로그인 성공: ${loginResponse.user.name}", Toast.LENGTH_SHORT).show()
         }
         logAllPreferences()
-        if(loginResponse.user.id < 1) {
+        if(loginResponse.newUser) {
             //이미 회원인경우
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)

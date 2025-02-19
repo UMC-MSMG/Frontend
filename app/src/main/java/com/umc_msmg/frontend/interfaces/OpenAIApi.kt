@@ -5,8 +5,10 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface OpenAIApi {
@@ -31,11 +33,29 @@ interface ApiService {
 
     @GET("api/auth/kakao/callback")
     suspend fun fetchLoginResult(@Query("code") code: String): Response<LoginResponse>
+
+    @GET("/api/steps/")
+    suspend fun loadResult(
+        @Header("Authorization")token:String,
+        @Query("date") date:String): Response<Int>
+
+    @PUT("/api/steps/add")
+    suspend fun putStep(
+        @Header("Authorization") token: String,
+        @Body request: StepRequest
+    ): Response<Void>
+
 }
+data class StepRequest(
+    val steps: Int,
+    val date: String
+)
+
 
 data class LoginResponse(
     val message: String,    // "카카오 로그인 성공"
-    val user: User,         // 사용자 정보
+    val user: User,
+    val newUser: Boolean,
     val accessToken: String,
     val refreshToken: String
 )

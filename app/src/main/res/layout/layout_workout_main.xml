@@ -18,7 +18,7 @@
         android:layout_marginTop="70dp"
         android:fontFamily="@font/pretendard_bold"
         android:paddingBottom="5dp"
-        android:text="김할배님 \n오늘 열심히 \n운동 하셨나요?"
+        android:text="오늘 열심히 \n운동 하셨나요?"
         android:textColor="@color/black"
         android:textSize="40sp" />
 
@@ -39,7 +39,7 @@
         android:id="@+id/area_2"
         android:layout_width="372dp"
         android:layout_height="88dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/round_corner_primary"
         android:src="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"
@@ -85,7 +85,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
+        android:elevation="3dp"
         android:src="@color/color_secondary" />
     <TextView
         android:id="@+id/a3_left_tv"
@@ -95,7 +95,7 @@
         android:fontFamily="@font/pretendard_medium"
         android:text="운동 종류 >"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_3"
         app:layout_constraintTop_toTopOf="@id/area_3"
@@ -113,7 +113,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
+        android:elevation="3dp"
         android:src="@color/color_secondary" />
     <TextView
         android:id="@+id/a4_left_tv"
@@ -123,7 +123,7 @@
         android:fontFamily="@font/pretendard_medium"
         android:text="운동 종류 >"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_4"
         app:layout_constraintTop_toTopOf="@id/area_4"
@@ -141,7 +141,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
+        android:elevation="3dp"
         android:src="@color/color_secondary" />
     <TextView
         android:id="@+id/a5_left_tv"
@@ -151,7 +151,7 @@
         android:fontFamily="@font/pretendard_medium"
         android:text="운동 종류 >"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_5"
         app:layout_constraintTop_toTopOf="@id/area_5"
@@ -169,7 +169,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
+        android:elevation="3dp"
         android:src="@color/color_secondary" />
     <TextView
         android:id="@+id/a6_left_tv"
@@ -179,7 +179,7 @@
         android:fontFamily="@font/pretendard_medium"
         android:text="운동 종류 >"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_6"
         app:layout_constraintTop_toTopOf="@id/area_6"

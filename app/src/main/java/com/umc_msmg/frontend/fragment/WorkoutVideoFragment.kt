@@ -1,3 +1,4 @@
+// WorkoutVideoFragment.kt
 package com.umc_msmg.frontend.fragment
 
 import android.net.Uri
@@ -8,8 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
-import android.widget.VideoView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.LayoutWorkoutVideoBinding
@@ -17,19 +16,22 @@ import com.umc_msmg.frontend.databinding.LayoutWorkoutVideoBinding
 class WorkoutVideoFragment : Fragment() {
     private var _binding: LayoutWorkoutVideoBinding? = null
     private val binding get() = _binding!!
-    private var playCount = 0
-    private var exerciseCount = 0
     private val handler = Handler(Looper.getMainLooper())
-    private var setNumber = 1
     private var workoutType: String? = null
-    private var exerciseType: String? = null
-    private var useSetCounting = false
-    private var currentSet = 1
-    private var maxSets = 1
+    private var currentVideoIndex = 0
+    private var videoList: List<VideoInfo> = emptyList()
     private var timeCount = 0
-    private var maxCount = 10
-    private var isTimeBasedExercise = false
-    private var exerciseDuration = 60
+    private var exerciseCount = 0
+    private var repeatCount = 0
+
+    data class VideoInfo(
+        val resourceId: Int,
+        val repeatTimes: Int,
+        val maxCount: Int,
+        val countInterval: Int,
+        val isTimeCount: Boolean,
+        val showSetNumber: Boolean
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,189 +45,107 @@ class WorkoutVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         workoutType = arguments?.getString("workoutType")
-        exerciseType = arguments?.getString("exerciseType")
+        binding.exerciseTitle.text = workoutType ?: "운동"
+        binding.exerciseCompleBtn.visibility = View.GONE
 
-        // exercise_title 설정
-        binding.exerciseTitle.text = exerciseType ?: "운동"
+        setupVideoList()
+        setupVideoPlayer()
 
-        setupExerciseParameters()
-
-        binding.checkImg.setOnClickListener {
-            binding.checkbox.visibility = View.GONE
-            setupVideoPlayer()
-            if (isTimeBasedExercise) {
-                startTimeCounter()
-            } else {
-                startExerciseCounter()
-            }
-        }
-    }
-
-    private fun setupExerciseParameters() {
-        when (exerciseType) {
-            "빠르게 걷기" -> {
-                useSetCounting = true
-                maxSets = 3
-                isTimeBasedExercise = true
-                exerciseDuration = 60
-            }
-            "의자에서 천천히 일어나기" -> {
-                useSetCounting = true
-                maxSets = 3
-                maxCount = 10
-                isTimeBasedExercise = false
-            }
-            "발뒤꿈치 올리기" -> {
-                useSetCounting = false
-                maxCount = 12
-                isTimeBasedExercise = false
-            }
-            "다리 차올리기" -> {
-                useSetCounting = false
-                maxCount = 8
-                isTimeBasedExercise = false
-            }
-            "다리 옆으로 올리기" -> {
-                useSetCounting = false
-                maxCount = 8
-                isTimeBasedExercise = false
-            }
-            else -> {
-                useSetCounting = false
-                maxCount = 10
-                isTimeBasedExercise = false
-            }
-        }
-        updateSetNumberVisibility()
-    }
-
-    private fun updateSetNumberVisibility() {
-        binding.exerciseSetNumber.visibility = if (useSetCounting) View.VISIBLE else View.GONE
-    }
-
-    private fun setupVideoPlayer() {
-        val videoPath = when (exerciseType) {
-            "빠르게 걷기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_cardio_brisk_walking}"
-            "의자에서 천천히 일어나기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_slow_chair_stand_ups}"
-            "발뒤꿈치 올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_strength_heel_raises}"
-            "다리 차올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_strength_leg_raises}"
-            "다리 옆으로 올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_side_leg_raises}"
-            else -> "android.resource://${requireActivity().packageName}/${R.raw.low_side_leg_raises}"
-        }
-
-        binding.exerciseVideo.apply {
-            setVideoURI(Uri.parse(videoPath))
-            setMediaController(MediaController(context).also {
-                it.setAnchorView(this)
-            })
-            setOnPreparedListener { mediaPlayer ->
-                mediaPlayer.isLooping = isTimeBasedExercise
-                mediaPlayer.setVolume(0f, 0f)
-                adjustVideoSize(this)
-            }
-            setOnCompletionListener {
-                if (useSetCounting) {
-                    handleSetCompletion()
-                } else if (!isTimeBasedExercise) {
-                    resetExerciseCounter()
-                    start()
-                }
-            }
-        }
-    }
-
-    private fun handleSetCompletion() {
-        currentSet++
-        if (currentSet <= maxSets) {
-            updateSetNumber()
-            if (isTimeBasedExercise) {
-                resetTimeCounter()
-            } else {
-                resetExerciseCounter()
-            }
-            binding.exerciseVideo.start()
-        } else {
+        binding.exerciseCompleBtn.setOnClickListener {
             showExerciseCompleteMessage()
         }
     }
 
-    private fun updateSetNumber() {
-        activity?.runOnUiThread {
-            binding.exerciseSetNumber.text = "${currentSet}세트"
+    private fun setupVideoList() {
+        videoList = when (workoutType) {
+            "유산소" -> listOf(
+                VideoInfo(R.raw.low_cardio_brisk_walking, 3, 180, 1, true, false)
+            )
+            "근력" -> listOf(
+                VideoInfo(R.raw.low_slow_chair_stand_ups, 3, 10, 5, false, true),
+                VideoInfo(R.raw.low_strength_heel_raises, 1, 12, 4, false, false),
+                VideoInfo(R.raw.low_strength_leg_raises, 1, 8, 8, false, false),
+                VideoInfo(R.raw.low_side_leg_raises, 1, 8, 5, false, false)
+            )
+            else -> emptyList()
+        }
+    }
+
+    private fun setupVideoPlayer() {
+        if (videoList.isEmpty()) {
+            binding.exerciseCompleBtn.visibility = View.VISIBLE
+            return
+        }
+
+        val currentVideo = videoList[currentVideoIndex]
+        val videoPath = "android.resource://${requireActivity().packageName}/${currentVideo.resourceId}"
+
+        binding.exerciseVideo.apply {
+            setVideoURI(Uri.parse(videoPath))
+            setMediaController(MediaController(context).apply { setAnchorView(this@apply) })
+            setOnCompletionListener { onVideoComplete() }
+            start()
+        }
+
+        resetCounters()
+        updateUI(currentVideo)
+        startCounting(currentVideo)
+    }
+
+    private fun resetCounters() {
+        timeCount = 0
+        exerciseCount = 0
+        repeatCount = 0
+    }
+
+    private fun updateUI(video: VideoInfo) {
+        binding.exerciseSetNumber.visibility = if (video.showSetNumber) View.VISIBLE else View.GONE
+        if (video.showSetNumber) {
+            binding.exerciseSetNumber.text = "${repeatCount + 1} 세트"
+        }
+    }
+
+    private fun startCounting(video: VideoInfo) {
+        handler.post(object : Runnable {
+            override fun run() {
+                if (video.isTimeCount) {
+                    timeCount++
+                    binding.countText.text = "$timeCount 초"
+                } else {
+                    if (timeCount % video.countInterval == 0) {
+                        exerciseCount++
+                        binding.countText.text = "$exerciseCount / ${video.maxCount}"
+                    }
+                    timeCount++
+                }
+
+                if ((video.isTimeCount && timeCount < video.maxCount) || (!video.isTimeCount && exerciseCount < video.maxCount)) {
+                    handler.postDelayed(this, 1000)
+                } else {
+                    repeatCount++
+                    if (repeatCount < video.repeatTimes) {
+                        timeCount = 0
+                        exerciseCount = 0
+                        updateUI(video)
+                        binding.exerciseVideo.start()
+                        handler.post(this)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun onVideoComplete() {
+        currentVideoIndex++
+        if (currentVideoIndex < videoList.size) {
+            setupVideoPlayer()
+        } else {
+            binding.exerciseCompleBtn.visibility = View.VISIBLE
         }
     }
 
     private fun showExerciseCompleteMessage() {
-        // 운동 완료 메시지 표시 로직
-    }
-
-    private fun adjustVideoSize(videoView: VideoView) {
-        videoView.post {
-            val parentWidth = (videoView.parent as View).width
-            val parentHeight = (videoView.parent as View).height
-            val videoWidth = videoView.width
-            val videoHeight = videoView.height
-            val aspectRatio = videoWidth.toFloat() / videoHeight.toFloat()
-            val newWidth = (parentHeight * aspectRatio).toInt()
-            val params = videoView.layoutParams as ConstraintLayout.LayoutParams
-            params.width = newWidth
-            params.height = parentHeight
-            videoView.layoutParams = params
-            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-            params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-            params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        }
-    }
-
-    private fun startExerciseCounter() {
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (exerciseCount < maxCount) {
-                    exerciseCount++
-                    updateCountText()
-                    handler.postDelayed(this, 5300)
-                }
-            }
-        }, 5300)
-    }
-
-    private fun startTimeCounter() {
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (timeCount < exerciseDuration) {
-                    timeCount++
-                    updateTimeText()
-                    handler.postDelayed(this, 1000)
-                }
-            }
-        }, 1000)
-    }
-
-    private fun resetExerciseCounter() {
-        exerciseCount = 0
-        updateCountText()
-        handler.removeCallbacksAndMessages(null)
-        startExerciseCounter()
-    }
-
-    private fun resetTimeCounter() {
-        timeCount = 0
-        updateTimeText()
-        handler.removeCallbacksAndMessages(null)
-        startTimeCounter()
-    }
-
-    private fun updateCountText() {
-        activity?.runOnUiThread {
-            binding.countText.text = "$exerciseCount/$maxCount"
-        }
-    }
-
-    private fun updateTimeText() {
-        activity?.runOnUiThread {
-            binding.countText.text = "${timeCount}초"
-        }
+        // 운동 완료 로직
     }
 
     override fun onDestroyView() {

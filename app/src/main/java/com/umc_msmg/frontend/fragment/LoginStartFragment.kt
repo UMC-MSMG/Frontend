@@ -41,8 +41,23 @@ class LoginStartFragment : Fragment() {
                 .replace(R.id.fragment_container, KakaoLoginFragment())
                 .commit()
         }
+
+        binding.btnLogin.setOnClickListener() {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, LoginLoginFragment())
+                .commit()
+        }
+
+        binding.btnRegister.setOnClickListener() {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+
     }
-    
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

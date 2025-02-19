@@ -31,8 +31,38 @@ data class UserProfile(
     val difficulty: Difficulty
 )
 
+data class DailySteps(
+    val userId: String,
+    val steps: Int,
+    val message: String
+)
+
+data class WeeklyExerciseSummary(
+    val this_month_earnings: Int,
+    val last_month_earnings: Int,
+    val sequence_days: Int,
+    val sequence_start: String,
+    val sequence_end: String,
+    val monday: Boolean,
+    val tuesday: Boolean,
+    val wednesday: Boolean,
+    val thursday: Boolean,
+    val friday: Boolean,
+    val saturday: Boolean,
+    val sunday: Boolean,
+    val workout_level: String
+)
+
+data class MyPointsResponse(
+    val points: String
+)
+
 data class UpdateProfileResponse(
     val message: String
+)
+
+data class DifficultyRequest(
+    val difficulty: String
 )
 
 object DefaultWorkoutPlan {
