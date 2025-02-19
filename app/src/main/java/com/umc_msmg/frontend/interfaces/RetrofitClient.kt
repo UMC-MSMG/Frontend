@@ -57,4 +57,13 @@ object RetrofitClient {
         .client(client)
         .build()
         .create(ApiService::class.java)
+
+    val mapApiService: ApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://maps.googleapis.com/maps/api/")
+            .addConverterFactory(GsonConverterFactory.create()) // ✅ JSON 자동 변환
+            .build()
+            .create(ApiService::class.java)
+    }
+
 }

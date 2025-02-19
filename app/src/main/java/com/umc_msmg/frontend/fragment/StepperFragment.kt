@@ -44,7 +44,7 @@ class StepperFragment : Fragment() {
         setData()
         binding.area1.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, StepperStepperFragment())
+                .replace(R.id.fragment_container, StepperStepperFragment(), "StepTag")
                 .addToBackStack(null)
                 .commit()
         }

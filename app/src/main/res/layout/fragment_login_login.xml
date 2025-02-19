@@ -43,6 +43,8 @@
         app:layout_constraintTop_toBottomOf="@id/tvSplash" />
     
     <EditText
+        android:paddingStart="15dp"
+        android:singleLine="true"
         android:id="@+id/et_1"
         android:layout_width="306dp"
         android:layout_height="36dp"
@@ -68,6 +70,8 @@
         app:layout_constraintTop_toBottomOf="@id/et_1" />
 
     <EditText
+        android:paddingStart="15dp"
+        android:singleLine="true"
         android:clickable="false"
         android:id="@+id/et_2"
         android:layout_width="306dp"
@@ -81,6 +85,7 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
+        android:elevation="3dp"
         android:id="@+id/verify_btn"
         app:layout_constraintEnd_toEndOf="@id/et_1"
         app:layout_constraintTop_toTopOf="@id/et_1"

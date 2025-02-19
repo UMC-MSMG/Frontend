@@ -33,9 +33,7 @@ class LoginStartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         checkLoginStatus()
-
         binding.btnKakaoLogin.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -51,15 +49,10 @@ class LoginStartFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener() {
-
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, GptFragment())
+                .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
                 .addToBackStack(null)
                 .commit()
-/*
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish() */
         }
 
 

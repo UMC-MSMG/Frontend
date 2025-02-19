@@ -10,6 +10,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
+import com.google.gson.annotations.SerializedName
 
 interface OpenAIApi {
     @Headers("Content-Type: application/json")
@@ -48,11 +49,31 @@ interface ApiService {
     @POST("/api/auth/login/phone/verify-request")
     suspend fun sendLogin(@Query("phoneNum") pn: String): Response<String>
 
+    @POST("/api/auth/login/phone/verify-check")
+    suspend fun checkLogin(@Query("phoneNum") pn : String,
+                           @Query("code") code : Int) : Response<normalLoginData>
+
+    @GET("place/nearbysearch/json") // ✅ Google Places API - Nearby Search
+    fun getNearbyParks(
+        @Query("location") location: String, // ✅ 위도, 경도 (예: "37.5444,127.0370")
+        @Query("radius") radius: Int, // ✅ 검색 반경 (미터 단위)
+        @Query("type") type: String, // ✅ "공원"만 검색
+        @Query("key") apiKey: String // ✅ Google API Key
+    ): Call<PlacesResponse> // ✅ 응답을 PlacesResponse 클래스로 받음
+
 
 }
 data class StepRequest(
     val steps: Int,
     val date: String
+)
+
+
+
+data class normalLoginData(
+    val userId: Int,
+    val accessToken: String,
+    val refreshToken: String
 )
 
 
@@ -70,3 +91,23 @@ data class User(
     val image: String
 )
 
+
+
+
+data class PlacesResponse(
+    @SerializedName("results") val results: List<PlaceResult>
+)
+
+data class PlaceResult(
+    @SerializedName("name") val name: String,
+    @SerializedName("geometry") val geometry: Geometry
+)
+
+data class Geometry(
+    @SerializedName("location") val location: LocationData
+)
+
+data class LocationData(
+    @SerializedName("lat") val lat: Double,
+    @SerializedName("lng") val lng: Double
+)
