@@ -8,10 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.data.DayOfWeek
 import com.umc_msmg.frontend.data.DefaultWorkoutPlan
 import com.umc_msmg.frontend.data.Difficulty
+import com.umc_msmg.frontend.data.WeeklyExerciseSummary
 import com.umc_msmg.frontend.databinding.FragmentDiaryBinding
+import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -78,6 +84,62 @@ class DiaryFragment : Fragment() {
         binding.exercise4Time.text = workoutList.균형.joinToString("\n") { it.set.toString() }
 
         Log.d("DiaryFragment", "오늘의 운동 계획 로드 성공")
+    }
+
+    private fun loadWeeklyExerciseSummary() {
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+
+        UserServiceRetrofitClient.apiService.getWeeklyExerciseSummary(authorization).enqueue(object : Callback<WeeklyExerciseSummary> {
+            override fun onResponse(call: Call<WeeklyExerciseSummary>, response: Response<WeeklyExerciseSummary>) {
+                if (response.isSuccessful) {
+                    val summary = response.body()
+                    if (summary != null) {
+                        val consecutiveDays = summary.sequence_days
+                        binding.consecutiveDaysText.text = "${consecutiveDays}일 연속 운동했어요."
+                        updateWeeklyCheckboxes(summary)
+                    }
+                    Log.d("DiaryFragment", "주간 운동 요약 정보 로드 성공: $summary")
+                } else {
+                    Log.e("DiaryFragment", "주간 운동 요약 정보 로드 실패: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<WeeklyExerciseSummary>, t: Throwable) {
+                Log.e("DiaryFragment", "주간 운동 요약 정보 API 호출 실패: ${t.message}")
+            }
+        })
+    }
+
+    private fun updateWeeklyCheckboxes(summary: WeeklyExerciseSummary) {
+        binding.calendarCheckMonday.setImageResource(if (summary.monday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckTuesday.setImageResource(if (summary.tuesday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckWednesday.setImageResource(if (summary.wednesday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckThursday.setImageResource(if (summary.thursday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckFriday.setImageResource(if (summary.friday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckSaturday.setImageResource(if (summary.saturday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckSunday.setImageResource(if (summary.sunday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+    }
+
+    private fun loadMyPoints() {
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+
+        UserServiceRetrofitClient.apiService.getMyPoints(authorization).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                    val points = response.body()
+                    binding.points.text = "${points}원"
+                    Log.d("DiaryFragment", "사용자 포인트 정보 로드 성공: $points")
+                } else {
+                    Log.e("DiaryFragment", "사용자 포인트 정보 로드 실패: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("DiaryFragment", "사용자 포인트 정보 API 호출 실패: ${t.message}")
+            }
+        })
     }
 
     override fun onDestroyView() {
