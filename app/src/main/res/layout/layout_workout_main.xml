@@ -22,6 +22,18 @@
         android:textColor="@color/black"
         android:textSize="40sp" />
 
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="412dp"
+        android:layout_height="683dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_corner_secondary"
+        android:src="#F8F8F8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/a1_top_tv1" />
+
 
     <ImageView
         android:id="@+id/area_2"
@@ -61,8 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
     <ImageView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +87,106 @@
         android:background="@drawable/round_corner_secondary"
         android:elevation="15dp"
         android:src="@color/color_secondary" />
+    <TextView
+        android:id="@+id/a3_left_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="31dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="운동 종류 >"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/area_3"
+        app:layout_constraintTop_toTopOf="@id/area_3"
+        app:layout_constraintStart_toStartOf="@id/area_3"/>
 
     <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/area_3"
+
+        android:id="@+id/area_4"
+        android:layout_width="372dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/round_corner_secondary"
+        android:elevation="15dp"
+        android:src="@color/color_secondary" />
+    <TextView
+        android:id="@+id/a4_left_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="31dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="운동 종류 >"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/area_4"
+        app:layout_constraintTop_toTopOf="@id/area_4"
+        app:layout_constraintStart_toStartOf="@id/area_4"/>
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/area_4"
+
+        android:id="@+id/area_5"
+        android:layout_width="372dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/round_corner_secondary"
+        android:elevation="15dp"
+        android:src="@color/color_secondary" />
+    <TextView
+        android:id="@+id/a5_left_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="31dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="운동 종류 >"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/area_5"
+        app:layout_constraintTop_toTopOf="@id/area_5"
+        app:layout_constraintStart_toStartOf="@id/area_5"/>
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/area_5"
+
+        android:id="@+id/area_6"
+        android:layout_width="372dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/round_corner_secondary"
+        android:elevation="15dp"
+        android:src="@color/color_secondary" />
+    <TextView
+        android:id="@+id/a6_left_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="31dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="운동 종류 >"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/area_6"
+        app:layout_constraintTop_toTopOf="@id/area_6"
+        app:layout_constraintStart_toStartOf="@id/area_6"/>
+
+
+    <!--<ImageView
         android:id="@+id/a3_done_1"
         android:layout_width="25dp"
         android:layout_height="25dp"
@@ -116,115 +224,7 @@
         app:layout_constraintStart_toEndOf="@id/a3_done_3"
         app:layout_constraintTop_toTopOf="@id/a3_left_tv"
         app:layout_constraintBottom_toBottomOf="@id/a3_left_tv"
-        android:layout_marginStart="10dp"/>
-
-    <TextView
-        android:id="@+id/a3_left_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_medium"
-        android:text="유산소 >"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/area_3"
-        app:layout_constraintTop_toTopOf="@id/area_3"
-        app:layout_constraintStart_toStartOf="@id/area_3"/>
-
-    <ImageView
-        android:id="@+id/area_4"
-        android:layout_width="372dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="18dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
-        android:src="@color/color_secondary" />
-
-    <TextView
-        android:id="@+id/a4_left_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="31dp"
-        android:fontFamily="@font/pretendard_medium"
-        android:text="유산소 >"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/area_4"
-        app:layout_constraintTop_toTopOf="@id/area_4"
-        app:layout_constraintStart_toStartOf="@id/area_4"/>
-
-    <ImageView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/area_4"
-
-        android:id="@+id/area_5"
-        android:layout_width="372dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="18dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
-        android:src="@color/color_secondary" />
-
-    <TextView
-        android:id="@+id/a5_left_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="31dp"
-        android:fontFamily="@font/pretendard_medium"
-        android:text="유산소 >"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/area_5"
-        app:layout_constraintTop_toTopOf="@id/area_5"
-        app:layout_constraintStart_toStartOf="@id/area_5"/>
-
-    <ImageView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/area_5"
-
-        android:id="@+id/area_6"
-        android:layout_width="372dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="18dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
-        android:src="@color/color_secondary" />
-
-    <TextView
-        android:id="@+id/a6_left_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="31dp"
-        android:fontFamily="@font/pretendard_medium"
-        android:text="유산소 >"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/area_6"
-        app:layout_constraintTop_toTopOf="@id/area_6"
-        app:layout_constraintStart_toStartOf="@id/area_6"/>
-
-    <ImageView
-        android:id="@+id/bg"
-        android:layout_width="412dp"
-        android:layout_height="683dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/round_corner_secondary"
-        android:src="#F8F8F8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/a1_top_tv1" />
+        android:layout_marginStart="10dp"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
