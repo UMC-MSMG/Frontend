@@ -21,7 +21,11 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         loadUserProfile()
 
@@ -34,26 +38,17 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.editPhone.formatPhoneNumber()
-        binding.editHeight.formatHeight()
-        binding.editWeight.formatWeight()
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.editPhone.formatPhoneNumber()
-        binding.editHeight.formatHeight()
-        binding.editWeight.formatWeight()
+        binding.editHeight.formatHeight(binding)
+        binding.editWeight.formatWeight(binding)
     }
 
     private fun loadUserProfile() {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val name = sharedPreferences.getString("name", "")
-        val gender = sharedPreferences.getString("gender", "")
-        val height = sharedPreferences.getInt("height", 0)
-        val weight = sharedPreferences.getInt("weight", 0)
-        val phone = sharedPreferences.getString("phone", "")
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val name = sharedPreferences.getString("user_name", "")
+        val gender = sharedPreferences.getString("user_gender", "")
+        val height = sharedPreferences.getInt("user_height", 156)
+        val weight = sharedPreferences.getInt("user_weight", 56)
+        val phone = sharedPreferences.getString("user_phone", "")
 
         binding.editName.setText(name)
         binding.editGender.setText(gender)
@@ -65,13 +60,13 @@ class EditProfileFragment : Fragment() {
 
     private fun saveUserProfile() {
         val sharedPreferences =
-            requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("name", binding.editName.text.toString())
-        editor.putString("gender", binding.editGender.text.toString())
-        editor.putInt("height", binding.editHeight.text.toString().replace(" cm", "").toIntOrNull() ?: 0)
-        editor.putInt("weight", binding.editWeight.text.toString().replace(" cm", "").toIntOrNull() ?: 0)
-        editor.putString("phone", binding.editPhone.text.toString())
+        editor.putString("user_name", binding.editName.text.toString())
+        editor.putString("user_gender", binding.editGender.text.toString())
+        editor.putInt("user_height", binding.editHeight.text.toString().replace(" cm", "").toIntOrNull() ?: 0)
+        editor.putInt("user_weight", binding.editWeight.text.toString().replace(" kg", "").toIntOrNull() ?: 0)
+        editor.putString("user_phone", binding.editPhone.text.toString())
         editor.apply()
         Log.d("EditProfileFragment", "사용자 정보 저장 성공")
 
@@ -114,40 +109,40 @@ fun TextInputEditText.formatPhoneNumber() {
     })
 }
 
-fun TextInputEditText.formatHeight() {
+fun TextInputEditText.formatHeight(binding: FragmentEditProfileBinding) {
     addTextChangedListener(object : TextWatcher {
-        private var editing: Boolean = false
+        private var editing = false
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable) {
             if (editing) return
             editing = true
-            val value = s.toString()
+            var value = s.toString()
             if (value.isNotEmpty()) {
-                val formattedValue = "$value cm"
-                s.clear()
-                s.append(formattedValue)
+                value = value.replace(" cm", "")
+                binding.editHeight.setText(value)
+                binding.editHeight.setSelection(value.length)
             }
             editing = false
         }
     })
 }
 
-fun TextInputEditText.formatWeight() {
+fun TextInputEditText.formatWeight(binding: FragmentEditProfileBinding) {
     addTextChangedListener(object : TextWatcher {
-        private var editing: Boolean = false
+        private var editing = false
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable) {
             if (editing) return
             editing = true
-            val value = s.toString()
+            var value = s.toString()
             if (value.isNotEmpty()) {
-                val formattedValue = "$value kg"
-                s.clear()
-                s.append(formattedValue)
+                value = value.replace(" kg", "")
+                binding.editWeight.setText(value)
+                binding.editWeight.setSelection(value.length)
             }
             editing = false
         }

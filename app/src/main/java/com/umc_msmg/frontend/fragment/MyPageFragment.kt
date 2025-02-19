@@ -71,11 +71,11 @@ class MyPageFragment : Fragment() {
     }
 
     private fun loadUserProfile() {
-        val sharedPreferences = requireContext().getSharedPreferences("DifficultyPrefs", Context.MODE_PRIVATE)
-        val name = sharedPreferences.getString("name", "사람1")
-        val gender = sharedPreferences.getString("gender", "남성")
-        val height = sharedPreferences.getInt("height", 156)
-        val weight = sharedPreferences.getInt("weight", 56)
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val name = sharedPreferences.getString("user_name", "사람1")
+        val gender = sharedPreferences.getString("user_gender", "남성")
+        val height = sharedPreferences.getInt("user_height", 156)
+        val weight = sharedPreferences.getInt("user_weight", 56)
         val difficulty = sharedPreferences.getString("difficulty", "중") ?: "중"
 
         binding.name.text = name
