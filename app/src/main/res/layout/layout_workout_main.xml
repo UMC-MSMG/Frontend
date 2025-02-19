@@ -18,7 +18,7 @@
         android:layout_marginTop="70dp"
         android:fontFamily="@font/pretendard_bold"
         android:paddingBottom="5dp"
-        android:text="김할배님 \n오늘 열심히 \n운동 하셨나요?"
+        android:text="오늘 열심히 \n운동 하셨나요?"
         android:textColor="@color/black"
         android:textSize="40sp" />
 
@@ -39,7 +39,7 @@
         android:id="@+id/area_2"
         android:layout_width="372dp"
         android:layout_height="88dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/round_corner_primary"
         android:src="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"

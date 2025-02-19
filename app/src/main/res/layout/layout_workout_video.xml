@@ -177,6 +177,7 @@
         app:layout_constraintTop_toBottomOf="@id/guide_title" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/exercise_set_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
