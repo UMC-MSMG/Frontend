@@ -170,7 +170,7 @@ class GptFragment : Fragment() {
         }
         if(finished)
         {
-            chatHistory.add(ChatMessage("system", "지금까지 대화를 나누며 내 건강에 관해 느낀점 두줄로 요약해서 보내"))
+            chatHistory.add(ChatMessage("system", "지금까지 대화를 나누며 내 건강에 관해 느낀점을 첫번째줄, 개선방법을 두번째줄로 요약해서 보내"))
 
         }
 
@@ -201,7 +201,7 @@ class GptFragment : Fragment() {
                                 .putString("user_diff", chatResponse) //상/중/하
                                 .apply()
                             Log.e("!!!!!", chatResponse)
-                            binding.tvText.text = "모든 질문이 끝났어요. 대화 내용을 요약중입니다.\n요약 후 다음화면으로 이동합니다."
+                            binding.tvText.text = "대화 내용 요약중 ..."
                             sendMessageToChatGPT("")
                         }
                         else
