@@ -8,11 +8,12 @@
 
     <!-- 약관동의 헤더 -->
     <TextView
+        android:layout_marginTop="50dp"
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="약관동의"
-        android:textSize="28sp"
+        android:textSize="32sp"
         android:textColor="@color/black"
         android:fontFamily="@font/pretendard_bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +21,7 @@
 
     <!-- 전체 동의 버튼 -->
     <TextView
+        android:layout_marginTop="30dp"
         android:id="@+id/tv_agree_all"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -28,14 +30,17 @@
         android:fontFamily="@font/pretendard_medium"
         android:gravity="center"
         android:background="@drawable/agree_button"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:layout_marginBottom="30dp"/>
 
     <!-- 개인정보 동의 -->
     <TextView
+        android:paddingStart="15dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/tv_agree_required"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="개인정보 활용동의 (필수)"
+        android:text=" 개인정보 활용동의 (필수)"
         android:textSize="18sp"
         android:fontFamily="@font/pretendard_medium"
         android:drawablePadding="8dp"
@@ -45,30 +50,61 @@
 
     <!-- 제3자 동의 -->
     <TextView
+        android:paddingStart="15dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/tv_agree_optional"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="제3자 활용동의 (선택)"
+        android:text=" 제3자 활용동의 (선택)"
         android:textSize="18sp"
         android:fontFamily="@font/pretendard_medium"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:drawableStart="@drawable/selector_checkbox"
-        app:layout_constraintTop_toBottomOf="@id/tv_agree_required"/>
+        app:layout_constraintTop_toBottomOf="@id/first_box"/>
 
+
+    <ScrollView
+        android:id="@+id/first_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_agree_required"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp">
+        <!-- 약관 내용 -->
+        <TextView
+            android:id="@+id/tv_terms_content_required"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:text="@string/terms_content_required"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pretendard_medium"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@id/tv_agree_optional"
+            app:layout_constraintBottom_toTopOf="@id/btn_confirm"/>"
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/second_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_agree_optional"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp">
     <!-- 약관 내용 -->
     <TextView
-        android:id="@+id/tv_terms_content"
+        android:id="@+id/tv_terms_content_optional"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/terms_content"
+        android:layout_height="150dp"
+        android:text="@string/terms_content_optional"
         android:textSize="18sp"
         android:textColor="@color/black"
         android:fontFamily="@font/pretendard_medium"
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/tv_agree_optional"
-        app:layout_constraintBottom_toTopOf="@id/btn_confirm"/>
-
+        app:layout_constraintBottom_toTopOf="@id/btn_confirm"/>"
+    </ScrollView>
     <!-- 동의하기 버튼 -->
     <TextView
         android:id="@+id/btn_confirm"
@@ -78,9 +114,10 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:fontFamily="@font/pretendard_medium"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/round_corner_primary"
         android:backgroundTint="@color/color_primary"
         android:gravity="center"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

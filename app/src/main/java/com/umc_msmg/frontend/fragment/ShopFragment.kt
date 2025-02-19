@@ -1,14 +1,13 @@
 package com.umc_msmg.frontend.fragment
 
-import ShopAdapter
-import ShopItem
+import com.umc_msmg.frontend.adapter.ShopAdapter
+import com.umc_msmg.frontend.data.ShopItem
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.FragmentShopBinding

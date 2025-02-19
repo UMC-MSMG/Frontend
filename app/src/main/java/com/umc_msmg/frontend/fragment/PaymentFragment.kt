@@ -1,6 +1,6 @@
 package com.umc_msmg.frontend.fragment
 
-import ShopItem
+import com.umc_msmg.frontend.data.ShopItem
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

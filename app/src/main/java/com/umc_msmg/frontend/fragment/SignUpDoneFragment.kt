@@ -1,5 +1,6 @@
 package com.umc_msmg.frontend.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,8 +26,8 @@ class SignUpDoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val userName = getString(R.string.user_name)
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userName = sharedPreferences.getString("user_name", null)
         val greetingText = getString(R.string.greeting_sign_up, userName)
         binding.tvGreetingSignUp.text = greetingText
 

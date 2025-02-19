@@ -1,3 +1,6 @@
+package com.umc_msmg.frontend.adapter
+
+import com.umc_msmg.frontend.data.ShopItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

@@ -1,10 +1,14 @@
 package com.umc_msmg.frontend
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.databinding.FragmentSignUpStartBinding
 
 class SignUpStartFragment : Fragment() {
@@ -22,15 +26,9 @@ class SignUpStartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnBackSignUp.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
-
         binding.btnSignUp.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
-                .addToBackStack(null)
                 .commit()
         }
     }

@@ -22,7 +22,6 @@ class WorkoutVideoFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     private var setNumber = 1
     private var workoutType: String? = null
-    private var exerciseType: String? = null
     private var useSetCounting = false
     private var currentSet = 1
     private var maxSets = 1
@@ -43,12 +42,11 @@ class WorkoutVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         workoutType = arguments?.getString("workoutType")
-        exerciseType = arguments?.getString("exerciseType")
 
         // exercise_title 설정
-        binding.exerciseTitle.text = exerciseType ?: "운동"
+        binding.exerciseTitle.text = workoutType ?: "운동"
 
-        setupExerciseParameters()
+        // setupExerciseParameters()
 
         binding.checkImg.setOnClickListener {
             binding.checkbox.visibility = View.GONE
@@ -61,55 +59,55 @@ class WorkoutVideoFragment : Fragment() {
         }
     }
 
-    private fun setupExerciseParameters() {
-        when (exerciseType) {
-            "빠르게 걷기" -> {
-                useSetCounting = true
-                maxSets = 3
-                isTimeBasedExercise = true
-                exerciseDuration = 60
-            }
-            "의자에서 천천히 일어나기" -> {
-                useSetCounting = true
-                maxSets = 3
-                maxCount = 10
-                isTimeBasedExercise = false
-            }
-            "발뒤꿈치 올리기" -> {
-                useSetCounting = false
-                maxCount = 12
-                isTimeBasedExercise = false
-            }
-            "다리 차올리기" -> {
-                useSetCounting = false
-                maxCount = 8
-                isTimeBasedExercise = false
-            }
-            "다리 옆으로 올리기" -> {
-                useSetCounting = false
-                maxCount = 8
-                isTimeBasedExercise = false
-            }
-            else -> {
-                useSetCounting = false
-                maxCount = 10
-                isTimeBasedExercise = false
-            }
-        }
-        updateSetNumberVisibility()
-    }
+//    private fun setupExerciseParameters() {
+//        when (exerciseType) {
+//            "빠르게 걷기" -> {
+//                useSetCounting = true
+//                maxSets = 3
+//                isTimeBasedExercise = true
+//                exerciseDuration = 60
+//            }
+//            "의자에서 천천히 일어나기" -> {
+//                useSetCounting = true
+//                maxSets = 3
+//                maxCount = 10
+//                isTimeBasedExercise = false
+//            }
+//            "발뒤꿈치 올리기" -> {
+//                useSetCounting = false
+//                maxCount = 12
+//                isTimeBasedExercise = false
+//            }
+//            "다리 차올리기" -> {
+//                useSetCounting = false
+//                maxCount = 8
+//                isTimeBasedExercise = false
+//            }
+//            "다리 옆으로 올리기" -> {
+//                useSetCounting = false
+//                maxCount = 8
+//                isTimeBasedExercise = false
+//            }
+//            else -> {
+//                useSetCounting = false
+//                maxCount = 10
+//                isTimeBasedExercise = false
+//            }
+//        }
+//        updateSetNumberVisibility()
+//    }
 
     private fun updateSetNumberVisibility() {
         binding.exerciseSetNumber.visibility = if (useSetCounting) View.VISIBLE else View.GONE
     }
 
     private fun setupVideoPlayer() {
-        val videoPath = when (exerciseType) {
-            "빠르게 걷기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_cardio_brisk_walking}"
-            "의자에서 천천히 일어나기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_slow_chair_stand_ups}"
-            "발뒤꿈치 올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_strength_heel_raises}"
-            "다리 차올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_strength_leg_raises}"
-            "다리 옆으로 올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_side_leg_raises}"
+        val videoPath = when (workoutType) {
+            "유산소" -> "android.resource://${requireActivity().packageName}/${R.raw.low_cardio_brisk_walking}"
+            "근력" -> "android.resource://${requireActivity().packageName}/${R.raw.low_slow_chair_stand_ups}"
+            "유연성" -> "android.resource://${requireActivity().packageName}/${R.raw.low_strength_heel_raises}"
+            "균형" -> "android.resource://${requireActivity().packageName}/${R.raw.low_strength_leg_raises}"
+            // "다리 옆으로 올리기" -> "android.resource://${requireActivity().packageName}/${R.raw.low_side_leg_raises}"
             else -> "android.resource://${requireActivity().packageName}/${R.raw.low_side_leg_raises}"
         }
 

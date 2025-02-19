@@ -1,5 +1,7 @@
 package com.umc_msmg.frontend.fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +13,8 @@ import com.umc_msmg.frontend.databinding.LayoutStepperBinding
 class StepperFragment : Fragment() {
     private var _binding: LayoutStepperBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,5 +51,12 @@ class StepperFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences = requireContext().getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+        val count = sharedPreferences.getInt("stepCount", 0)
+        binding.a1TopTv2.text = count.toString()
     }
 }

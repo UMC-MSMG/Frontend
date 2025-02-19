@@ -6,15 +6,18 @@ plugins {
 }
 
 android {
+
     namespace = "com.umc_msmg.frontend"
     compileSdk = 35
-
     defaultConfig {
         applicationId = "com.umc_msmg.frontend"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+        android.buildFeatures.buildConfig = true
+
+        buildConfigField("String", "OPENAI_API", "\"${properties["OPENAI_API"] as? String ?: ""}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -70,6 +73,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.okhttp)
+    implementation(libs.googlePlaces)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,4 +83,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.material)
     implementation(libs.work.runtime)
+    implementation(libs.google)
+    implementation(libs.googleLocation)
 }
