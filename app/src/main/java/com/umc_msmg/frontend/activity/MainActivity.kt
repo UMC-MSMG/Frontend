@@ -4,26 +4,33 @@ import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Rect
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
-import android.view.TouchDelegate
-import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.umc_msmg.frontend.R
+import com.umc_msmg.frontend.data.DailySteps
+import com.umc_msmg.frontend.data.DayOfWeek
+import com.umc_msmg.frontend.data.WeeklyExerciseSummary
 import com.umc_msmg.frontend.databinding.ActivityMainBinding
 import com.umc_msmg.frontend.fragment.DiaryFragment
 import com.umc_msmg.frontend.fragment.MyPageFragment
 import com.umc_msmg.frontend.fragment.ShopFragment
 import com.umc_msmg.frontend.fragment.StepperFragment
 import com.umc_msmg.frontend.fragment.WorkoutFragment
+import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityMainBinding
@@ -57,8 +64,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         // 버튼 클릭 이벤트 설정
         setupButtonListeners()
 
-        // 터치 영역 확장
-        expandTouchArea(binding.shopButton, 35)
 
         // 뒤로 가기 버튼 처리
         val callback = object : OnBackPressedCallback(true) {
@@ -71,6 +76,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
         onBackPressedDispatcher.addCallback(this, callback)
+
+
     }
 
     override fun onResume() {
@@ -79,6 +86,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
             Log.d("StepCounter", "✅ 센서 리스너 등록됨")
         }
+        loadUserInfoAndSteps()
+        loadMyPoints()
     }
 
     override fun onPause() {
@@ -156,18 +165,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             .commit()
     }
 
-    private fun expandTouchArea(view: View, extraPadding: Int) {
-        binding.root.post {
-            val parent = view.parent as View
-            parent.post {
-                val rect = Rect()
-                view.getHitRect(rect)
-                rect.top -= extraPadding.dpToPx()
-                parent.touchDelegate = TouchDelegate(rect, view)
-            }
-        }
-    }
-
     private fun logAllPreferences() {
         val sharedPreferences =
             this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
@@ -178,7 +175,119 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun Int.dpToPx(): Int {
-        return (this * resources.displayMetrics.density).toInt()
+    private fun loadUserInfoAndSteps() {
+        val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+        val name = sharedPreferences.getString("user_name", null) ?: ""
+        var sequenceDays = sharedPreferences.getInt("sequenceDays", 1)
+        binding.userStatusText.text = "${name}님은\n${sequenceDays}일째 운동 중이에요."
+
+        val today = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formattedDate = formatter.format(today)
+
+        UserServiceRetrofitClient.apiService.getSteps(authorization, formattedDate)
+            .enqueue(object : Callback<DailySteps> {
+                override fun onResponse(call: Call<DailySteps>, response: Response<DailySteps>) {
+                    if (response.isSuccessful) {
+                        val dailySteps = response.body()
+                        val steps = dailySteps?.steps ?: 0
+
+                        binding.wt.text = steps.toString()
+
+                    } else {
+                        Log.e("MainActivity", "걸음수 가져오기 실패: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<DailySteps>, t: Throwable) {
+                    Log.e("MainActivity", "오늘 걸음 수 API 호출 실패: ${t.message}")
+                }
+            })
+
+        UserServiceRetrofitClient.apiService.getWeeklyExerciseSummary(authorization)
+            .enqueue(object : Callback<WeeklyExerciseSummary> {
+                override fun onResponse(
+                    call: Call<WeeklyExerciseSummary>,
+                    response: Response<WeeklyExerciseSummary>
+                ) {
+                    if (response.isSuccessful) {
+                        val summary = response.body()
+                        sequenceDays = summary?.sequence_days ?: 0
+                        Log.d("MainActivity", "loadUserInfoAndSteps - sequenceDays: $sequenceDays")
+                        binding.userStatusText.text = "${name}님은 ${sequenceDays}일째 운동 중이에요."
+                        if (summary != null) {
+                            updateWeeklyCheckboxes(summary)
+                        }
+
+
+                    } else {
+                        Log.e("MainActivity", "주간 운동 요약 정보 가져오기 실패: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<WeeklyExerciseSummary>,
+                    t: Throwable
+                ) {
+                    Log.e("MainActivity", "주간 운동 요약 정보 API 호출 실패: ${t.message}")
+                }
+            })
+    }
+
+    private fun loadMyPoints() {
+        val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+
+        UserServiceRetrofitClient.apiService.getMyPoints(authorization)
+            .enqueue(object : Callback<com.umc_msmg.frontend.data.MyPointsResponse> {
+                override fun onResponse(call: Call<com.umc_msmg.frontend.data.MyPointsResponse>, response: Response<com.umc_msmg.frontend.data.MyPointsResponse>) {
+                    if (response.isSuccessful) {
+                        val pointsResponse = response.body()
+                        val points = pointsResponse?.points ?: "0"
+                        binding.myPoint.text = points
+                        Log.d("MainActivity", "포인트 api 성공 :  $points")
+                    } else {
+                        Log.e("MainActivity", "포인트 가져오기 실패: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<com.umc_msmg.frontend.data.MyPointsResponse>, t: Throwable) {
+                    Log.e("MainActivity", "API 호출 실패: ${t.message}")
+                }
+            })
+    }
+
+    private fun updateWeeklyCheckboxes(summary: WeeklyExerciseSummary) {
+        val today = Calendar.getInstance()
+        val todayDayOfWeek = today.get(Calendar.DAY_OF_WEEK)
+
+        binding.apply {
+            calendarCheckMonday.setImageResource(getCheckImageResource(DayOfWeek.MONDAY, summary.monday, todayDayOfWeek))
+            calendarCheckTuesday.setImageResource(getCheckImageResource(DayOfWeek.TUESDAY, summary.tuesday, todayDayOfWeek))
+            calendarCheckWednesday.setImageResource(getCheckImageResource(DayOfWeek.WEDNESDAY, summary.wednesday, todayDayOfWeek))
+            calendarCheckThursday.setImageResource(getCheckImageResource(DayOfWeek.THURSDAY, summary.thursday, todayDayOfWeek))
+            calendarCheckFriday.setImageResource(getCheckImageResource(DayOfWeek.FRIDAY, summary.friday, todayDayOfWeek))
+            calendarCheckSaturday.setImageResource(getCheckImageResource(DayOfWeek.SATURDAY, summary.saturday, todayDayOfWeek))
+            calendarCheckSunday.setImageResource(getCheckImageResource(DayOfWeek.SUNDAY, summary.sunday, todayDayOfWeek))
+        }
+    }
+
+    private fun getCheckImageResource(day: DayOfWeek, isChecked: Boolean, today: Int): Int {
+        val dayOfWeekInt = when (day) {
+            DayOfWeek.MONDAY -> Calendar.MONDAY
+            DayOfWeek.TUESDAY -> Calendar.TUESDAY
+            DayOfWeek.WEDNESDAY -> Calendar.WEDNESDAY
+            DayOfWeek.THURSDAY -> Calendar.THURSDAY
+            DayOfWeek.FRIDAY -> Calendar.FRIDAY
+            DayOfWeek.SATURDAY -> Calendar.SATURDAY
+            DayOfWeek.SUNDAY -> Calendar.SUNDAY
+        }
+
+        return if (dayOfWeekInt < today) {
+            if (isChecked) R.drawable.calendar_checked else R.drawable.calendar_unchecked
+        } else {
+            R.drawable.calendar_yet_checked
+        }
     }
 }

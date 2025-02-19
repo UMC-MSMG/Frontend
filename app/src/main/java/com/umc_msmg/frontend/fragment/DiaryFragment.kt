@@ -8,10 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.data.DayOfWeek
 import com.umc_msmg.frontend.data.DefaultWorkoutPlan
 import com.umc_msmg.frontend.data.Difficulty
+import com.umc_msmg.frontend.data.WeeklyExerciseSummary
 import com.umc_msmg.frontend.databinding.FragmentDiaryBinding
+import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -78,6 +84,16 @@ class DiaryFragment : Fragment() {
         binding.exercise4Time.text = workoutList.균형.joinToString("\n") { it.set.toString() }
 
         Log.d("DiaryFragment", "오늘의 운동 계획 로드 성공")
+    }
+
+    private fun updateWeeklyCheckboxes(summary: WeeklyExerciseSummary) {
+        binding.calendarCheckMonday.setImageResource(if (summary.monday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckTuesday.setImageResource(if (summary.tuesday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckWednesday.setImageResource(if (summary.wednesday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckThursday.setImageResource(if (summary.thursday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckFriday.setImageResource(if (summary.friday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckSaturday.setImageResource(if (summary.saturday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
+        binding.calendarCheckSunday.setImageResource(if (summary.sunday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
     }
 
     override fun onDestroyView() {
