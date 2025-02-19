@@ -170,7 +170,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/pretendard_bold"
-        android:text="의자에서 천천히 일어나기"
+        android:text="운동 이름"
         android:textColor="@color/black"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
