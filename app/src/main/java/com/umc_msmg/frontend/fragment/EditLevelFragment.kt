@@ -105,7 +105,6 @@ class EditLevelFragment : Fragment() {
             editor.apply()
 
             Log.d("EditLevelFragment", "난이도 저장: $selectedDifficulty")
-            Toast.makeText(requireContext(), "난이도 저장 성공", Toast.LENGTH_SHORT).show()
 
             parentFragmentManager.popBackStack()
         }
