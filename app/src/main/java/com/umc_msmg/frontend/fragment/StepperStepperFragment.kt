@@ -75,12 +75,31 @@ class StepperStepperFragment : Fragment() {
         Log.d("SharedPreferences", "모든 위치 데이터가 삭제되었습니1다.")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
 
-    fun arrived()
-    {
-        //binding.arrived.visibility = VISIBLE
-        binding.arrivedTv.visibility = VISIBLE
-        binding.arrivedTv1.visibility = VISIBLE
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_frame) as? MapFragment
+        mapFragment?.let {
+            if (it.isAdded) {
+                val transaction = childFragmentManager.beginTransaction()
+                transaction.remove(it)
+                transaction.commitNowAllowingStateLoss()
+            }
+        }
+
+
     }
+
+
+
+
+    fun arrived() {
+        _binding?.let { binding ->
+            binding.arrived.visibility = VISIBLE
+            binding.arrivedTv.visibility = VISIBLE
+            binding.arrivedTv1.visibility = VISIBLE
+        } ?: Log.e("StepperFragment", "❌ Binding is null in arrived()")
+    }
+
 
 }

@@ -183,7 +183,10 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        fusedLocationClient.removeLocationUpdates(locationCallback) // ✅ 메모리 누수 방지
+            if (::fusedLocationClient.isInitialized) {
+                fusedLocationClient.removeLocationUpdates(locationCallback)
+            }
+            _binding = null
     }
 
     fun getCurrentLocation() {
@@ -203,8 +206,13 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
         }
     }
 
-    fun myLocation() : LatLng {
-        var currentLatLng = LatLng(0.0,0.0)
+    fun myLocation(callback: (LatLng) -> Unit) {
+        if (!isAdded) {
+            Log.e("myLocation", "❌ Fragment not attached to context.")
+            callback(LatLng(0.0, 0.0)) // 기본값 반환
+            return
+        }
+
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -212,13 +220,20 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
-                    currentLatLng = LatLng(it.latitude, it.longitude)
-
+                    val currentLatLng = LatLng(it.latitude, it.longitude)
+                    callback(currentLatLng)
+                } ?: run {
+                    Log.e("myLocation", "❌ 현재 위치를 가져올 수 없습니다.")
+                    callback(LatLng(0.0, 0.0))
                 }
             }
+        } else {
+            Log.e("myLocation", "❌ 위치 권한이 없습니다.")
+            callback(LatLng(0.0, 0.0))
         }
-        return currentLatLng
     }
+
+
 
 
     private fun searchNearbyParks(currentLatLng: LatLng) {
@@ -259,7 +274,7 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
                         marker?.let { markerList.add(it) }
 
                         val stepperFragment = requireActivity().supportFragmentManager.findFragmentByTag("StepTag") as? StepperStepperFragment
-                        stepperFragment?.setTargetText()
+                        stepperFragment?.setTargetText() ?: Log.e("MapFragment", "❌ StepperStepperFragment not found")
                     } else {
                         Log.d("PlacesAPI", "❌ 반경 ${radius}m 이내에 공원이 없습니다.")
                     }
@@ -306,21 +321,25 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
     }
 
 
-    fun checkArrived()
-    {
+    fun checkArrived() {
         val savedTargetLocation = sharedPreferences.getString("location", "")
-        if(calculateDistance(myLocation(), stringToLatLng(savedTargetLocation.toString()))<=50)
-        {
-            Log.e("!!!!!","도착띠")
-            removeAllMarkers()
-            val stepperFragment = requireActivity().supportFragmentManager.findFragmentByTag("StepTag") as? StepperStepperFragment
-            stepperFragment?.arrived()
-        }
-        else
-        {
-            Log.e("!!!!!", "안도착띠 ㅠ")
+        val targetLatLng = stringToLatLng(savedTargetLocation ?: "")
+
+        myLocation { currentLatLng ->
+            val distance = calculateDistance(currentLatLng, targetLatLng)
+
+            if (distance <= 50) {
+                Log.e("!!!!!", "도착띠 🚀")
+                removeAllMarkers()
+
+                val stepperFragment = requireActivity().supportFragmentManager.findFragmentByTag("StepTag") as? StepperStepperFragment
+                stepperFragment?.arrived() ?: Log.e("MapFragment", "❌ StepperStepperFragment not found")
+            } else {
+                Log.e("!!!!!", "안도착띠 ㅠ. 현재 거리: ${distance}m")
+            }
         }
     }
+
 
     fun removeAllMarkers() {
         requireActivity().runOnUiThread {
