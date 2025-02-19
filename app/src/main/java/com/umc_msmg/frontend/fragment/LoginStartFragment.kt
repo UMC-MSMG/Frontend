@@ -51,15 +51,15 @@ class LoginStartFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener() {
-            /*
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
-                .addToBackStack(null)
-                .commit()*/
 
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, GptFragment())
+                .addToBackStack(null)
+                .commit()
+/*
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
-            requireActivity().finish()
+            requireActivity().finish() */
         }
 
 

@@ -11,8 +11,8 @@
     <string name="call_widget_title">통화 위젯</string>
     <string name="terms_content_required">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolores, eveniet ipsa nemo nihil placeat sed veniam? Accusamus error, esse est fugit ipsum itaque minus molestiae, nesciunt officia omnis reiciendis! \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolores, eveniet ipsa nemo nihil placeat sed veniam? Accusamus error, esse est fugit ipsum itaque minus molestiae, nesciunt officia omnis reiciendis!</string>
     <string name="terms_content_optional">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolores, eveniet ipsa nemo nihil placeat sed veniam? Accusamus error, esse est fugit ipsum itaque minus molestiae, nesciunt officia omnis reiciendis! \n Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolores, eveniet ipsa nemo nihil placeat sed veniam? Accusamus error, esse est fugit ipsum itaque minus molestiae, nesciunt officia omnis reiciendis!</string>
-    <string name="BMI_underweight">비만도 결과가 저체중이에요.</string>
-    <string name="BMI_normal">비만도 결과가 정상이에요.</string>
-    <string name="BMI_overweight">비만도 결과가 과체중이에요.</string>
-    <string name="BMI_obese">비만도 결과가 비만이에요.</string>
+    <string name="BMI_underweight">비만도 결과가 저체중이에요</string>
+    <string name="BMI_normal">비만도 결과가 정상이에요</string>
+    <string name="BMI_overweight">비만도 결과가 과체중이에요</string>
+    <string name="BMI_obese">비만도 결과가 비만이에요</string>
 </resources>
