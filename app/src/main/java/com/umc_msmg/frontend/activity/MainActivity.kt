@@ -37,7 +37,6 @@ import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 

@@ -20,6 +20,8 @@ object RetrofitClient {
             level = HttpLoggingInterceptor.Level.BODY
         }).build()
 
+
+
     val loggingInterceptor = HttpLoggingInterceptor { message ->
         Log.d("OkHttp", message) // ✅ 요청 & 응답 데이터를 Raw로 찍어줌!
     }.apply {

@@ -45,6 +45,10 @@ interface ApiService {
         @Body request: StepRequest
     ): Response<Void>
 
+    @POST("/api/auth/login/phone/verify-request")
+    suspend fun sendLogin(@Query("phoneNum") pn: String): Response<String>
+
+
 }
 data class StepRequest(
     val steps: Int,

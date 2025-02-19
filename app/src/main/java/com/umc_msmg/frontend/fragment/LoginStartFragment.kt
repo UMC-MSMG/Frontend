@@ -38,25 +38,34 @@ class LoginStartFragment : Fragment() {
 
         binding.btnKakaoLogin.setOnClickListener {
             parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.fragment_container, KakaoLoginFragment())
                 .commit()
         }
 
         binding.btnLogin.setOnClickListener() {
             parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.fragment_container, LoginLoginFragment())
                 .commit()
         }
 
         binding.btnRegister.setOnClickListener() {
+            /*
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
                 .addToBackStack(null)
-                .commit()
+                .commit()*/
+
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
 
 
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
