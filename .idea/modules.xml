@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Frontend.iml" filepath="$PROJECT_DIR$/.idea/Frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msmg.iml" filepath="$PROJECT_DIR$/.idea/modules/msmg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/msmg.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/msmg.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/msmg.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/msmg.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/msmg.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/msmg.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/msmg.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/msmg.app.unitTest.iml" />
     </modules>
   </component>
 </project>

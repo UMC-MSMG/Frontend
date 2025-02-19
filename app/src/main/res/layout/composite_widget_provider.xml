@@ -1,0 +1,71 @@
+<!-- res/layout/composite_widget.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <!-- 상단 25%: 스텝퍼 위젯 (3x1) -->
+    <LinearLayout
+        android:id="@+id/widget_stepper_section"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/color_primary">
+
+        <TextView
+            android:id="@+id/stepper_widget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="오늘의 걸음수"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pretendard_bold"/>
+        <ImageView
+            android:id="@+id/widget_stepper_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/footstep"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"/>
+    </LinearLayout>
+
+    <!-- 하단 75%: 워크아웃 위젯 (3x3) -->
+    <LinearLayout
+        android:id="@+id/widget_workout_section"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/color_background">
+
+        <TextView
+            android:id="@+id/workout_widget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="내 운동 바로가기"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pretendard_bold"/>
+
+        <ProgressBar
+            android:id="@+id/widget_progress_bar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="30"
+            android:rotation="-90"
+            android:background="@drawable/circle_shape"
+            android:progressDrawable="@drawable/circular_progress"/>
+    </LinearLayout>
+
+</LinearLayout>
