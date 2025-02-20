@@ -11,6 +11,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
 import com.google.gson.annotations.SerializedName
+import com.umc_msmg.frontend.data.DailySteps
 import retrofit2.http.PATCH
 
 interface OpenAIApi {
@@ -77,6 +78,12 @@ interface ApiService {
     suspend fun loadInfo(
         @Header("Authorization") token: String
     ): Response<InfoLoadData>
+
+    @GET("/api/steps/")
+    suspend fun getSteps(
+        @Header("Authorization") token: String,
+        @Query("date") date: String
+        ): Response<DailySteps>
 }
 
 

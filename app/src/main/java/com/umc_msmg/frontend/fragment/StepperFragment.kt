@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -16,7 +18,16 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.umc_msmg.frontend.R
+import com.umc_msmg.frontend.data.DailySteps
 import com.umc_msmg.frontend.databinding.LayoutStepperBinding
+import com.umc_msmg.frontend.interfaces.RetrofitClient
+import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -41,7 +52,9 @@ class StepperFragment : Fragment() {
 
         barChart = binding.barChart
         setChart()
-        setData()
+
+
+
         binding.area1.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, StepperStepperFragment(), "StepTag")
@@ -64,9 +77,12 @@ class StepperFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        sharedPreferences = requireContext().getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
-        val count = sharedPreferences.getInt("stepCount", 0)
-        binding.a1TopTv2.text = count.toString()
+
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            setData()
+            binding.a1TopTv2.text = getStep(getTodayDayOfWeek()).toString()
+        }
     }
 
     private fun setChart() {
@@ -89,15 +105,15 @@ class StepperFragment : Fragment() {
 
     }
 
-        private fun setData()
-    {
+        private suspend fun setData()
+        {
         val today = getTodayDayOfWeek()
         val stepsList = mutableListOf<Int>()
         var total = 0
         for (day in 1..7) {
             if (day <= today) {
-                stepsList.add(getStep(day, today))
-                total += getStep(day, today)
+                stepsList.add(getStep(day))
+                total += getStep(day)
             } else {
                 stepsList.add(0)  // 나머지 칸을 0으로 채움
             }
@@ -127,20 +143,31 @@ class StepperFragment : Fragment() {
         binding.a1BottomTv1.text = "이번주의 평균 걸음 수는\n"+total/today+" 걸음이에요"
     }
 
-    fun getStep(day: Int, target: Int): Int {
-        if(day == target)
-        {
-            sharedPreferences = requireContext().getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
-            return sharedPreferences.getInt("stepCount",0)
-        }
-        else
-        {
-            val requestday = LocalDate.now().minusDays(day-1.toLong())
-            val requestDate = requestday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            //이부분에 서버통신 추가
-            return 10
+
+    suspend fun getStep(day: Int): Int {
+        var steps = 0
+        return withContext(Dispatchers.IO) {
+                val requestDay = LocalDate.now().minusDays((5-day.toLong()))
+                val requestDate = requestDay.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val newPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                val token = "Bearer " + newPreferences.getString("access_token", null)
+
+                try {
+                    val response = RetrofitClient.loginService.getSteps(token, requestDate)
+                    if (response.isSuccessful) {
+                        val dailySteps = response.body()
+                        steps = dailySteps?.steps ?: 0
+                    } else {
+                        Log.e("MainActivity", "걸음수 가져오기 실패: ${response.code()}")
+                    }
+                } catch (e: Exception) {
+                    Log.e("MainActivity", "걸음 수 API 호출 실패: ${e.message}")
+                }
+            Log.e("OHNO", steps.toString())
+            steps // withContext의 결과로 반환
         }
     }
+
 
     fun getTodayDayOfWeek(): Int {
         val today = LocalDate.now()
