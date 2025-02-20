@@ -1,29 +1,24 @@
 // WorkoutVideoFragment.kt
 package com.umc_msmg.frontend.fragment
 
-import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.LayoutWorkoutVideoBinding
+import com.umc_msmg.frontend.utils.VideoManager
+import com.umc_msmg.frontend.utils.CountManager
 
 class WorkoutVideoFragment : Fragment() {
     private var _binding: LayoutWorkoutVideoBinding? = null
     private val binding get() = _binding!!
-    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var videoManager: VideoManager
+    private lateinit var countManager: CountManager
     private var workoutType: String? = null
-    private var currentVideoIndex = 0
-    private var videoList: List<VideoInfo> = emptyList()
-    private var timeCount = 0
-    private var exerciseCount = 0
-    private var repeatCount = 0
 
     data class VideoInfo(
         val resourceId: Int,
@@ -34,8 +29,6 @@ class WorkoutVideoFragment : Fragment() {
         val showSetNumber: Boolean,
         val title: String
     )
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +45,24 @@ class WorkoutVideoFragment : Fragment() {
         binding.exerciseTitle.text = workoutType ?: "운동"
         binding.exerciseCompleBtn.visibility = View.GONE
 
+        val frameLayout = FrameLayout(requireContext())
+        (binding.exerciseVideo.parent as ViewGroup).apply {
+            removeView(binding.exerciseVideo)
+            addView(frameLayout, binding.exerciseVideo.layoutParams)
+        }
+        frameLayout.addView(binding.exerciseVideo, FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            Gravity.CENTER
+        ))
+
+        videoManager = VideoManager(requireActivity(), binding.exerciseVideo)
+        countManager = CountManager { count, maxCount ->
+            binding.countText.text = "$count / $maxCount"
+        }
+
         setupVideoList()
-        setupVideoPlayer()
+        startWorkout()
 
         binding.exerciseCompleBtn.setOnClickListener {
             showExerciseCompleteMessage()
@@ -61,7 +70,7 @@ class WorkoutVideoFragment : Fragment() {
     }
 
     private fun setupVideoList() {
-        videoList = when (workoutType) {
+        val videoList = when (workoutType) {
             "유산소" -> listOf(
                 VideoInfo(R.raw.low_cardio_brisk_walking, 3, 180, 1, true, false, "빠르게 걷기")
             )
@@ -73,104 +82,34 @@ class WorkoutVideoFragment : Fragment() {
             )
             else -> emptyList()
         }
+        videoManager.setVideoList(videoList)
     }
 
-
-
-    private fun setupVideoPlayer() {
-        if (videoList.isEmpty()) {
-            binding.exerciseCompleBtn.visibility = View.VISIBLE
-            return
+    private fun startWorkout() {
+        videoManager.setupVideoPlayer {
+            onVideoComplete()
         }
-
-        val currentVideo = videoList[currentVideoIndex]
-        val videoPath = "android.resource://${requireActivity().packageName}/${currentVideo.resourceId}"
-
-        binding.exerciseVideo.apply {
-            setVideoURI(Uri.parse(videoPath))
-            setMediaController(MediaController(context).apply { setAnchorView(this@apply) })
-            setOnCompletionListener { onVideoComplete() }
-            setOnPreparedListener { mp ->
-                mp.isLooping = false
-                adjustVideoSize()
-            }
-            start()
-        }
-
-        resetCounters()
-        updateUI(currentVideo)
-        startCounting(currentVideo)
+        updateUI()
+        startCounting()
     }
 
-    private fun adjustVideoSize() {
-        binding.exerciseVideo.post {
-            val videoView = binding.exerciseVideo
-            val parentWidth = (videoView.parent as View).width
-            val parentHeight = (videoView.parent as View).height
-            val videoWidth = videoView.width
-            val videoHeight = videoView.height
-            val aspectRatio = videoWidth.toFloat() / videoHeight.toFloat()
-            val newWidth = (parentHeight * aspectRatio).toInt()
-
-            val params = videoView.layoutParams as ConstraintLayout.LayoutParams
-            params.width = newWidth
-            params.height = parentHeight
-            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
-            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
-            params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-            params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-            videoView.layoutParams = params
+    private fun updateUI() {
+        val currentVideo = videoManager.getCurrentVideo() ?: return
+        binding.exerciseTitle.text = currentVideo.title
+        binding.exerciseSetNumber.visibility = if (currentVideo.showSetNumber) View.VISIBLE else View.GONE
+        if (currentVideo.showSetNumber) {
+            binding.exerciseSetNumber.text = "${countManager.getRepeatCount() + 1} 세트"
         }
     }
 
-    private fun resetCounters() {
-        timeCount = 0
-        exerciseCount = 0
-        repeatCount = 0
-    }
-
-    private fun updateUI(video: VideoInfo) {
-        binding.exerciseTitle.text = video.title
-        binding.exerciseSetNumber.visibility = if (video.showSetNumber) View.VISIBLE else View.GONE
-        if (video.showSetNumber) {
-            binding.exerciseSetNumber.text = "${repeatCount + 1} 세트"
-        }
-    }
-
-    private fun startCounting(video: VideoInfo) {
-        handler.post(object : Runnable {
-            override fun run() {
-                if (video.isTimeCount) {
-                    timeCount++
-                    binding.countText.text = "$timeCount 초"
-                } else {
-                    if (timeCount % video.countInterval == 0) {
-                        exerciseCount++
-                        binding.countText.text = "$exerciseCount / ${video.maxCount}"
-                    }
-                    timeCount++
-                }
-
-                if ((video.isTimeCount && timeCount < video.maxCount) || (!video.isTimeCount && exerciseCount < video.maxCount)) {
-                    handler.postDelayed(this, 1000)
-                } else {
-                    repeatCount++
-                    if (repeatCount < video.repeatTimes) {
-                        timeCount = 0
-                        exerciseCount = 0
-                        updateUI(video)
-                        binding.exerciseVideo.start()
-                        handler.post(this)
-                    }
-                }
-            }
-        })
+    private fun startCounting() {
+        val currentVideo = videoManager.getCurrentVideo() ?: return
+        countManager.startCounting(currentVideo)
     }
 
     private fun onVideoComplete() {
-        currentVideoIndex++
-        if (currentVideoIndex < videoList.size) {
-            setupVideoPlayer()
+        if (videoManager.moveToNextVideo()) {
+            startWorkout()
         } else {
             binding.exerciseCompleBtn.visibility = View.VISIBLE
         }
@@ -183,7 +122,7 @@ class WorkoutVideoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding.exerciseVideo.stopPlayback()
-        handler.removeCallbacksAndMessages(null)
+        countManager.stopCounting()
         _binding = null
     }
 }
