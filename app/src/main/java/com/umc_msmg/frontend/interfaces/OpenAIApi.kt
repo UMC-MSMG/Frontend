@@ -53,6 +53,12 @@ interface ApiService {
     @POST("/api/auth/login/phone/verify-check")
     suspend fun checkLogin(@Body request: codeVerifyData) : Response<normalLoginData>
 
+    @POST("/api/auth/signup/phone/verify-request")
+    suspend fun sendRegister(@Body request: phoneVerifyData): Response<phoneVerifyDataResponse>
+
+    @POST("/api/auth/signup/phone/verify-check")
+    suspend fun checkRegister(@Body request: codeVerifyData) : Response<normalLoginData>
+
     @GET("place/nearbysearch/json") // ✅ Google Places API - Nearby Search
     fun getNearbyParks(
         @Query("location") location: String, // ✅ 위도, 경도 (예: "37.5444,127.0370")
