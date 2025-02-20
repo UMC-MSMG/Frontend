@@ -160,7 +160,7 @@ class GptFragment : Fragment() {
     private fun sendMessageToChatGPT(userText: String) {
         if(count == 0)
         {
-            chatHistory.add(ChatMessage("system", "너는 내가 60대의 노인이고, 신체가 건강한지 잘 모른다고 가정하고 너가 내 건강상태를 대략적으로 파악할때까지 대화를 할꺼야. 질문 내용은 간결해야하고 이해가 쉬워야해. 모든 대화가 끝났다고 판단이 되면 이사람의 신체 운동 수행능력이 좋으면 '상', 그저 중간이면 '중', 낮은수준이면 '하' 라는 단 한 글자만 전달해. 전달할때 오직 한 글자만 전해. 한글자만 말해. 말투는 다소 딱딱하게 해줘. 첫번째 질문 앞에는 꼭 '지금부터 AI 모의검진을 시작하겠습니다.' 하고 줄넘김을 해줘. 모든 대답은 빠르고 간결하게해. 너가 결론이 날때까지 계속 질문하도록. 일반적으로 질문의 개수는 정말 특별한게 아니면 3-7개 사이로 해줘. **다시 한번 강조한다:**  - 최종 답변은 반드시 `상` `중` `하` 중 하나의 한 글자만 출력.  - 마침표, 느낌표, 이모지, 설명 등은 금지.  - 지시를 따르지 않으면 테스트가 실패한 것으로 간주한다."))
+            chatHistory.add(ChatMessage("system", "너는 내가 60대의 노인이고, 신체가 건강한지 잘 모른다고 가정하고 너가 내 건강상태를 대략적으로 파악할때까지 대화를 할꺼야. 질문 내용은 간결해야하고 이해가 쉬워야해. 모든 대화가 끝났다고 판단이 되면 이 사람의 신체 운동 수행능력이 좋으면 `상`, 그저 중간이면 `중`, 낮은 수준이면 `하` 라는 단 **한 글자만** 전달해. ⚠ Final Answer Instructions: You must answer with only one letter: h (high), m (medium), or l (low) based on the previous questions. This is to evaluate the person’s physical health condition. ⚠ STRICT RULES: Only one letter. No punctuation, spaces, or additional text. No explanations, comments, or extra words. Absolutely nothing else but a single letter. - **마침표**, **느낌표**, **공백**, **설명** 등 **모든 추가 요소 금지**. - 결과에는 오직 **한 글자만** 포함. **절대 어기지 말 것!** 지시를 따르지 않으면 테스트 실패로 간주한다. 첫 번째 질문 전에 꼭 다음 문장을 출력해: **\"지금부터 AI 모의검진을 시작하겠습니다.\"** 질문은 간결하게, 대답도 짧고 빠르게. 대체로 3~7개의 질문으로 마무리해. 결론이 날 때까지 계속 질문하도록."))
             count++
         }
         else {
@@ -169,7 +169,7 @@ class GptFragment : Fragment() {
         }
         if(finished)
         {
-            chatHistory.add(ChatMessage("system", "지금까지 대화를 나누며 내 건강에 관해 느낀점을 첫번째줄, 개선방법을 두번째줄로 요약해서 보내"))
+            chatHistory.add(ChatMessage("system", "I will start new session and conversations. Forget all previous instructions. From now on, follow only the instructions given below.  지금까지 대화를 나누며 내 건강에 관해 느낀점을 첫번째줄, 개선방법을 두번째줄로 요약해서 보내"))
 
         }
 

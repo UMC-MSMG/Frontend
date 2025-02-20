@@ -2,6 +2,7 @@ package com.umc_msmg.frontend.activity
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.hardware.Sensor
@@ -10,11 +11,16 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
+import android.webkit.CookieManager
+import android.webkit.WebStorage
+import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.maps.model.LatLng
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.data.DailySteps
 import com.umc_msmg.frontend.data.DayOfWeek
@@ -25,6 +31,9 @@ import com.umc_msmg.frontend.fragment.MyPageFragment
 import com.umc_msmg.frontend.fragment.ShopFragment
 import com.umc_msmg.frontend.fragment.StepperFragment
 import com.umc_msmg.frontend.fragment.WorkoutFragment
+import com.umc_msmg.frontend.interfaces.InfoLoadData
+import com.umc_msmg.frontend.interfaces.InfoUpdateData
+import com.umc_msmg.frontend.interfaces.PlacesResponse
 import com.umc_msmg.frontend.interfaces.RetrofitClient
 import com.umc_msmg.frontend.interfaces.StepRequest
 import com.umc_msmg.frontend.util.StepCounterManager
@@ -34,9 +43,14 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
@@ -46,14 +60,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var stepSensor: Sensor? = null
     private var stepCount = 0;
     private lateinit var sharedPreferences: SharedPreferences
+    private var updating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         logAllPreferences()
+        lifecycleScope.launch {
+            loadAndUpdateSP()
+            loadandupdatestep()
+        }
+        if(!updating)
+        {
+            updating = true;
+        }
         requestActivityRecognitionPermission()
-
         StepCounterManager.resetStepsIfNewDay(this)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -67,7 +89,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         // 버튼 클릭 이벤트 설정
         setupButtonListeners()
-        sharedPreferences = this.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
 
 
 
@@ -94,11 +115,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
+        lifecycleScope.launch {
+            loadAndUpdateSP()
+        }
         stepSensor?.let {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
             Log.d("StepCounter", "✅ 센서 리스너 등록됨")
         }
-        loadUserInfoAndSteps()
+
         loadMyPoints()
     }
 
@@ -115,23 +139,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
-            val currentStep = event.values[0].toInt()
-            val previousSteps = StepCounterManager.getSteps(this)
-
-            // 새로운 걸음 추가
-            stepCount = previousSteps + 1
-            Log.d("StepCounter", "📊 오늘 걸음 수: $stepCount")
-
-            // SharedPreferences에 저장
-            StepCounterManager.saveSteps(this, stepCount)
-
-            // UI 업데이트
-            updateStepCountUI()
-
-            sharedPreferences.edit()
-                .putInt("stepCount", stepCount)
-                .apply()
-
+            CoroutineScope(Dispatchers.IO).launch {
+            loadandupdatestep()}
         }
     }
 
@@ -156,17 +165,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
         binding.stepperBtn.setOnClickListener {
-            val sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-            val token = "bearer " + sharedPreferences.getString("access_token", null)
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    RetrofitClient.loginService.putStep(token,
-                        StepRequest(stepCount,StepCounterManager.getTodayDate()))
-                } catch (e: Exception) {
-                    Log.e("PATCH", "❌ 오류 발생: ${e.message}")
-                }
-            }
-
             switchFragment(StepperFragment())
         }
 
@@ -208,33 +206,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun loadUserInfoAndSteps() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+        val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
         val name = sharedPreferences.getString("user_name", null) ?: ""
         var sequenceDays = sharedPreferences.getInt("sequenceDays", 1)
         binding.userStatusText.text = "${name}님은\n${sequenceDays}일째 운동 중이에요."
 
-        val today = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val formattedDate = formatter.format(today)
-
-        UserServiceRetrofitClient.apiService.getSteps(authorization, formattedDate)
-            .enqueue(object : Callback<DailySteps> {
-                override fun onResponse(call: Call<DailySteps>, response: Response<DailySteps>) {
-                    if (response.isSuccessful) {
-                        val dailySteps = response.body()
-                        val steps = dailySteps?.steps ?: 0
-
-                        binding.wt.text = steps.toString()
-
-                    } else {
-                        Log.e("MainActivity", "걸음수 가져오기 실패: ${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<DailySteps>, t: Throwable) {
-                    Log.e("MainActivity", "오늘 걸음 수 API 호출 실패: ${t.message}")
-                }
-            })
 
         UserServiceRetrofitClient.apiService.getWeeklyExerciseSummary(authorization)
             .enqueue(object : Callback<WeeklyExerciseSummary> {
@@ -268,7 +244,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun loadMyPoints() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+        val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
 
         UserServiceRetrofitClient.apiService.getMyPoints(authorization)
             .enqueue(object : Callback<com.umc_msmg.frontend.data.MyPointsResponse> {
@@ -321,4 +297,133 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             R.drawable.calendar_yet_checked
         }
     }
+
+    suspend fun loadAndUpdateSP() {
+        sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val token = "Bearer " + sharedPreferences.getString("access_token", null)
+                if(token == "Bearer ")
+                {
+                    logout()
+                }
+                if (token != null) {
+                    val response = RetrofitClient.loginService.loadInfo(token)
+                    if(response.isSuccessful)
+                    {
+                        sharedPreferences.edit()
+                            .putInt("user_id", response.body()!!.id)
+                            .putString("user_name", response.body()!!.name)
+                            .putString("user_kakao_id", response.body()!!.kakaoId)
+                            .putString("user_gender", response.body()!!.gender)
+                            .putString("user_phone", response.body()!!.phoneNumber)
+                            .putString("user_birthday", response.body()!!.birthDate)
+                            .putInt("user_height", response.body()!!.height)
+                            .putInt("user_weight", response.body()!!.weight)
+                            .putInt("user_point", response.body()!!.point)
+                            .putString("user_image", response.body()!!.image)
+                            .putString("user_diff", response.body()!!.workoutLevel)
+                            .putString("refresh_token", response.body()!!.refreshToken)
+                            .apply()
+                        logAllPreferences()
+                    }
+
+
+
+                    }
+                else
+                {
+                    logout()
+
+                }
+            } catch (e: Exception) {
+                Log.e("PATCH", "오류 발생: ${e.message}")
+            }
+        }
+
+        loadUserInfoAndSteps()
+    }
+
+    private fun logout() {
+        var sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        sharedPreferences = this.getSharedPreferences("LP", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        sharedPreferences = this.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        clearWebViewData()
+        val intent = Intent(this@MainActivity, StartActivity::class.java)
+        startActivity(intent)
+        Log.d("Logout", "로그아웃 완료 / 웹뷰 데이터 초기화됨")
+    }
+
+    private fun clearWebViewData() {
+        val webView = WebView(this@MainActivity)
+        webView.clearCache(true)
+        webView.clearHistory()
+        CookieManager.getInstance().removeAllCookies(null)
+        CookieManager.getInstance().flush()
+        WebStorage.getInstance().deleteAllData()
+    }
+
+
+     suspend fun updateStep(cnt : Int) {
+         val sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+         val token = "bearer " + sharedPreferences.getString("access_token", null)
+
+
+
+         CoroutineScope(Dispatchers.Main).launch {
+             binding.wt.text = (cnt+1).toString()
+             Log.d("!!!!!!", "업데이트된")
+         }
+
+         CoroutineScope(Dispatchers.IO).launch {
+             try {
+                 RetrofitClient.loginService.putStep(
+                     token,
+                     StepRequest(cnt+1, StepCounterManager.getTodayDate())
+                 )
+             } catch (e: Exception) {
+                 Log.e("PATCH", "❌ 오류 발생: ${e.message}")
+             }
+         }
+     }
+
+
+    suspend fun loadandupdatestep()
+    {
+        val requestDay = LocalDate.now() // getTodayDate() 대신 LocalDate로 테스트
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+        val requestDate = requestDay.format(formatter)
+
+        Log.d("!!!!!!", requestDate) // 출력: 2024-02-20
+
+        val newPreferences = this@MainActivity.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+        val token = "Bearer " + sharedPreferences.getString("access_token", null)
+        var stepFromServer = 0
+        try {
+            val response = RetrofitClient.loginService.getSteps(token, requestDate)
+            if (response.isSuccessful) {
+                val dailySteps = response.body()?.steps
+
+                Log.d("!!!!!!", (dailySteps).toString())
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (dailySteps != null) {
+                        updateStep(dailySteps)
+                    }
+                }
+
+
+            } else {
+                Log.e("MainActivity", "걸음수 가져오기 실패: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "걸음 수 API 호출 실패: ${e.message}")
+        }
+    }
+
+
+
 }

@@ -91,24 +91,25 @@ class KakaoLoginFragment : Fragment() {
             .putString("access_token", loginResponse.accessToken)
             .putString("refresh_token", loginResponse.refreshToken)
             .putBoolean("new", loginResponse.newUser)
+            .putBoolean("kakao", true)
             .apply()
 
         requireActivity().runOnUiThread {
-            Toast.makeText(requireContext(), "로그인 성공: ${loginResponse.user.name}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "카카오 로그인 성공", Toast.LENGTH_SHORT).show()
         }
         logAllPreferences()
+
         if(loginResponse.newUser) {
-            //이미 회원인경우
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
-        else {
-            //회원가입이 필요한경우
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SignUpTermsAgreementFragment())
                 .addToBackStack(null)
                 .commit()
+
+        }
+        else {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 
