@@ -8,10 +8,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import com.umc_msmg.frontend.R
+import com.umc_msmg.frontend.data.UpdateProfileResponse
+import com.umc_msmg.frontend.data.UserProfileUpdateRequest
 import com.umc_msmg.frontend.databinding.FragmentEditProfileBinding
+import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
@@ -56,9 +63,9 @@ class EditProfileFragment : Fragment() {
         val phone = sharedPreferences.getString("user_phone", "")
 
         binding.editName.setText(name)
-        if (gender == "남성") {
+        if (gender == "MALE") {
             binding.maleRadioButton.isChecked = true
-        } else if (gender == "여성") {
+        } else if (gender == "FEMALE") {
             binding.femaleRadioButton.isChecked = true
         }
         binding.editHeight.setText(height.toString())
@@ -68,23 +75,64 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun saveUserProfile() {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("user_name", binding.editName.text.toString())
-        val selectedGender = when (binding.genderRadioGroup.checkedRadioButtonId) {
-            R.id.maleRadioButton -> "남성"
-            R.id.femaleRadioButton -> "여성"
-            else -> throw IllegalArgumentException("성별을 선택해야 합니다.")
-        }
-        editor.putString("user_gender", selectedGender)
-        editor.putInt("user_height", binding.editHeight.text.toString().replace(" cm", "").toIntOrNull() ?: 0)
-        editor.putInt("user_weight", binding.editWeight.text.toString().replace(" kg", "").toIntOrNull() ?: 0)
-        editor.putString("user_phone", binding.editPhone.text.toString())
-        editor.apply()
-        Log.d("EditProfileFragment", "사용자 정보 저장 성공")
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
+        Log.d("tokenName", authorization)
 
-        parentFragmentManager.popBackStack()
+        val name = binding.editName.text.toString()
+        val gender = when (binding.genderRadioGroup.checkedRadioButtonId) {
+            R.id.femaleRadioButton -> "FEMALE"
+            else -> "MALE"
+        }
+        val height = binding.editHeight.text.toString().replace(" cm", "").toIntOrNull()
+        val weight = binding.editWeight.text.toString().replace(" kg", "").toIntOrNull()
+        val phoneNumber = binding.editPhone.text.toString()
+        if (name.isEmpty() || gender.isEmpty() || height == null || weight == null) {
+            Toast.makeText(context, "모든 필수 정보를 입력해야 합니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val userProfile = UserProfileUpdateRequest(
+            name = name,
+            gender = gender,
+            height = height,
+            weight = weight,
+            phoneNumber = phoneNumber
+        )
+
+        UserServiceRetrofitClient.apiService.updateProfile(authorization, userProfile)
+            .enqueue(object : Callback<UpdateProfileResponse> {
+                override fun onResponse(call: Call<UpdateProfileResponse>, response: Response<UpdateProfileResponse>) {
+                    if (response.isSuccessful) {
+                        val updateProfileResponse = response.body()
+                        Log.d(
+                            "EditProfileFragment",
+                            "사용자 정보 업데이트 성공: ${updateProfileResponse?.message}"
+                        )
+                        Toast.makeText(context, "사용자 정보 업데이트 성공", Toast.LENGTH_SHORT).show()
+
+                        val editor = sharedPreferences.edit()
+                        editor.putString("user_name", name)
+                        editor.putString("user_gender", gender)
+                        editor.putInt("user_height", height)
+                        editor.putInt("user_weight", weight)
+                        editor.putString("user_phone", phoneNumber)
+                        editor.apply()
+                        Log.d("EditProfileFragment", "사용자 정보 저장 성공")
+
+                        parentFragmentManager.popBackStack()
+                    } else {
+                        Log.e("EditProfileFragment", "사용자 정보 업데이트 실패: ${response.code()}")
+                        Log.d("EditProfileFragment", "사용자 정보 업데이트 API 요청 헤더: ${call.request().headers}")
+                        Toast.makeText(context, "사용자 정보 업데이트 실패", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<UpdateProfileResponse>, t: Throwable) {
+                    Log.e("EditProfileFragment", "api 호출 실패: ${t.message}")
+                    Toast.makeText(context, "api 호출 실패", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     override fun onDestroyView() {

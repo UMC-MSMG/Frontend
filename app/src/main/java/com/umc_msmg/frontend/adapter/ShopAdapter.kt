@@ -1,47 +1,41 @@
 package com.umc_msmg.frontend.adapter
 
-import com.umc_msmg.frontend.data.ShopItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.umc_msmg.frontend.data.ShopItem
 import com.umc_msmg.frontend.databinding.ItemShopBinding
 
-class ShopAdapter(private val onItemClick: (ShopItem) -> Unit) : RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
-    private var items = listOf<ShopItem>()
 
-    inner class ViewHolder(private val binding: ItemShopBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ShopItem) {
-            binding.apply {
-                binding.itemName.text = item.name
-                binding.itemOffice.text = item.purchasingOffice
-                binding.itemPrice.text = "${item.price}원"
-                item.imageResId?.let { binding.itemImage.setImageResource(it) }
+class ShopAdapter(private val onItemClick: (ShopItem) -> Unit) :
+    RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
 
-                root.setOnClickListener {
-                    onItemClick(item)
-                }
-            }
+    private var items: List<ShopItem> = emptyList()
+
+    inner class ShopViewHolder(val binding: ItemShopBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopViewHolder {
+        val binding = ItemShopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ShopViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
+        val item = items[position]
+        holder.binding.itemName.text = item.name
+        holder.binding.itemPrice.text = "${item.price}원"
+        Glide.with(holder.itemView.context).load(item.image).into(holder.binding.itemImage)
+        holder.binding.root.setOnClickListener {
+            onItemClick(item)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemShopBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getItemCount(): Int {
+        return items.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
-    override fun getItemCount() = items.size
-
-    fun submitList(newItems: List<ShopItem>) {
-        items = newItems
+    fun submitList(list: List<ShopItem>) {
+        items = list
         notifyDataSetChanged()
     }
 }

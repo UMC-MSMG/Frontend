@@ -13,6 +13,7 @@ import android.webkit.WebStorage
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.activity.StartActivity
@@ -78,17 +79,21 @@ class MyPageFragment : Fragment() {
 
     private fun loadUserProfile() {
         val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val name = sharedPreferences.getString("user_name", "사람1")
-        val gender = sharedPreferences.getString("user_gender", "남성")
-        val height = sharedPreferences.getInt("user_height", 156)
-        val weight = sharedPreferences.getInt("user_weight", 56)
-        val difficulty = sharedPreferences.getString("difficulty", "중") ?: "중"
+        val name = sharedPreferences.getString("user_name", "")
+                val gender = sharedPreferences.getString("user_gender", "MALE")
+                val height = sharedPreferences.getInt("user_height", 0)
+                val weight = sharedPreferences.getInt("user_weight", 0)
+                val imageUrl = sharedPreferences.getString("user_image", "")
 
-        binding.name.text = name
-        binding.gender.text = gender
-        binding.height.text = "$height cm"
-        binding.weight.text = "$weight kg"
-        Log.d("MyPageFragment", "사용자 정보 조회 성공, 난이도: $difficulty")
+                Glide.with(this).load(imageUrl).into(binding.profile)
+                Log.d("MyPageFragment", "이미지 로드 성공, 이미지 URL: $imageUrl")
+
+                binding.name.text = name
+                binding.gender.text = if (gender == "MALE") "남성" else "여성"
+                binding.height.text = "$height cm"
+                binding.weight.text = "$weight kg"
+                Log.d("MyPageFragment", "사용자 정보 조회 성공, 이름: $name")
+
     }
 
 

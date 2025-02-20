@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -15,7 +14,13 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.adapter.DifficultyAdapter
+import com.umc_msmg.frontend.data.UpdateProfileResponse
+import com.umc_msmg.frontend.data.WorkoutLevelRequest
 import com.umc_msmg.frontend.databinding.FragmentEditLevelBinding
+import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.math.abs
 
 class EditLevelFragment : Fragment() {
@@ -24,9 +29,9 @@ class EditLevelFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var difficultySlider: RecyclerView
     private lateinit var difficultyAdapter: DifficultyAdapter
-    private val difficulties = listOf("상", "중", "하")
-    private val prefName = "DifficultyPrefs"
-    private val difficultyKey = "difficulty"
+    private val difficulties = listOf("HIGH", "MEDIUM", "LOW")
+    private val prefName = "app_prefs"
+    private val difficultyKey = "user_diff"
     private var selectedPosition: Int = 1
 
     override fun onCreateView(
@@ -44,7 +49,7 @@ class EditLevelFragment : Fragment() {
 
         val sharedPreferences = requireContext().getSharedPreferences(prefName, Context.MODE_PRIVATE)
 
-        val initialDifficulty = sharedPreferences.getString(difficultyKey, "중") ?: "중"
+        val initialDifficulty = sharedPreferences.getString(difficultyKey, "NORMAL") ?: "NORMAL"
         selectedPosition = difficulties.indexOf(initialDifficulty)
         if (selectedPosition == -1) {
             selectedPosition = 1
@@ -99,14 +104,33 @@ class EditLevelFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
-            val editor = sharedPreferences?.edit() ?: return@setOnClickListener
+            val difficultyPreferences = requireContext().getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            val authorization = "Bearer " + difficultyPreferences.getString("access_token", null)
             val selectedDifficulty = difficultyAdapter.getSelectedDifficulty()
-            editor.putString(difficultyKey, selectedDifficulty)
-            editor.apply()
 
-            Log.d("EditLevelFragment", "난이도 저장: $selectedDifficulty")
+            val request = WorkoutLevelRequest(selectedDifficulty)
 
-            parentFragmentManager.popBackStack()
+            UserServiceRetrofitClient.apiService.updateWorkoutLevel(authorization, request)
+                .enqueue(object : Callback<UpdateProfileResponse> {
+                    override fun onResponse(call: Call<UpdateProfileResponse>, response: Response<UpdateProfileResponse>) {
+                        if (response.isSuccessful) {
+                            Log.d("EditLevelFragment", "난이도 API 업데이트 성공")
+
+                            val editor = difficultyPreferences.edit()
+                            editor.putString(difficultyKey, selectedDifficulty)
+                            editor.apply()
+
+                            parentFragmentManager.popBackStack()
+                        } else {
+                            Log.e("EditLevelFragment", "난이도 API 업데이트 실패: ${response.code()}")
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UpdateProfileResponse>, t: Throwable) {
+                        Log.e("EditLevelFragment", "난이도 API 호출 실패: ${t.message}")
+                    }
+                })
         }
 
         binding.btnBack.setOnClickListener {
@@ -154,10 +178,5 @@ class EditLevelFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun getSelectedDifficulty(): String {
-        return difficultyAdapter.getSelectedDifficulty()
-
     }
 }

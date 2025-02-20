@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:clipChildren="false"
     android:fitsSystemWindows="true">
 
     <ScrollView
@@ -13,8 +12,7 @@
         android:layout_weight="1"
         android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/point_button"
-        android:layout_marginBottom="50dp">
+        app:layout_constraintBottom_toTopOf="@id/shop_button">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +22,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/icon"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:layout_marginTop="16dp"
@@ -283,9 +282,7 @@
                         android:textAlignment="center"
                         android:fontFamily="@font/pretendard_medium"
                         android:layout_weight="1"/>
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:id="@+id/weekly_checkbox"
                     android:layout_width="0dp"
@@ -340,6 +337,9 @@
                         android:layout_weight="1"/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
         </LinearLayout>
     </ScrollView>
     <androidx.constraintlayout.widget.ConstraintLayout

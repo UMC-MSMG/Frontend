@@ -22,24 +22,11 @@ class MyShopFragment : Fragment() {
         binding.cancelButton.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-
-        binding.item1.setOnClickListener {
-            navigateToFragment(CouponFragment())
-        }
-
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun navigateToFragment(fragment: Fragment) {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .commit()
     }
 }

@@ -24,7 +24,7 @@ class DifficultyAdapter(
 
     override fun onBindViewHolder(holder: DifficultyViewHolder, position: Int) {
         val difficulty = difficulties[position]
-        holder.binding.difficultyText.text = difficulty
+        holder.binding.difficultyText.text = if (position == 0) "상" else if (position == 1) "중" else "하"
 
         if (position == selectedPosition) {
             holder.binding.difficultyText.textSize = 36f

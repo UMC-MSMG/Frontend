@@ -39,7 +39,7 @@ class CircularProgressView(context: Context, attrs: AttributeSet) : View(context
 
     private val rectF = RectF()
 
-    var progress = 30
+    var progress = 75
         set(value) {
             field = value
             invalidate()

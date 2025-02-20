@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -86,4 +87,8 @@ dependencies {
     implementation(libs.google)
     implementation(libs.googleLocation)
     implementation(libs.chart)
+    implementation(libs.kotlin.parcelize.runtime)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+
 }
