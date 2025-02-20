@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.data.DailySteps
 import com.umc_msmg.frontend.data.DayOfWeek
+import com.umc_msmg.frontend.data.MainPageResponse
 import com.umc_msmg.frontend.data.WeeklyExerciseSummary
 import com.umc_msmg.frontend.databinding.ActivityMainBinding
 import com.umc_msmg.frontend.fragment.DiaryFragment
@@ -183,6 +184,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         binding.shopButton.setOnClickListener {
             switchFragment(ShopFragment())
         }
+        binding.pointButton.setOnClickListener {
+            switchFragment(ShopFragment())
+        }
     }
 
     private fun switchFragment(fragment: androidx.fragment.app.Fragment) {
@@ -215,6 +219,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         var sequenceDays = sharedPreferences.getInt("sequenceDays", 1)
         binding.userStatusText.text = "${name}님은\n${sequenceDays}일째 운동 중이에요."
 
+        UserServiceRetrofitClient.apiService.getMainPage(authorization).enqueue(object : Callback<MainPageResponse> {
+            override fun onResponse(call: Call<MainPageResponse>, response: Response<MainPageResponse>) {
+
+                if (response.isSuccessful) {
+                    val mainPageData = response.body()
+                    if(mainPageData != null) {
+                        binding.circularProgressBar.progress = mainPageData.workoutRate
+                        Log.d("MainActivity", "목표 달성률 API 호출 성공:  ${mainPageData.workoutRate}")
+                    }
+
+                } else {
+                    Log.e("MainActivity", "목표 달성률 API 호출 실패: ${response.code()}")
+                }
+            }
+            override fun onFailure(call: Call<MainPageResponse>, t: Throwable) {
+                Log.e("MainActivity", "목표 달성률 API 호출 실패: ${t.message}")
+            }
+        })
 
         UserServiceRetrofitClient.apiService.getWeeklyExerciseSummary(authorization)
             .enqueue(object : Callback<WeeklyExerciseSummary> {
@@ -255,8 +277,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 override fun onResponse(call: Call<com.umc_msmg.frontend.data.MyPointsResponse>, response: Response<com.umc_msmg.frontend.data.MyPointsResponse>) {
                     if (response.isSuccessful) {
                         val pointsResponse = response.body()
-                        val points = pointsResponse?.points ?: "0"
-                        binding.myPoint.text = points
+                        val points = pointsResponse?.point ?: 0
+                        binding.myPoint.text = points.toString()
                         Log.d("MainActivity", "포인트 api 성공 :  $points")
                     } else {
                         Log.e("MainActivity", "포인트 가져오기 실패: ${response.code()}")
@@ -444,10 +466,5 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         } catch (e: Exception) {
             Log.e("MainActivity", "API 호출 실패: ${e.message}")
         }
-
-
-
-
     }
-
 }
