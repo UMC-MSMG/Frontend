@@ -99,7 +99,8 @@
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_3"
         app:layout_constraintTop_toTopOf="@id/area_3"
-        app:layout_constraintStart_toStartOf="@id/area_3"/>
+        app:layout_constraintStart_toStartOf="@id/area_3"
+        app:layout_constraintEnd_toEndOf="@+id/area_3"/>
 
     <ImageView
         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +128,8 @@
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_4"
         app:layout_constraintTop_toTopOf="@id/area_4"
-        app:layout_constraintStart_toStartOf="@id/area_4"/>
+        app:layout_constraintStart_toStartOf="@id/area_4"
+        app:layout_constraintEnd_toEndOf="@id/area_4"/>
 
     <ImageView
         app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +157,8 @@
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_5"
         app:layout_constraintTop_toTopOf="@id/area_5"
-        app:layout_constraintStart_toStartOf="@id/area_5"/>
+        app:layout_constraintStart_toStartOf="@id/area_5"
+        app:layout_constraintEnd_toEndOf="@+id/area_5"/>
 
     <ImageView
         app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +186,8 @@
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@id/area_6"
         app:layout_constraintTop_toTopOf="@id/area_6"
-        app:layout_constraintStart_toStartOf="@id/area_6"/>
+        app:layout_constraintStart_toStartOf="@id/area_6"
+        app:layout_constraintEnd_toEndOf="@id/area_6"/>
 
 
     <!--<ImageView
