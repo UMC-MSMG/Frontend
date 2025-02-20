@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
-            CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.Main).launch {
             loadandupdatestep()}
         }
     }
@@ -374,9 +374,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
      suspend fun updateStep(cnt : Int) {
          val sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
          val token = "bearer " + sharedPreferences.getString("access_token", null)
-
-
-
          CoroutineScope(Dispatchers.Main).launch {
              binding.wt.text = (cnt+1).toString()
              Log.d("!!!!!!", "업데이트된")
@@ -402,10 +399,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val requestDate = requestDay.format(formatter)
 
         Log.d("!!!!!!", requestDate) // 출력: 2024-02-20
-
-        val newPreferences = this@MainActivity.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
         val token = "Bearer " + sharedPreferences.getString("access_token", null)
-        var stepFromServer = 0
         try {
             val response = RetrofitClient.loginService.getSteps(token, requestDate)
             if (response.isSuccessful) {
@@ -421,7 +415,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
             } else {
-                Log.e("MainActivity", "걸음수 가져오기 실패: ${response.code()}")
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        RetrofitClient.loginService.putStep(
+                            token,
+                            StepRequest(1, StepCounterManager.getTodayDate())
+                        )
+                    } catch (e: Exception) {
+                        Log.e("PATCH", "❌ 오류 발생: ${e.message}")
+                    }
+                }
             }
         } catch (e: Exception) {
             Log.e("MainActivity", "걸음 수 API 호출 실패: ${e.message}")
@@ -441,6 +444,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         } catch (e: Exception) {
             Log.e("MainActivity", "API 호출 실패: ${e.message}")
         }
+
+
+
+
     }
 
 }
