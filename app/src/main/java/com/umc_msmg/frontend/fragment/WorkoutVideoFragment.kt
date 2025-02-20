@@ -142,13 +142,23 @@ class WorkoutVideoFragment : Fragment() {
             binding.exerciseCompleBtn.apply {
                 visibility = View.VISIBLE
                 setOnClickListener {
-                    lifecycleScope.launch {
-                        val token = "사용자_토큰" // 실제 토큰으로 대체해야 함
-                        viewModel.submitCompletedWorkouts(token)
-                    }
+                    viewModel.submitCompletedWorkouts(
+                        onSuccess = {
+                            navigateToPreviousFragment() // 성공 시 이전 화면으로 이동
+                        },
+                        onError = { errorMessage ->
+                            // 오류 메시지 표시 (예: Toast)
+                            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    )
                 }
             }
         }
+    }
+
+
+    private fun navigateToPreviousFragment() {
+        requireActivity().onBackPressed()
     }
 
 

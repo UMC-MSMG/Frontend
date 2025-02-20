@@ -60,6 +60,10 @@ class WorkoutDetailFragment : Fragment() {
         binding.startBtn.setOnClickListener {
             navigateToWorkoutVideo()
         }
+
+        binding.changeBtn.setOnClickListener {
+            navigateToPreviousFragment()
+        }
     }
 
     private fun navigateToWorkoutVideo() {
@@ -81,6 +85,10 @@ class WorkoutDetailFragment : Fragment() {
             .replace(R.id.fragment_container, workoutVideoFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun navigateToPreviousFragment() {
+        requireActivity().onBackPressed()
     }
 
     override fun onDestroyView() {
