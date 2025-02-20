@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="@id/area_1"
             app:layout_constraintStart_toStartOf="@id/area_1"
             android:text="오늘의 걸음 수"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="45dp"
             android:layout_marginStart="35dp"
             android:paddingBottom="5dp"
             android:textSize="26sp"
@@ -59,11 +59,11 @@
             android:layout_marginEnd="10dp"
             />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/a1_line_img_iv"
-            android:src="@drawable/chart_line"
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="280dp"
+        android:layout_height="110dp"
             app:layout_constraintStart_toStartOf="@id/area_1"
             app:layout_constraintEnd_toEndOf="@id/area_1"
             app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"
@@ -75,55 +75,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_medium"
-            app:layout_constraintTop_toBottomOf="@id/a1_line_img_iv"
+            app:layout_constraintTop_toBottomOf="@id/barChart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:text="이번주의 평균 걸음 수는\n717 걸음 정도에요."
+            android:layout_marginTop="10dp"
+            android:text="이번주의 평균 걸음 수는\n717 걸음 정도에요"
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/black"
             />
 
-    <ImageView
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:id="@+id/area_2"
-        android:layout_width="372dp"
-        android:layout_height="117dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/area_1"
+        android:layout_marginBottom="42dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/round_corner_primary"
-        android:src="@color/color_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/area_1" />
-
+        android:background="@drawable/point_button"
+        android:orientation="vertical">
         <TextView
-                android:id="@+id/a2_top_tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_medium"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/area_2"
-
-                android:text="내 포인트"
-                android:layout_marginTop="10dp"
-                android:textSize="26sp"
-                android:textColor="@color/white"
-                />
-
-        <TextView
-            android:id="@+id/a2_mid_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="25 원"
+            android:text="내 포인트"
+            android:layout_gravity="center"
+            android:textSize="24sp"
             android:textColor="@color/white"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toEndOf="@id/area_1"
-            app:layout_constraintStart_toStartOf="@id/area_1"
-            app:layout_constraintTop_toBottomOf="@id/a2_top_tv1" />
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/pretendard_medium"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/coin"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/my_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                android:layout_marginStart="9dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/pretendard_bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/pretendard_bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
 
 
     <ImageView

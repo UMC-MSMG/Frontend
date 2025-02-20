@@ -20,19 +20,11 @@
 
         <ImageView
             android:id="@+id/imgSplash"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
             android:src="@drawable/icon"
             android:layout_marginBottom="15dp" />
-        <TextView
-            android:id="@+id/tvSplash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="만수무강"
-            android:textSize="30sp"
-            android:fontFamily="@font/pretendard_bold"
-            android:textColor="@color/black" />
     </LinearLayout>
 
     <!-- 1. 이름 입력 -->

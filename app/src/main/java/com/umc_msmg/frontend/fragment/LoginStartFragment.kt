@@ -33,16 +33,37 @@ class LoginStartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         checkLoginStatus()
-
         binding.btnKakaoLogin.setOnClickListener {
             parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.fragment_container, KakaoLoginFragment())
                 .commit()
         }
+
+        binding.btnLogin.setOnClickListener() {
+            parentFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.fragment_container, LoginLoginFragment())
+                .commit()
+        }
+
+        binding.btnRegister.setOnClickListener() {
+            /*
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, GptFragment())
+                .addToBackStack(null)
+                .commit()*/
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
+
     }
-    
+
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

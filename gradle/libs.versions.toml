@@ -44,6 +44,8 @@ google = {group = "com.google.android.gms", name = "play-services-maps", version
 googleLocation = {group = "com.google.android.gms", name = "play-services-location", version = "21.3.0"}
 googlePlaces = {group = "com.google.android.libraries.places", name = "places", version = "3.2.0"}
 firebase-appdistribution-gradle = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version.ref = "firebaseAppdistributionGradle" }
+chart = {group = "com.github.PhilJay", name = "MPAndroidChart", version = "v3.1.0"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

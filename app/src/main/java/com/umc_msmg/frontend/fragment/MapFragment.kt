@@ -2,6 +2,7 @@ package com.umc_msmg.frontend.fragment
 
 import android.Manifest
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -22,6 +23,16 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.MapFragmentBinding
+import com.umc_msmg.frontend.interfaces.PlacesResponse
+import com.umc_msmg.frontend.interfaces.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
     private lateinit var map: GoogleMap
@@ -32,7 +43,9 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
     private lateinit var placesClient: PlacesClient
     private var _binding: MapFragmentBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var sharedPreferences : SharedPreferences
+    private lateinit var target : LatLng
+    private val markerList = mutableListOf<com.google.android.gms.maps.model.Marker>() // ✅ 마커 저장 리스트
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +56,7 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
+        sharedPreferences = requireContext().getSharedPreferences("LP", Context.MODE_PRIVATE)
         if (!Places.isInitialized()) {
             Places.initialize(requireContext(), "AIzaSyCwtcCe2c256EzXtZ5yo__O9lpTf9ktN3A")
         }
@@ -58,8 +71,6 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
             return
         }
         map.isMyLocationEnabled = true
-
-        val sharedPreferences = requireContext().getSharedPreferences("LP", Context.MODE_PRIVATE)
         val savedTargetLocation = sharedPreferences.getString("targetLocation", "")
         if (savedTargetLocation != null) {
             Log.d("S", savedTargetLocation)
@@ -71,12 +82,15 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
         else
         {
             val savedLocation = sharedPreferences.getString("location", "")
-            map.addMarker(
+            val marker = map.addMarker(
                 MarkerOptions()
                     .position(stringToLatLng(savedLocation.toString()))
                     .title(savedTargetLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+
             )
+            marker?.let { markerList.add(it) } // ✅ 리스트에 저장
+
             val fragmentB = requireActivity().supportFragmentManager.findFragmentByTag("FragmentBTag") as? StepperStepperFragment
             fragmentB?.setTargetText()
         }
@@ -92,8 +106,6 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
     }
 
     private fun loadSavedLocations() {
-
-        val sharedPreferences = requireContext().getSharedPreferences("LocationPrefs", Context.MODE_PRIVATE)
         val storedLocations = sharedPreferences.getString("KEY_ROUTE", "") ?: ""
         Log.d("S", storedLocations)
 
@@ -120,7 +132,7 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
 
         // ✅ 마지막 위치로 카메라 이동
         locationList.lastOrNull()?.let {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 17f))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(it, map.cameraPosition.zoom))
         }
     }
 
@@ -135,6 +147,7 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
                     saveAndUpdateLocation(location)
+                    checkArrived()
                 }
             }
         }
@@ -165,12 +178,15 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
         )
 
         // ✅ 지도 카메라 이동 (현재 위치 중심)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 17f))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, map.cameraPosition.zoom))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        fusedLocationClient.removeLocationUpdates(locationCallback) // ✅ 메모리 누수 방지
+            if (::fusedLocationClient.isInitialized) {
+                fusedLocationClient.removeLocationUpdates(locationCallback)
+            }
+            _binding = null
     }
 
     fun getCurrentLocation() {
@@ -183,79 +199,97 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
                     val currentLatLng = LatLng(it.latitude, it.longitude)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, map.cameraPosition.zoom))
                     searchNearbyParks(currentLatLng) // ✅ 1km 반경 공원 검색
                 }
             }
         }
     }
 
-    private fun searchNearbyParks(currentLatLng: LatLng) {
-        val placeFields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
-        val request = FindCurrentPlaceRequest.newInstance(placeFields)
+    fun myLocation(callback: (LatLng) -> Unit) {
+        if (!isAdded) {
+            Log.e("myLocation", "❌ Fragment not attached to context.")
+            callback(LatLng(0.0, 0.0)) // 기본값 반환
+            return
+        }
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            return
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                location?.let {
+                    val currentLatLng = LatLng(it.latitude, it.longitude)
+                    callback(currentLatLng)
+                } ?: run {
+                    Log.e("myLocation", "❌ 현재 위치를 가져올 수 없습니다.")
+                    callback(LatLng(0.0, 0.0))
+                }
+            }
+        } else {
+            Log.e("myLocation", "❌ 위치 권한이 없습니다.")
+            callback(LatLng(0.0, 0.0))
         }
-
-        placesClient.findCurrentPlace(request)
-            .addOnSuccessListener { response ->
-                val parkList = mutableListOf<Pair<String, LatLng>>() // ✅ 공원 리스트 저장용
-
-                for (placeLikelihood in response.placeLikelihoods) {
-                    val place = placeLikelihood.place
-                    val latLng = place.latLng
-                    val placeName = place.name ?: "알 수 없음"
-
-                    if (latLng != null && !placeName.contains(Regex("\\d"))) { // 🔹 이름에 숫자가 포함되지 않은 경우만 추가
-                        val distance = calculateDistance(currentLatLng, latLng)
-                        if (distance <= 1000) { // ✅ 반경 1km 이내인 경우
-                            parkList.add(Pair(placeName, latLng))
-                            Log.d("PlacesAPI", "공원 발견: $placeName (거리: ${distance}m)")
-                        }
-                    }
-                }
-
-
-                // ✅ 랜덤으로 공원 하나 선택 후 로그 출력
-                if (parkList.isNotEmpty()) {
-                    val randomPark = parkList.random()
-                    Log.d("PlacesAPI", "🎯 랜덤 선택된 공원: ${randomPark.first}, 위치: ${randomPark.second}")
-                    val sharedPreferences = requireContext().getSharedPreferences("LP", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    val latLngString = "${randomPark.second.latitude},${randomPark.second.longitude}" // ✅ `String` 형태로 변환
-                    editor.putString("targetLocation", randomPark.first)
-                    editor.putString("location", latLngString)
-                    val success = editor.commit() // ✅ 즉시 저장
-
-                    if (success) {
-                        Log.d("SharedPreferences", "🎯 targetLocation 저장 완료: ${randomPark.first}")
-                    } else {
-                        Log.e("SharedPreferences", "❌ targetLocation 저장 실패")
-                    }
-
-                    map.addMarker(
-                        MarkerOptions()
-                            .position(randomPark.second)
-                            .title(randomPark.first)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    )
-
-                } else {
-                    Log.d("PlacesAPI", "❌ 반경 1km 이내에 공원이 없습니다.")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.e("PlacesAPI", "공원 검색 실패: ${exception.message}")
-            }
     }
+
+
+
+
+    private fun searchNearbyParks(currentLatLng: LatLng) {
+        val location = "${currentLatLng.latitude},${currentLatLng.longitude}"
+        val radius = 1000 // ✅ 반경 10km
+
+        RetrofitClient.mapApiService.getNearbyParks(location, radius, "park", "AIzaSyCwtcCe2c256EzXtZ5yo__O9lpTf9ktN3A").enqueue(object :
+            Callback<PlacesResponse> {
+            override fun onResponse(call: Call<PlacesResponse>, response: Response<PlacesResponse>) {
+                if (response.isSuccessful) {
+                    val parkList = mutableListOf<Pair<String, LatLng>>() // ✅ 공원 리스트 저장용
+
+                    response.body()?.results?.forEach { place ->
+                        val latLng = LatLng(place.geometry.location.lat, place.geometry.location.lng)
+                        parkList.add(Pair(place.name, latLng))
+                        Log.d("PlacesAPI", "🌳 공원 발견: ${place.name} (위치: ${latLng.latitude}, ${latLng.longitude})")
+                    }
+
+                    // ✅ 랜덤으로 공원 선택 후 마커 추가
+                    if (parkList.isNotEmpty()) {
+                        val randomPark = parkList.random()
+                        Log.d("PlacesAPI", "🎯 선택된 공원: ${randomPark.first}, 위치: ${randomPark.second}")
+
+                        val sharedPreferences = requireContext().getSharedPreferences("LP", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        val latLngString = "${randomPark.second.latitude},${randomPark.second.longitude}"
+                        editor.putString("targetLocation", randomPark.first)
+                        editor.putString("location", latLngString)
+                        editor.apply()
+
+                        // ✅ 지도에 마커 추가
+                        val marker = map.addMarker(
+                            MarkerOptions()
+                                .position(randomPark.second)
+                                .title(randomPark.first)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        )
+                        marker?.let { markerList.add(it) }
+
+                        val stepperFragment = requireActivity().supportFragmentManager.findFragmentByTag("StepTag") as? StepperStepperFragment
+                        stepperFragment?.setTargetText() ?: Log.e("MapFragment", "❌ StepperStepperFragment not found")
+                    } else {
+                        Log.d("PlacesAPI", "❌ 반경 ${radius}m 이내에 공원이 없습니다.")
+                    }
+                } else {
+                    Log.e("PlacesAPI", "❌ API 응답 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<PlacesResponse>, t: Throwable) {
+                Log.e("PlacesAPI", "❌ 네트워크 요청 실패: ${t.message}")
+            }
+        })
+    }
+
+
 
 
     private fun calculateDistance(start: LatLng, end: LatLng): Float {
@@ -287,5 +321,41 @@ class MapFragment : Fragment(R.layout.fragment_maps), OnMapReadyCallback {
     }
 
 
+    fun checkArrived() {
+        val savedTargetLocation = sharedPreferences.getString("location", "")
+        val targetLatLng = stringToLatLng(savedTargetLocation ?: "")
 
+        myLocation { currentLatLng ->
+            val distance = calculateDistance(currentLatLng, targetLatLng)
+
+            if (distance <= 50) {
+                Log.e("!!!!!", "도착띠 🚀")
+                removeAllMarkers()
+
+                val stepperFragment = requireActivity().supportFragmentManager.findFragmentByTag("StepTag") as? StepperStepperFragment
+                stepperFragment?.arrived() ?: Log.e("MapFragment", "❌ StepperStepperFragment not found")
+            } else {
+                Log.e("!!!!!", "안도착띠 ㅠ. 현재 거리: ${distance}m")
+            }
+        }
+    }
+
+
+    fun removeAllMarkers() {
+        requireActivity().runOnUiThread {
+            Log.d("MapFragment", "🟢 현재 마커 개수: ${markerList.size}")
+
+            if (markerList.isEmpty()) {
+                Log.w("MapFragment", "⚠️ 삭제할 마커가 없습니다!")
+            }
+
+            for (marker in markerList) {
+                marker.remove()
+                Log.d("MapFragment", "🗑 마커 삭제됨: ${marker.position}")
+            }
+
+            markerList.clear()
+            Log.d("MapFragment", "🔥 모든 마커가 삭제되었습니다!")
+        }
+    }
 }

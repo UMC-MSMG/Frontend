@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.data.DailySteps
@@ -24,11 +25,18 @@ import com.umc_msmg.frontend.fragment.MyPageFragment
 import com.umc_msmg.frontend.fragment.ShopFragment
 import com.umc_msmg.frontend.fragment.StepperFragment
 import com.umc_msmg.frontend.fragment.WorkoutFragment
+import com.umc_msmg.frontend.interfaces.RetrofitClient
+import com.umc_msmg.frontend.interfaces.StepRequest
+import com.umc_msmg.frontend.util.StepCounterManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
 import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
@@ -36,22 +44,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
-    private var stepCount = 0
-    private var initialStepCount = -1
+    private var stepCount = 0;
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         logAllPreferences()
         requestActivityRecognitionPermission()
 
-        // SharedPreferences 초기화
-        sharedPreferences = getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+        StepCounterManager.resetStepsIfNewDay(this)
 
-        // 센서 매니저 설정
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
@@ -63,6 +67,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         // 버튼 클릭 이벤트 설정
         setupButtonListeners()
+        sharedPreferences = this.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+
+
 
 
         // 뒤로 가기 버튼 처리
@@ -76,8 +83,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
         onBackPressedDispatcher.addCallback(this, callback)
+        updateStepCountUI()
+    }
 
-
+    private fun updateStepCountUI() {
+        runOnUiThread {
+            binding.wt.text = stepCount.toString()
+        }
     }
 
     override fun onResume() {
@@ -95,23 +107,31 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager.unregisterListener(this)
     }
 
+    fun getTodayDate(): String {
+        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
+
+
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
             val currentStep = event.values[0].toInt()
+            val previousSteps = StepCounterManager.getSteps(this)
 
-            if (initialStepCount == -1) {
-                initialStepCount = currentStep
-            }
-
-            stepCount = currentStep - initialStepCount
-            Log.d("StepCounter", "📊 현재 걸음 수: $stepCount")
+            // 새로운 걸음 추가
+            stepCount = previousSteps + 1
+            Log.d("StepCounter", "📊 오늘 걸음 수: $stepCount")
 
             // SharedPreferences에 저장
-            sharedPreferences.edit().putInt("stepCount", stepCount).apply()
+            StepCounterManager.saveSteps(this, stepCount)
 
-            runOnUiThread {
-                binding.wt.text = stepCount.toString()
-            }
+            // UI 업데이트
+            updateStepCountUI()
+
+            sharedPreferences.edit()
+                .putInt("stepCount", stepCount)
+                .apply()
+
         }
     }
 
@@ -136,6 +156,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
         binding.stepperBtn.setOnClickListener {
+            val sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            val token = "bearer " + sharedPreferences.getString("access_token", null)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    RetrofitClient.loginService.putStep(token,
+                        StepRequest(stepCount,StepCounterManager.getTodayDate()))
+                } catch (e: Exception) {
+                    Log.e("PATCH", "❌ 오류 발생: ${e.message}")
+                }
+            }
+
             switchFragment(StepperFragment())
         }
 

@@ -1,9 +1,12 @@
 // StartActivity.kt
 package com.umc_msmg.frontend.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.commit
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.ActivityStartBinding
@@ -21,6 +24,7 @@ class StartActivity : AppCompatActivity() {
 
         val serviceIntent = Intent(this, LocationTrackingService::class.java)
         startService(serviceIntent)
+
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {

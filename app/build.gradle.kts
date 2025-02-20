@@ -85,4 +85,5 @@ dependencies {
     implementation(libs.work.runtime)
     implementation(libs.google)
     implementation(libs.googleLocation)
+    implementation(libs.chart)
 }

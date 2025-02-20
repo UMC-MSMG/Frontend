@@ -29,6 +29,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.SignUpAddInfoFragment
 import com.umc_msmg.frontend.interfaces.TTSRequest
@@ -50,6 +52,7 @@ class GptFragment : Fragment() {
     private var mediaPlayer: MediaPlayer? = null
     private var count = 0
     private var corutineJob = Job()
+    private var finished = false
 
 
     override fun onCreateView(
@@ -114,7 +117,7 @@ class GptFragment : Fragment() {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireContext()).apply {
                 setRecognitionListener(object : RecognitionListener {
                     override fun onReadyForSpeech(params: Bundle?) {
-                        binding.tvText.text = "듣고 있어요..."
+                        binding.tvText.text = "지금 말하세요"
                     }
 
                     override fun onBeginningOfSpeech() {}
@@ -128,7 +131,7 @@ class GptFragment : Fragment() {
                     }
 
                     override fun onError(error: Int) {
-                        binding.tvText.text = "다시 한번 말해주세요!"
+                        binding.tvText.text = "다시 한번 말해주세요"
                         isListening = false
                         startListening()
                     }
@@ -157,12 +160,17 @@ class GptFragment : Fragment() {
     private fun sendMessageToChatGPT(userText: String) {
         if(count == 0)
         {
-            chatHistory.add(ChatMessage("system", "너는 내가 60대의 노인이고, 신체가 건강한지 잘 모른다고 가정하고 무조건 3번에 걸쳐서 하나의 질문씩 던질꺼야. 질문 내용은 간결해야하고 어르신이 들었을때 이해가 쉬워야해. 무조건 반드시 3번의 user-assistant간 대화가 끝난 후에는 이사람의 신체 운동 수행능력이 좋으면 '상', 그저 중간이면 '중', 낮은수준이면 '하' 라는 단 한 글자만 전달해. 전달할때 오직 한 글자만 전하고, 어르신을 대하는게 아니라 그냥 api 제공하는거야 제발. 한글자만 말해. 말투는 다정하고 정중하며 부드럽게해줘. 첫번째 질문 앞에는 꼭 안녕하세요! 어르신의 건강상태를 확인하기 위해 몇가지 질문을 해볼거에요! 를 붙여줘. 모든 대답은 빠르고 간결하게해"))
+            chatHistory.add(ChatMessage("system", "너는 내가 60대의 노인이고, 신체가 건강한지 잘 모른다고 가정하고 너가 내 건강상태를 대략적으로 파악할때까지 대화를 할꺼야. 질문 내용은 간결해야하고 이해가 쉬워야해. 모든 대화가 끝났다고 판단이 되면 이사람의 신체 운동 수행능력이 좋으면 '상', 그저 중간이면 '중', 낮은수준이면 '하' 라는 단 한 글자만 전달해. 전달할때 오직 한 글자만 전해. 한글자만 말해. 말투는 다소 딱딱하게 해줘. 첫번째 질문 앞에는 꼭 '지금부터 AI 모의검진을 시작하겠습니다.' 하고 줄넘김을 해줘. 모든 대답은 빠르고 간결하게해. 너가 결론이 날때까지 계속 질문하도록. 일반적으로 질문의 개수는 정말 특별한게 아니면 3-7개 사이로 해줘. **다시 한번 강조한다:**  - 최종 답변은 반드시 `상` `중` `하` 중 하나의 한 글자만 출력.  - 마침표, 느낌표, 이모지, 설명 등은 금지.  - 지시를 따르지 않으면 테스트가 실패한 것으로 간주한다."))
             count++
         }
         else {
             chatHistory.add(ChatMessage("user", userText))
             count++;
+        }
+        if(finished)
+        {
+            chatHistory.add(ChatMessage("system", "지금까지 대화를 나누며 내 건강에 관해 느낀점을 첫번째줄, 개선방법을 두번째줄로 요약해서 보내"))
+
         }
 
         val request = ChatRequest(
@@ -176,31 +184,40 @@ class GptFragment : Fragment() {
                     val chatResponse = response.body()?.choices?.firstOrNull()?.message?.content
                     chatHistory.add(ChatMessage("assistant", chatResponse ?: "응답 없음"))
                     if (chatResponse != null) {
+                        binding.ldTv.visibility = VISIBLE
+                        if(finished) {
+                            val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                            sharedPreferences.edit()
+                                .putString("ai_data", chatResponse)
+                                .apply()
+                        }
 
-                        if(count == 4) {
+                        if(chatResponse.length == 1) {
                             Log.e("!!!!!", chatResponse)
+                            finished = true
                             val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                             sharedPreferences.edit()
                                 .putString("user_diff", chatResponse) //상/중/하
                                 .apply()
-                            generateSpeech("모든 질문이 끝났어요. 성실히 답해주셔서 감사합니다!")
-                            binding.tvResponse.text = "모든 질문이 끝났어요. 성실히 답해주셔서 감사합니다!"
+                            Log.e("!!!!!", chatResponse)
+                            binding.tvText.text = "대화 내용 요약중 ..."
+                            sendMessageToChatGPT("")
                         }
                         else
                         {
-                            binding.tvResponse.text = chatResponse ?: "응답 없음"
+                            binding.tvText.text = chatResponse ?: "응답 없음"
                             generateSpeech(chatResponse)
                         }
                     }
                 } else {
-                    binding.tvResponse.text = "❌ 오류 발생: ${response.errorBody()?.string()}"
+                    binding.tvText.text = "❌ 오류 발생: ${response.errorBody()?.string()}"
                 }
             }
 
 
 
             override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
-                binding.tvResponse.text = "❌ 요청 실패: ${t.message}"
+                binding.tvText.text = "❌ 요청 실패: ${t.message}"
             }
         })
     }
@@ -213,12 +230,12 @@ class GptFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { saveAndPlayWav(it) }
                 } else {
-                    binding.tvResponse.text = "❌ 오류 발생: ${response.errorBody()?.string()}"
+                    binding.tvText.text = "❌ 오류 발생: ${response.errorBody()?.string()}"
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                binding.tvResponse.text = "❌ 요청 실패: ${t.message}"
+                binding.tvText.text = "❌ 요청 실패: ${t.message}"
             }
         })
     }
@@ -235,11 +252,12 @@ class GptFragment : Fragment() {
 
             playWav(file.absolutePath) // ✅ 저장된 파일을 재생
         } catch (e: Exception) {
-            binding.tvResponse.text = "❌ 파일 저장 오류: ${e.message}"
+            binding.tvText.text = "❌ 파일 저장 오류: ${e.message}"
         }
     }
 
     private fun playWav(filePath: String) {
+        binding.ldTv.visibility = GONE
         mediaPlayer?.release()
         mediaPlayer = MediaPlayer().apply {
             setDataSource(filePath)
@@ -247,21 +265,21 @@ class GptFragment : Fragment() {
             prepare()
             start()
             setOnCompletionListener {
-                if(count == 4)
+                if(finished)
                 {
                     Handler(Looper.getMainLooper()).postDelayed({
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, SignUpAddInfoFragment())
                             .commit()
-                    }, 1500) // 2초 (2000ms)
+                    }, 2500) // 2초 (2000ms)
                 }
                 else {
-                    binding.tvText.text = "다음 질문을 듣고 있어요..."
+                    //binding.tvText.text = "다음 질문을 듣고 있어요..."
                     startListening() // ✅ 음성이 끝나면 자동으로 다시 듣기 시작
                 }
             }
         }
-        binding.tvText.text = "음성 재생 중..."
+        //binding.tvText.text = "음성 재생 중..."
     }
 
 
