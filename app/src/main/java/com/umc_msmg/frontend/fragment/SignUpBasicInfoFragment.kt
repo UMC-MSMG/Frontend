@@ -173,10 +173,11 @@ class SignUpBasicInfoFragment : Fragment() {
     }
 
     private fun finishSignUp() {
+        CoroutineScope(Dispatchers.IO).launch {
+            checkCode()
+        }
         //잘 된다면
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, GptFragment())
-            .commit()
+
     }
 
     override fun onDestroyView() {
@@ -224,13 +225,21 @@ class SignUpBasicInfoFragment : Fragment() {
 
             )
             if (response.code() == 200) {
+                val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                sharedPreferences.edit()
+                    .putString("access_token", response.body()?.accessToken)
+                    .putString("refresh_token", response.body()?.refreshToken)
+                    .apply()
+
                 val responseBody = response.body()
                 responseBody?.let { data ->
+
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, GptFragment())
                         .commit()
                 } ?: run {
                     Log.e("checkCode", "응답 바디가 null입니다.")
+
                 }
             } else {
                 Log.e("checkCode", "응답 실패: ${response.code()}")

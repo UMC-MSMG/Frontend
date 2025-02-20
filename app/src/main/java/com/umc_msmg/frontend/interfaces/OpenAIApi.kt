@@ -84,7 +84,24 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("date") date: String
         ): Response<DailySteps>
+
+    @PATCH("/api/points/add")
+    suspend fun addPoint(
+        @Header("Authorization") token : String,
+        @Body request : PointBody
+    ): Response<Void>
+
+    @POST("/api/workouts/records/generate")
+    suspend fun act(
+        @Header("Authorization") token : String
+    ) : Response<Void>
+
 }
+
+
+data class PointBody(
+    val points : Int
+)
 
 
 data class InfoLoadData(

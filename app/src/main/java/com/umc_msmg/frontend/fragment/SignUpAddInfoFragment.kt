@@ -262,16 +262,16 @@ class SignUpAddInfoFragment : Fragment() {
         val phone = sharedPreferences.getString("user_phone", null)
         val gender = sharedPreferences.getString("user_gender", null)
         val birthday = sharedPreferences.getString("user_birthday", null)
-        //val image = sharedPreferences.getString("user_image", null)
+        val image = sharedPreferences.getString("ai_data", null)
         val height = sharedPreferences.getInt("user_height", 0)
         val weight = sharedPreferences.getInt("user_weight", 0)
         val agreed = sharedPreferences.getBoolean("agreed", false)
         var diff = sharedPreferences.getString("user_diff", null)
 
 
-        if(diff == "h") { diff = "NORMAL" }
+        if(diff == "h") { diff = "HARD" }
         else if (diff == "m") { diff = "NORMAL" }
-        else { diff = "NORMAL" }
+        else { diff = "EASY" }
 
         CoroutineScope(Dispatchers.IO).launch {
                 try {

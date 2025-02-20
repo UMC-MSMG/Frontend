@@ -2,6 +2,7 @@ package com.umc_msmg.frontend.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,11 @@ import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.activity.StartActivity
 import com.umc_msmg.frontend.databinding.FragmentMyPageBinding
+import com.umc_msmg.frontend.interfaces.PointBody
+import com.umc_msmg.frontend.interfaces.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyPageFragment : Fragment() {
 

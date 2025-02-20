@@ -105,6 +105,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
         onBackPressedDispatcher.addCallback(this, callback)
         updateStepCountUI()
+        CoroutineScope(Dispatchers.IO).launch {
+            initialLoad()
+        }
+
     }
 
     private fun updateStepCountUI() {
@@ -207,7 +211,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun loadUserInfoAndSteps() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
-        val name = sharedPreferences.getString("user_name", null) ?: ""
+        val name = sharedPreferences.getString("user_name", "사람1")
         var sequenceDays = sharedPreferences.getInt("sequenceDays", 1)
         binding.userStatusText.text = "${name}님은\n${sequenceDays}일째 운동 중이에요."
 
@@ -424,6 +428,19 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-
+    private suspend fun initialLoad() {
+        val sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val token = "Bearer " + sharedPreferences.getString("access_token", null)
+        try {
+            val response = RetrofitClient.loginService.act(token)
+            if (response.isSuccessful) {
+                Log.e("!!!!", "진짜끝")
+            } else {
+                Log.e("MainActivity", "가져오기 실패: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "API 호출 실패: ${e.message}")
+        }
+    }
 
 }
