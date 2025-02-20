@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.databinding.LayoutWorkoutVideoBinding
@@ -30,8 +31,11 @@ class WorkoutVideoFragment : Fragment() {
         val maxCount: Int,
         val countInterval: Int,
         val isTimeCount: Boolean,
-        val showSetNumber: Boolean
+        val showSetNumber: Boolean,
+        val title: String
     )
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,17 +63,19 @@ class WorkoutVideoFragment : Fragment() {
     private fun setupVideoList() {
         videoList = when (workoutType) {
             "유산소" -> listOf(
-                VideoInfo(R.raw.low_cardio_brisk_walking, 3, 180, 1, true, false)
+                VideoInfo(R.raw.low_cardio_brisk_walking, 3, 180, 1, true, false, "빠르게 걷기")
             )
             "근력" -> listOf(
-                VideoInfo(R.raw.low_slow_chair_stand_ups, 3, 10, 5, false, true),
-                VideoInfo(R.raw.low_strength_heel_raises, 1, 12, 4, false, false),
-                VideoInfo(R.raw.low_strength_leg_raises, 1, 8, 8, false, false),
-                VideoInfo(R.raw.low_side_leg_raises, 1, 8, 5, false, false)
+                VideoInfo(R.raw.low_slow_chair_stand_ups, 3, 10, 5, false, true, "의자에서 천천히 일어나기"),
+                VideoInfo(R.raw.low_strength_heel_raises, 1, 12, 4, false, false, "발뒤꿈치 올리기"),
+                VideoInfo(R.raw.low_strength_leg_raises, 1, 8, 8, false, false, "다리 차올리기"),
+                VideoInfo(R.raw.low_side_leg_raises, 1, 8, 5, false, false, "다리 옆으로 올리기")
             )
             else -> emptyList()
         }
     }
+
+
 
     private fun setupVideoPlayer() {
         if (videoList.isEmpty()) {
@@ -84,12 +90,37 @@ class WorkoutVideoFragment : Fragment() {
             setVideoURI(Uri.parse(videoPath))
             setMediaController(MediaController(context).apply { setAnchorView(this@apply) })
             setOnCompletionListener { onVideoComplete() }
+            setOnPreparedListener { mp ->
+                mp.isLooping = false
+                adjustVideoSize()
+            }
             start()
         }
 
         resetCounters()
         updateUI(currentVideo)
         startCounting(currentVideo)
+    }
+
+    private fun adjustVideoSize() {
+        binding.exerciseVideo.post {
+            val videoView = binding.exerciseVideo
+            val parentWidth = (videoView.parent as View).width
+            val parentHeight = (videoView.parent as View).height
+            val videoWidth = videoView.width
+            val videoHeight = videoView.height
+            val aspectRatio = videoWidth.toFloat() / videoHeight.toFloat()
+            val newWidth = (parentHeight * aspectRatio).toInt()
+
+            val params = videoView.layoutParams as ConstraintLayout.LayoutParams
+            params.width = newWidth
+            params.height = parentHeight
+            params.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+            params.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+            params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+            params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+            videoView.layoutParams = params
+        }
     }
 
     private fun resetCounters() {
@@ -99,6 +130,7 @@ class WorkoutVideoFragment : Fragment() {
     }
 
     private fun updateUI(video: VideoInfo) {
+        binding.exerciseTitle.text = video.title
         binding.exerciseSetNumber.visibility = if (video.showSetNumber) View.VISIBLE else View.GONE
         if (video.showSetNumber) {
             binding.exerciseSetNumber.text = "${repeatCount + 1} 세트"
