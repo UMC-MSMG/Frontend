@@ -34,7 +34,7 @@ class WorkoutDetailFragment : Fragment() {
             "유산소" -> {
                 binding.a1TopTv1.text = "유산소 운동"
                 binding.nameTv.text = "오늘의 유산소 운동이에요."
-                binding.content.text = "빠르게 걷기\n빠르게 걷기\n빠르게 걷기\n빠르게 걷기"
+                binding.content.text = "빠르게 걷기 (3분)"
                 binding.btnStartTv.text = "유산소 운동 시작하기"
             }
             "근력" -> {

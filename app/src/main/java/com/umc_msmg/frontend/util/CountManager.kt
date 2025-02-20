@@ -4,23 +4,27 @@ package com.umc_msmg.frontend.utils
 import android.os.Handler
 import android.os.Looper
 import com.umc_msmg.frontend.fragment.WorkoutVideoFragment
+import java.util.Locale
 
-class CountManager(private val onCountUpdate: (Int, Int) -> Unit) {
+class CountManager(private val onCountUpdate: (String, Int) -> Unit) {
     private val handler = Handler(Looper.getMainLooper())
     private var timeCount = 0
     private var exerciseCount = 0
     private var repeatCount = 0
 
-    fun startCounting(video: WorkoutVideoFragment.VideoInfo) {
+    fun startCounting(video: WorkoutVideoFragment.VideoInfo, videoDuration: Int) {
+        val countInterval: Int =
+            if (!video.isTimeCount && video.maxCount > 0) videoDuration / video.maxCount else 1000
+
         handler.post(object : Runnable {
             override fun run() {
                 if (video.isTimeCount) {
                     timeCount++
-                    onCountUpdate(timeCount, video.maxCount)
+                    onCountUpdate(formatTime(timeCount), video.maxCount)
                 } else {
-                    if (timeCount % video.countInterval == 0) {
+                    if (timeCount % countInterval == 0) {
                         exerciseCount++
-                        onCountUpdate(exerciseCount, video.maxCount)
+                        onCountUpdate(exerciseCount.toString(), video.maxCount)
                     }
                     timeCount++
                 }
@@ -36,6 +40,11 @@ class CountManager(private val onCountUpdate: (Int, Int) -> Unit) {
                 }
             }
         })
+    }
+
+    private fun formatTime(seconds: Int): String {
+        val minutes = seconds / 60
+        return String.format(Locale.getDefault(), "%d", minutes)
     }
 
     fun resetCounters() {
