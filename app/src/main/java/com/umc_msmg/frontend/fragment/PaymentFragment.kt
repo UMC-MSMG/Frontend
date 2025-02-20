@@ -13,6 +13,7 @@ import android.view.WindowManager.LayoutParams.WRAP_CONTENT
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.activity.MainActivity
@@ -63,6 +64,10 @@ class PaymentFragment : Fragment() {
 
         binding.paymentButton.setOnClickListener {
             showPaymentDialog()
+        }
+
+        binding.exerciseButton.setOnClickListener {
+            navigateToFragment(WorkoutFragment())
         }
 
         binding.btnBack.setOnClickListener {
@@ -161,5 +166,19 @@ class PaymentFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val myPoint = sharedPreferences.getInt("user_point", 0)
         binding.myPoint.text = myPoint.toString()
+    }
+
+    private fun navigateToFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 }

@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    private fun loadUserInfoAndSteps() {
+    fun loadUserInfoAndSteps() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
         val name = sharedPreferences.getString("user_name", "사람1")
