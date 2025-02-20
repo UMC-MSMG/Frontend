@@ -155,6 +155,7 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
 
+
         <EditText
             android:fontFamily="@font/pretendard_medium"
             android:id="@+id/etPhone"
@@ -165,6 +166,16 @@
             android:hint="01000000000"
             android:inputType="phone"
             android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/alarm_tv"
+            android:fontFamily="@font/pretendard_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#F05605"
+            android:text="유효한 전화번화가 아니거나\n이미 존재하는 전화번호입니다"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <!--인증 버튼-->
@@ -199,12 +210,14 @@
             android:layout_marginTop="8dp"/>
 
         <TextView
-            android:id="@+id/tvWrong"
             android:visibility="gone"
-            android:textColor="#F05605"
+            android:id="@+id/alarm2_tv"
+            android:fontFamily="@font/pretendard_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "인증번호가 일치하지 않습니다"/>
+            android:textColor="#F05605"
+            android:text="인증번호가 일치하지 않습니다"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <!-- 다음 버튼 -->
