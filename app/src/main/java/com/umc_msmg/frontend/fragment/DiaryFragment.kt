@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import com.umc_msmg.frontend.R
-import com.umc_msmg.frontend.data.WeeklyExerciseSummary
 import com.umc_msmg.frontend.databinding.FragmentDiaryBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -35,19 +33,16 @@ class DiaryFragment : Fragment() {
         val formattedDate = formatter.format(today)
         binding.todayDate.text = formattedDate
 
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val difficulty = sharedPreferences.getString("difficulty", "MEDIUM")
+        binding.difficultyText.text = if (difficulty == "HIGH") "상" else if (difficulty == "MEDIUM") "중" else "하"
+        val summary = sharedPreferences.getString("ai_data", "")
+        binding.summaryText.text = summary
+        Log.d("DiaryFragment", "ai_data: $summary")
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
-    }
-
-    private fun updateWeeklyCheckboxes(summary: WeeklyExerciseSummary) {
-        binding.calendarCheckMonday.setImageResource(if (summary.monday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
-        binding.calendarCheckTuesday.setImageResource(if (summary.tuesday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
-        binding.calendarCheckWednesday.setImageResource(if (summary.wednesday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
-        binding.calendarCheckThursday.setImageResource(if (summary.thursday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
-        binding.calendarCheckFriday.setImageResource(if (summary.friday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
-        binding.calendarCheckSaturday.setImageResource(if (summary.saturday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
-        binding.calendarCheckSunday.setImageResource(if (summary.sunday) R.drawable.calendar_checked else R.drawable.calendar_unchecked)
     }
 
     override fun onDestroyView() {

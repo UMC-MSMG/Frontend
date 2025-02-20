@@ -49,7 +49,7 @@ class EditLevelFragment : Fragment() {
 
         val sharedPreferences = requireContext().getSharedPreferences(prefName, Context.MODE_PRIVATE)
 
-        val initialDifficulty = sharedPreferences.getString(difficultyKey, "NORMAL") ?: "NORMAL"
+        val initialDifficulty = sharedPreferences.getString(difficultyKey, "MEDIUM") ?: "MEDIUM"
         selectedPosition = difficulties.indexOf(initialDifficulty)
         if (selectedPosition == -1) {
             selectedPosition = 1

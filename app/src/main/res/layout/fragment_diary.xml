@@ -81,7 +81,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/points"
                     android:background="@drawable/circle_streak_days"
-                    android:text="4일"
+                    android:text="0일"
                     android:padding="5dp"
                     android:gravity="center"
                     android:textSize="24sp"
@@ -97,7 +97,7 @@
                     app:layout_constraintStart_toEndOf="@id/exerciseDays"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="22dp"
-                    android:text="30원"
+                    android:text="0원"
                     android:padding="5dp"
                     android:background="@drawable/circle_earn_money"
                     android:gravity="center"
@@ -152,7 +152,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="42dp"
-                    android:text="3일 연속 운동했어요."
+                    android:text="0일 연속 운동했어요."
                     android:textSize="24sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/pretendard_bold" />
@@ -161,7 +161,7 @@
                     android:id="@+id/habitText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="매우 좋은 습관이에요."
+                    android:text="오늘부터 시작해보세요."
                     app:layout_constraintTop_toBottomOf="@id/consecutiveDaysText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -288,7 +288,7 @@
                         android:id="@+id/calendar_check_tuesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/calendar_checked"
+                        android:src="@drawable/calendar_unchecked"
                         app:layout_constraintTop_toBottomOf="@id/tuesday"
                         app:layout_constraintStart_toStartOf="@id/tuesday"
                         app:layout_constraintEnd_toEndOf="@id/tuesday"/>
@@ -296,7 +296,7 @@
                         android:id="@+id/calendar_check_wednesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/calendar_checked"
+                        android:src="@drawable/calendar_unchecked"
                         app:layout_constraintTop_toBottomOf="@id/wednesday"
                         app:layout_constraintStart_toStartOf="@id/wednesday"
                         app:layout_constraintEnd_toEndOf="@id/wednesday"/>
@@ -304,7 +304,7 @@
                         android:id="@+id/calendar_check_thursday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/calendar_checked"
+                        android:src="@drawable/calendar_unchecked"
                         app:layout_constraintTop_toBottomOf="@id/thursday"
                         app:layout_constraintStart_toStartOf="@id/thursday"
                         app:layout_constraintEnd_toEndOf="@id/thursday"/>
@@ -353,7 +353,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="운동 3일째 진행중"
+                        android:text="운동 0일째 진행중"
                         android:textSize="24sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/pretendard_bold"/>
@@ -381,7 +381,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/difficulty"
                     android:layout_marginTop="8dp"
-                    android:text="2025-01-05 ~ 2025-01-07"
+                    android:text="2025-02-20 ~ 2025-02-20"
                     android:textColor="#2E2E2E"
                     android:fontFamily="@font/pretendard_medium"
                     android:textSize="20sp"/>
@@ -431,7 +431,7 @@
                         android:layout_marginStart="18dp"
                         android:text="유산소"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <TextView
                         android:id="@+id/exercise1Time"
@@ -443,7 +443,7 @@
                         android:layout_marginEnd="17dp"
                         android:text="세트"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <View
                         android:id="@+id/bar2"
@@ -467,7 +467,7 @@
                         android:layout_marginStart="18dp"
                         android:text="근력"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <TextView
                         android:id="@+id/exercise2Time"
@@ -479,7 +479,7 @@
                         android:layout_marginEnd="17dp"
                         android:text="세트"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <View
                         android:id="@+id/bar3"
@@ -503,7 +503,7 @@
                         android:layout_marginStart="18dp"
                         android:text="유연성"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <TextView
                         android:id="@+id/exercise3Time"
@@ -515,7 +515,7 @@
                         android:layout_marginEnd="17dp"
                         android:text="세트"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <View
                         android:id="@+id/bar4"
@@ -541,7 +541,7 @@
                         android:layout_marginStart="18dp"
                         android:text="균형"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
                     <TextView
                         android:id="@+id/exercise4Time"
@@ -555,8 +555,9 @@
                         android:layout_marginEnd="17dp"
                         android:text="세트"
                         android:textSize="20sp"
-                        android:textColor="@color/black"
+                        android:textColor="#F0F0F0"
                         android:fontFamily="@font/pretendard_medium"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -582,6 +583,7 @@
                     android:textSize="24sp" />
 
                 <TextView
+                    android:id="@+id/summary_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/summary"
@@ -590,7 +592,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginBottom="34dp"
                     android:fontFamily="@font/pretendard_medium"
-                    android:text="약간 비만이에요.\n계단을 오르내릴 때 주의가 필요해요. \n근력 부족으로 생각돼요.\n\n단백질 섭취에 신경 쓰세요."
+                    android:text="모의검진"
                     android:textAlignment="center"
                     android:textColor="#2E2E2E"
                     android:textSize="20sp" />

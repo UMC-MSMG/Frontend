@@ -116,19 +116,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"/>
 
-    <TextView
-        android:id="@+id/total_used_points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="285.65dp"
-        android:fontFamily="@font/pretendard_medium"
-        android:text="누적 사용 포인트 1025원"
-        android:textColor="#606060"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/cancel_button"
