@@ -24,7 +24,7 @@ class WorkoutVideoFragment : Fragment() {
     private lateinit var videoManager: VideoManager
     private lateinit var countManager: CountManager
     private var workoutType: String? = null
-    private val viewModel: WorkoutViewModel by viewModels()
+    // private val viewModel: WorkoutViewModel by viewModels()
 
     data class VideoInfo(
         val resourceId: Int,
@@ -70,12 +70,22 @@ class WorkoutVideoFragment : Fragment() {
             }
         }
 
-
         setupVideoList()
+        setupButtons()
         startWorkout()
 
         binding.exerciseCompleBtn.setOnClickListener {
             showExerciseCompleteMessage()
+        }
+    }
+
+    private fun setupButtons() {
+        binding.exerciseCompleBtn.setOnClickListener {
+            showExerciseCompleteMessage()
+        }
+
+        binding.skipButton.setOnClickListener {
+            skipCurrentVideo()
         }
     }
 
@@ -93,14 +103,32 @@ class WorkoutVideoFragment : Fragment() {
             else -> emptyList()
         }
         videoManager.setVideoList(videoList)
+
+        if (videoList.isEmpty()) {
+            binding.exerciseCompleBtn.visibility = View.VISIBLE
+            binding.skipButton.visibility = View.GONE
+        } else {
+            binding.exerciseCompleBtn.visibility = View.GONE
+            binding.skipButton.visibility = View.VISIBLE
+        }
     }
 
     private fun startWorkout() {
+        if (videoManager.getCurrentVideo() == null) {
+            binding.exerciseCompleBtn.visibility = View.VISIBLE
+            binding.skipButton.visibility = View.GONE
+            return
+        }
+
         videoManager.setupVideoPlayer {
             onVideoComplete()
         }
         updateUI()
         startCounting()
+    }
+
+    private fun skipCurrentVideo() {
+        onVideoComplete()
     }
 
     private fun updateUI() {
@@ -138,21 +166,14 @@ class WorkoutVideoFragment : Fragment() {
                 "균형" -> 4
                 else -> return
             }
-            viewModel.completeWorkout(workoutId)
+            // viewModel.completeWorkout(workoutId)
             binding.exerciseCompleBtn.apply {
                 visibility = View.VISIBLE
                 setOnClickListener {
-                    viewModel.submitCompletedWorkouts(
-                        onSuccess = {
-                            navigateToPreviousFragment() // 성공 시 이전 화면으로 이동
-                        },
-                        onError = { errorMessage ->
-                            // 오류 메시지 표시 (예: Toast)
-                            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-                        }
-                    )
+                    navigateToPreviousFragment()
                 }
             }
+            binding.skipButton.visibility = View.GONE
         }
     }
 
