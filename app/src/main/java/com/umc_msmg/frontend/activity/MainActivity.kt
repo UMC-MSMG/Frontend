@@ -2,6 +2,7 @@ package com.umc_msmg.frontend.activity
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.hardware.Sensor
@@ -10,11 +11,16 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
+import android.webkit.CookieManager
+import android.webkit.WebStorage
+import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.maps.model.LatLng
 import com.umc_msmg.frontend.R
 import com.umc_msmg.frontend.data.DailySteps
 import com.umc_msmg.frontend.data.DayOfWeek
@@ -25,6 +31,9 @@ import com.umc_msmg.frontend.fragment.MyPageFragment
 import com.umc_msmg.frontend.fragment.ShopFragment
 import com.umc_msmg.frontend.fragment.StepperFragment
 import com.umc_msmg.frontend.fragment.WorkoutFragment
+import com.umc_msmg.frontend.interfaces.InfoLoadData
+import com.umc_msmg.frontend.interfaces.InfoUpdateData
+import com.umc_msmg.frontend.interfaces.PlacesResponse
 import com.umc_msmg.frontend.interfaces.RetrofitClient
 import com.umc_msmg.frontend.interfaces.StepRequest
 import com.umc_msmg.frontend.util.StepCounterManager
@@ -34,6 +43,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import com.umc_msmg.frontend.interfaces.UserServiceRetrofitClient
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,8 +62,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         logAllPreferences()
+        lifecycleScope.launch {
+            loadAndUpdateSP()
+        }
         requestActivityRecognitionPermission()
-
         StepCounterManager.resetStepsIfNewDay(this)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -67,7 +79,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         // 버튼 클릭 이벤트 설정
         setupButtonListeners()
-        sharedPreferences = this.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
 
 
 
@@ -94,11 +105,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
+        lifecycleScope.launch {
+            loadAndUpdateSP()
+        }
         stepSensor?.let {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
             Log.d("StepCounter", "✅ 센서 리스너 등록됨")
         }
-        loadUserInfoAndSteps()
+
         loadMyPoints()
     }
 
@@ -208,7 +222,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun loadUserInfoAndSteps() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+        val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
         val name = sharedPreferences.getString("user_name", null) ?: ""
         var sequenceDays = sharedPreferences.getInt("sequenceDays", 1)
         binding.userStatusText.text = "${name}님은\n${sequenceDays}일째 운동 중이에요."
@@ -268,7 +282,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun loadMyPoints() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val authorization = sharedPreferences.getString("access_token", null) ?: ""
+        val authorization = "Bearer " + sharedPreferences.getString("access_token", null)
 
         UserServiceRetrofitClient.apiService.getMyPoints(authorization)
             .enqueue(object : Callback<com.umc_msmg.frontend.data.MyPointsResponse> {
@@ -321,4 +335,74 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             R.drawable.calendar_yet_checked
         }
     }
+
+    suspend fun loadAndUpdateSP() {
+        sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val token = "Bearer " + sharedPreferences.getString("access_token", null)
+                if(token == "Bearer ")
+                {
+                    logout()
+                }
+                if (token != null) {
+                    val response = RetrofitClient.loginService.loadInfo(token)
+                    if(response.isSuccessful)
+                    {
+                        sharedPreferences.edit()
+                            .putInt("user_id", response.body()!!.id)
+                            .putString("user_name", response.body()!!.name)
+                            .putString("user_kakao_id", response.body()!!.kakaoId)
+                            .putString("user_gender", response.body()!!.gender)
+                            .putString("user_phone", response.body()!!.phoneNumber)
+                            .putString("user_birthday", response.body()!!.birthDate)
+                            .putInt("user_height", response.body()!!.height)
+                            .putInt("user_weight", response.body()!!.weight)
+                            .putInt("user_point", response.body()!!.point)
+                            .putString("user_image", response.body()!!.image)
+                            .putString("user_diff", response.body()!!.workoutLevel)
+                            .putString("refresh_token", response.body()!!.refreshToken)
+                            .apply()
+                        logAllPreferences()
+                    }
+
+
+
+                    }
+                else
+                {
+                    logout()
+
+                }
+            } catch (e: Exception) {
+                Log.e("PATCH", "오류 발생: ${e.message}")
+            }
+        }
+
+        loadUserInfoAndSteps()
+    }
+
+    private fun logout() {
+        var sharedPreferences = this.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        sharedPreferences = this.getSharedPreferences("LP", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        sharedPreferences = this.getSharedPreferences("StepPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        clearWebViewData()
+        val intent = Intent(this@MainActivity, StartActivity::class.java)
+        startActivity(intent)
+        Log.d("Logout", "로그아웃 완료 / 웹뷰 데이터 초기화됨")
+    }
+
+    private fun clearWebViewData() {
+        val webView = WebView(this@MainActivity)
+        webView.clearCache(true)
+        webView.clearHistory()
+        CookieManager.getInstance().removeAllCookies(null)
+        CookieManager.getInstance().flush()
+        WebStorage.getInstance().deleteAllData()
+    }
+
+
 }

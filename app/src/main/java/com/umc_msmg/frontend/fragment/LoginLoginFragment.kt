@@ -22,7 +22,9 @@ import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.databinding.FragmentLoginLoginBinding
 import com.umc_msmg.frontend.databinding.FragmentLoginStartBinding
 import com.umc_msmg.frontend.interfaces.RetrofitClient
+import com.umc_msmg.frontend.interfaces.codeVerifyData
 import com.umc_msmg.frontend.interfaces.normalLoginData
+import com.umc_msmg.frontend.interfaces.phoneVerifyData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,13 +73,14 @@ class LoginLoginFragment : Fragment() {
         phone = binding.et1.text.toString()
         if (!phone.isNullOrEmpty())
         {
-            val response = RetrofitClient.loginService.sendLogin(binding.et1.text.toString()).code()
+            val response = RetrofitClient.loginService.sendLogin(phoneVerifyData(binding.et1.text.toString())).code()
             if(response == 200)
             {
                 withContext(Dispatchers.Main) {
                     binding.verifyAlarm1.visibility = GONE
                     binding.et1.isEnabled = false
                     binding.et2.isEnabled = true
+                    binding.verifyBtn.isEnabled = false
                 }
 
             }
@@ -95,13 +98,13 @@ class LoginLoginFragment : Fragment() {
     private suspend fun checkCode() {
         try {
             val response = RetrofitClient.loginService.checkLogin(
-                phone,
-                binding.et2.text.toString().toInt()
+                codeVerifyData(phone,
+                    binding.et2.text.toString())
+
             )
 
-            if (response.isSuccessful) {
+            if (response.code() == 200) {
                 val responseBody = response.body()
-
                 responseBody?.let { data ->
                     val sharedPreferences =
                         requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
@@ -119,13 +122,16 @@ class LoginLoginFragment : Fragment() {
                 }
             } else {
                 Log.e("checkCode", "응답 실패: ${response.code()}")
-
-                binding.verifyAlarm2.visibility = VISIBLE
+                withContext(Dispatchers.Main) {
+                    binding.verifyAlarm2.visibility = VISIBLE
+                }
             }
 
         } catch (e: Exception) {
             Log.e("checkCode", "에러 발생: ${e.localizedMessage}")
-            binding.verifyAlarm2.visibility = VISIBLE
+            withContext(Dispatchers.Main) {
+                binding.verifyAlarm2.visibility = VISIBLE
+            }
         }
     }
 

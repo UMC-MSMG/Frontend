@@ -11,6 +11,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
 import com.google.gson.annotations.SerializedName
+import retrofit2.http.PATCH
 
 interface OpenAIApi {
     @Headers("Content-Type: application/json")
@@ -47,11 +48,10 @@ interface ApiService {
     ): Response<Void>
 
     @POST("/api/auth/login/phone/verify-request")
-    suspend fun sendLogin(@Query("phoneNum") pn: String): Response<String>
+    suspend fun sendLogin(@Body request: phoneVerifyData): Response<phoneVerifyDataResponse>
 
     @POST("/api/auth/login/phone/verify-check")
-    suspend fun checkLogin(@Query("phoneNum") pn : String,
-                           @Query("code") code : Int) : Response<normalLoginData>
+    suspend fun checkLogin(@Body request: codeVerifyData) : Response<normalLoginData>
 
     @GET("place/nearbysearch/json") // ✅ Google Places API - Nearby Search
     fun getNearbyParks(
@@ -61,8 +61,60 @@ interface ApiService {
         @Query("key") apiKey: String // ✅ Google API Key
     ): Call<PlacesResponse> // ✅ 응답을 PlacesResponse 클래스로 받음
 
+    @PATCH("/api/users/signup-info")
+    suspend fun sendInfo(
+        @Header("Authorization") token: String,
+        @Body request: InfoUpdateData
+    ): Call<Void>
 
+    @GET("/api/users/user-info")
+    suspend fun loadInfo(
+        @Header("Authorization") token: String
+    ): Response<InfoLoadData>
 }
+
+
+data class InfoLoadData(
+    val id: Int = 0,
+    val name: String = "",
+    val kakaoId: String = "",
+    val gender: String = "",
+    val phoneNumber: String = "",
+    val birthDate: String = "",
+    val height: Int = 0,
+    val weight: Int = 0,
+    val deviceToken: String? = null,  // null 허용
+    val point: Int = 0,
+    val image: String = "",
+    val workoutLevel: String = "",
+    val fontSize: String? = null,     // null 허용
+    val refreshToken: String = ""
+)
+
+data class InfoUpdateData(
+    val name: String? = null,
+    val phone_number: String? = "",
+    val gender: String? = null, // "MALE" 또는 "FEMALE"
+    val birth_date: String? = null, // "yyyy-MM-dd" 형식
+    val height: Int? = -1,
+    val weight: Int? = -1,
+    val agree_to_terms: Boolean? = null,
+    val workout_level: String? = null // 예: "NORMAL", "BEGINNER", "ADVANCED"
+)
+
+data class phoneVerifyData(
+    val phoneNum: String
+)
+
+data class phoneVerifyDataResponse(
+    val success : Boolean,
+    val message : String
+)
+
+data class codeVerifyData(
+    val phoneNum: String,
+    val code: String
+)
 data class StepRequest(
     val steps: Int,
     val date: String

@@ -1,20 +1,32 @@
 package com.umc_msmg.frontend
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.icu.text.IDNA.Info
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
+import android.webkit.WebStorage
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.umc_msmg.frontend.activity.MainActivity
 import com.umc_msmg.frontend.databinding.FragmentSignUpAddInfoBinding
 import com.umc_msmg.frontend.fragment.GptFragment
 import com.umc_msmg.frontend.fragment.SignUpDoneFragment
+import com.umc_msmg.frontend.interfaces.InfoUpdateData
+import com.umc_msmg.frontend.interfaces.RetrofitClient
 import kotlin.math.pow
 import com.umc_msmg.frontend.viewModel.SignUpViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SignUpAddInfoFragment : Fragment() {
     private var _binding: FragmentSignUpAddInfoBinding? = null
@@ -225,6 +237,8 @@ class SignUpAddInfoFragment : Fragment() {
     }
 
     private fun navigateToSignUpDoneFragment() {
+        logAllPreferences()
+
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, SignUpDoneFragment())
             .commit()
@@ -235,8 +249,66 @@ class SignUpAddInfoFragment : Fragment() {
         _binding = null
     }
 
+    private fun logAllPreferences() {
+        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val allEntries: Map<String, *> = sharedPreferences.all
+        for ((key, value) in allEntries) {
+            Log.d("SharedPreferencesFinal", "Key: $key, Value: $value")
+        }
 
 
+        val token = "Bearer " + sharedPreferences.getString("access_token", null)
+        val name = sharedPreferences.getString("user_name", null)
+        val phone = sharedPreferences.getString("user_phone", null)
+        val gender = sharedPreferences.getString("user_gender", null)
+        val birthday = sharedPreferences.getString("user_birthday", null)
+        //val image = sharedPreferences.getString("user_image", null)
+        val height = sharedPreferences.getInt("user_height", 0)
+        val weight = sharedPreferences.getInt("user_weight", 0)
+        val agreed = sharedPreferences.getBoolean("agreed", false)
+        var diff = sharedPreferences.getString("user_diff", null)
+
+
+        if(diff == "h") { diff = "NORMAL" }
+        else if (diff == "m") { diff = "NORMAL" }
+        else { diff = "NORMAL" }
+
+        CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    if (token != null) {
+                        RetrofitClient.loginService.sendInfo(token, InfoUpdateData(name, phone, gender, birthday, height, weight, agreed, diff))
+                    }
+                    else
+                    {
+                        logout()
+                        clearWebViewData()
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
+                } catch (e: Exception) {
+                    Log.e("PATCH", "오류 발생: ${e.message}")
+                }
+            }
+    }
+
+    private fun logout() {
+        var sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        sharedPreferences = requireContext().getSharedPreferences("LP", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        clearWebViewData()
+        Log.d("Logout", "로그아웃 완료 / 웹뷰 데이터 초기화됨")
+    }
+
+    private fun clearWebViewData() {
+        val webView = WebView(requireContext())
+        webView.clearCache(true)
+        webView.clearHistory()
+        CookieManager.getInstance().removeAllCookies(null)
+        CookieManager.getInstance().flush()
+        WebStorage.getInstance().deleteAllData()
+    }
 
 
 }

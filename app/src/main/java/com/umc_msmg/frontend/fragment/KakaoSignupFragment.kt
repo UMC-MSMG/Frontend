@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import com.umc_msmg.frontend.databinding.FragmentSignUpBasicInfoBinding
 import com.umc_msmg.frontend.fragment.GptFragment
 
-class SignUpBasicInfoFragment : Fragment() {
+class KakaoSignupFragment : Fragment() {
     private var _binding: FragmentSignUpBasicInfoBinding? = null
     private val binding get() = _binding!!
     private var currentStep = 1
@@ -89,9 +89,7 @@ class SignUpBasicInfoFragment : Fragment() {
             when (currentStep) {
                 1 -> showGenderInput()
                 2 -> showBirthdateInput()
-                3 -> showPhoneInput()
-                4 -> showVerify()
-                5 -> finishSignUp()
+                3 -> finishSignUp()
             }
         }
     }
@@ -168,6 +166,15 @@ class SignUpBasicInfoFragment : Fragment() {
     }
 
     private fun finishSignUp() {
+
+        val year = binding.dpBirthdate.year
+        val month = binding.dpBirthdate.month+1
+        val day = binding.dpBirthdate.dayOfMonth
+        val selectedDate = "$year-$month-$day"
+
+        sharedPreferences.edit()
+            .putString("user_birthday", selectedDate) //YYYY-MM-DD 형식으로 저장
+            .apply()
         //잘 된다면
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, GptFragment())

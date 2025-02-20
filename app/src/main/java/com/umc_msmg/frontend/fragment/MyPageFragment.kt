@@ -107,7 +107,9 @@ class MyPageFragment : Fragment() {
 
 
     private fun logout() {
-        val sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        var sharedPreferences = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+        sharedPreferences = requireContext().getSharedPreferences("LP", Context.MODE_PRIVATE)
         sharedPreferences.edit().clear().apply()
         clearWebViewData()
         Log.d("Logout", "로그아웃 완료 / 웹뷰 데이터 초기화됨")

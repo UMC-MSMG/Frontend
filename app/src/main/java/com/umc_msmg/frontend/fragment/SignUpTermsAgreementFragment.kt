@@ -2,6 +2,7 @@ package com.umc_msmg.frontend
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -69,9 +70,22 @@ class SignUpTermsAgreementFragment : Fragment() {
                     .putBoolean("agreed", false)
                     .apply()
             }
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SignUpBasicInfoFragment())
-                .commit()
+
+            val isKakao = sharedPreferences.getBoolean("kakao", false)
+            Log.e("롤하고싶다", isKakao.toString())
+                if(isKakao == true)
+                {
+
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, KakaoSignupFragment())
+                        .commit()
+                }
+                else
+                {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, SignUpBasicInfoFragment())
+                        .commit()
+                }
         }
 
         binding.root.setOnClickListener()
