@@ -13,33 +13,42 @@ class CountManager(private val onCountUpdate: (String, Int) -> Unit) {
     private var repeatCount = 0
 
     fun startCounting(video: WorkoutVideoFragment.VideoInfo, videoDuration: Int) {
-        val countInterval: Int =
-            if (!video.isTimeCount && video.maxCount > 0) videoDuration / video.maxCount else 1000
+        resetCounters()
 
-        handler.post(object : Runnable {
-            override fun run() {
-                if (video.isTimeCount) {
-                    timeCount++
-                    onCountUpdate(formatTime(timeCount), video.maxCount)
-                } else {
-                    if (timeCount % countInterval == 0) {
-                        exerciseCount++
-                        onCountUpdate(exerciseCount.toString(), video.maxCount)
-                    }
-                    timeCount++
-                }
+        val countInterval: Int = if (!video.isTimeCount && video.maxCount > 0) {
+            videoDuration / (video.maxCount + 1) // +1 to account for the initial delay
+        } else {
+            1000
+        }
 
-                if ((video.isTimeCount && timeCount < video.maxCount) || (!video.isTimeCount && exerciseCount < video.maxCount)) {
-                    handler.postDelayed(this, 1000)
-                } else {
-                    repeatCount++
-                    if (repeatCount < video.repeatTimes) {
-                        resetCounters()
-                        handler.post(this)
+        handler.postDelayed({
+            onCountUpdate("0", video.maxCount) // 초기 카운트 표시
+            handler.post(object : Runnable {
+                override fun run() {
+                    if (video.isTimeCount) {
+                        onCountUpdate(formatTime(timeCount), video.maxCount)
+                        timeCount++
+                    } else {
+                        if (timeCount % countInterval == 0 && exerciseCount < video.maxCount) {
+                            exerciseCount++
+                            onCountUpdate(exerciseCount.toString(), video.maxCount)
+                        }
+                        timeCount++
+                    }
+
+                    if ((video.isTimeCount && timeCount <= video.maxCount) ||
+                        (!video.isTimeCount && exerciseCount < video.maxCount && timeCount < videoDuration)) {
+                        handler.postDelayed(this, 1000)
+                    } else {
+                        repeatCount++
+                        if (repeatCount < video.repeatTimes) {
+                            resetCounters()
+                            handler.postDelayed(this, countInterval.toLong())
+                        }
                     }
                 }
-            }
-        })
+            })
+        }, video.startDelay * 1000L) // startDelay를 사용하여 초기 딜레이 설정
     }
 
     private fun formatTime(seconds: Int): String {

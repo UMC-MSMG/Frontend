@@ -238,7 +238,7 @@
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:fontFamily="@font/pretendard_bold"
-                android:background="@drawable/round_corner_white"
+                android:background="@drawable/round_corner_primary"
                 android:layout_marginBottom="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

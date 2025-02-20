@@ -35,7 +35,8 @@ class WorkoutVideoFragment : Fragment() {
         val maxCount: Int,
         val isTimeCount: Boolean,
         val showSetNumber: Boolean,
-        val title: String
+        val title: String,
+        val startDelay: Int
     )
 
     override fun onCreateView(
@@ -116,13 +117,13 @@ class WorkoutVideoFragment : Fragment() {
     private fun getCardioVideoList(difficulty: String): List<VideoInfo> {
         return when (difficulty) {
             "EASY" -> listOf(
-                VideoInfo(R.raw.low_cardio_brisk_walking, 1, 180, true, false, "빠르게 걷기")
+                VideoInfo(R.raw.low_cardio_brisk_walking, 1, 180, true, false, "빠르게 걷기", 5)
             )
             "NORMAL" -> listOf(
-                VideoInfo(R.raw.mid_cardio_jumping_jacks, 1, 20, false, false, "팔벌려뛰기")
+                VideoInfo(R.raw.mid_cardio_jumping_jacks, 1, 20, false, false, "팔벌려뛰기", 6)
             )
             "HARD" -> listOf(
-                VideoInfo(R.raw.high_cardio_mountain_climbers, 1, 20, false, false, "엎드려서 무릎가슴닿기")
+                VideoInfo(R.raw.high_cardio_mountain_climbers, 1, 20, false, false, "엎드려서 무릎가슴닿기", 2)
             )
             else -> emptyList()
         }
@@ -131,22 +132,22 @@ class WorkoutVideoFragment : Fragment() {
     private fun getStrengthVideoList(difficulty: String): List<VideoInfo> {
         return when (difficulty) {
             "EASY" -> listOf(
-                VideoInfo(R.raw.low_slow_chair_stand_ups, 3, 10, false, true, "의자에서 천천히 일어나기"),
-                VideoInfo(R.raw.low_strength_heel_raises, 1, 12, false, false, "발뒤꿈치 올리기"),
-                VideoInfo(R.raw.low_strength_leg_raises, 1, 8, false, false, "다리 차올리기"),
-                VideoInfo(R.raw.low_side_leg_raises, 1, 8, false, false, "다리 옆으로 올리기")
+                VideoInfo(R.raw.low_slow_chair_stand_ups, 3, 10, false, true, "의자에서 천천히 일어나기", 2),
+                VideoInfo(R.raw.low_strength_heel_raises, 1, 12, false, false, "발뒤꿈치 올리기", 2),
+                VideoInfo(R.raw.low_strength_leg_raises, 1, 8, false, false, "다리 차올리기", 2),
+                VideoInfo(R.raw.low_side_leg_raises, 1, 8, false, false, "다리 옆으로 올리기", 2)
             )
             "NORMAL" -> listOf(
-                VideoInfo(R.raw.mid_strength_chair_assisted_squats, 3, 15, false, true, "의자 끝에 앉으며 스쿼트"),
-                VideoInfo(R.raw.mid_strength_lying_hip_raises, 1, 12, false, false, "누워서 엉덩이 들어올리기"),
-                VideoInfo(R.raw.mid_strenth_knee_push_ups, 1, 12, false, false, "무릎 대고 팔굽혀펴기"),
-                VideoInfo(R.raw.mid_strength_prone_leg_lifts, 1, 10, false, false, "엎드려 다리 뒤로 차기")
+                VideoInfo(R.raw.mid_strength_chair_assisted_squats, 3, 15, false, true, "의자 끝에 앉으며 스쿼트", 2),
+                VideoInfo(R.raw.mid_strength_lying_hip_raises, 1, 12, false, false, "누워서 엉덩이 들어올리기", 2),
+                VideoInfo(R.raw.mid_strenth_knee_push_ups, 1, 12, false, false, "무릎 대고 팔굽혀펴기", 2),
+                VideoInfo(R.raw.mid_strength_prone_leg_lifts, 1, 10, false, false, "엎드려 다리 뒤로 차기", 2)
             )
             "HARD" -> listOf(
-                VideoInfo(R.raw.high_strength_squats, 3, 15, false, true, "스쿼트"),
-                VideoInfo(R.raw.high_strength_lunges, 3, 12, false, true, "런지"),
-                VideoInfo(R.raw.high_strength_plank, 1, 45, true, false, "플랭크"),
-                VideoInfo(R.raw.high_strength_side_lunges, 3, 12, false, true, "사이드 런지")
+                VideoInfo(R.raw.high_strength_squats, 3, 15, false, true, "스쿼트", 2),
+                VideoInfo(R.raw.high_strength_lunges, 3, 12, false, true, "런지", 2),
+                VideoInfo(R.raw.high_strength_plank, 1, 45, true, false, "플랭크", 2),
+                VideoInfo(R.raw.high_strength_side_lunges, 3, 12, false, true, "사이드 런지", 2)
             )
             else -> emptyList()
         }

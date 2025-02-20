@@ -49,6 +49,7 @@ class VideoManager(private val activity: FragmentActivity, private val videoView
         }
     }
 
+
     fun getCurrentVideo(): WorkoutVideoFragment.VideoInfo? {
         return if (currentVideoIndex < videoList.size) videoList[currentVideoIndex] else null
     }
