@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_background">
+
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+            android:id="@+id/area_1"
+            android:layout_width="372dp"
+            android:layout_height="309dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/round_corner_secondary"
+            android:elevation="15dp"
+            android:src="@color/color_secondary" />
+
+        <TextView
+            android:id="@+id/a1_top_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"
+            app:layout_constraintTop_toTopOf="@id/area_1"
+            app:layout_constraintStart_toStartOf="@id/area_1"
+            android:elevation="31dp"
+            android:text="오늘의 걸음 수"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="35dp"
+            android:paddingBottom="5dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/a1_top_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_bold"
+            app:layout_constraintEnd_toEndOf="@id/area_1"
+            app:layout_constraintBottom_toBottomOf="@id/a1_top_tv1"
+            android:layout_marginEnd="35dp"
+            android:elevation="31dp"
+            android:text="1201"
+            android:textSize="36sp"
+            android:textColor="@color/black"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/a1_step_img_iv"
+            android:src="@drawable/footstep"
+            app:layout_constraintEnd_toStartOf="@id/a1_top_tv2"
+            app:layout_constraintTop_toTopOf="@id/a1_top_tv2"
+            app:layout_constraintBottom_toBottomOf="@id/a1_top_tv2"
+            android:elevation="32dp"
+            android:layout_marginEnd="10dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/a1_line_img_iv"
+            android:src="@drawable/chart_line"
+            app:layout_constraintStart_toStartOf="@id/area_1"
+            app:layout_constraintEnd_toEndOf="@id/area_1"
+            app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"
+            android:elevation="32dp"
+            android:layout_marginTop="30dp"
+            />
+
+        <TextView
+            android:id="@+id/a1_bottom_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            app:layout_constraintTop_toBottomOf="@id/a1_line_img_iv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:elevation="31dp"
+            android:text="이번주의 평균 걸음 수는 717 걸음 정도에요."
+
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+
+    <ImageView
+        android:id="@+id/area_2"
+        android:layout_width="372dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_corner_primary"
+        android:elevation="15dp"
+        android:src="@color/color_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/area_1" />
+
+        <TextView
+                android:id="@+id/a2_top_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/area_2"
+                android:elevation="31dp"
+                android:text="내 포인트"
+                android:layout_marginTop="10dp"
+                android:textSize="13sp"
+                android:textColor="@color/white"
+                />
+
+        <TextView
+            android:id="@+id/a2_mid_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="31dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="25 원"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="@id/area_1"
+            app:layout_constraintStart_toStartOf="@id/area_1"
+            app:layout_constraintTop_toBottomOf="@id/a2_top_tv1" />
+
+        <TextView
+            android:id="@+id/a2_bottom_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/a2_mid_tv"
+            android:elevation="31dp"
+            android:text="미션 하러가기 >"
+            android:paddingBottom="5dp"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            />
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/area_2"
+
+        android:id="@+id/area_3"
+        android:layout_width="372dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_corner_secondary"
+        android:elevation="15dp"
+        android:src="@color/color_secondary" />
+
+        <TextView
+            android:id="@+id/a3_left_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="31dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="내 근처 걸어가고 10원 받기"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/area_1"
+            app:layout_constraintTop_toTopOf="@id/area_3"
+            app:layout_constraintBottom_toBottomOf="@id/area_3"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:id="@+id/a3_right_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="31dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="지도 보러가기 >"
+            android:textColor="#606060"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@id/area_3"
+            app:layout_constraintTop_toTopOf="@id/area_3"
+            app:layout_constraintBottom_toBottomOf="@id/area_3"
+            android:layout_marginEnd="20dp"
+            />
+
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/area_3"
+
+        android:id="@+id/area_4"
+        android:layout_width="372dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_corner_secondary"
+        android:elevation="15dp"
+        android:src="@color/color_secondary" />
+
+        <TextView
+            android:id="@+id/a4_left_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="31dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="500 걸음 걷기"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/area_1"
+            app:layout_constraintTop_toTopOf="@id/area_4"
+            app:layout_constraintBottom_toBottomOf="@id/area_4"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:id="@+id/a4_right_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="31dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="지도 보러가기 >"
+            android:textColor="#606060"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@id/area_4"
+            app:layout_constraintTop_toTopOf="@id/area_4"
+            app:layout_constraintBottom_toBottomOf="@id/area_4"
+            android:layout_marginEnd="20dp"
+            />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

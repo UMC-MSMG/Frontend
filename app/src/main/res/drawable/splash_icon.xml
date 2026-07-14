@@ -1,0 +1,16 @@
+<!-- res/drawable/splash_icons.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="120dp"
+        android:height="120dp"
+        android:gravity="center">
+        <drawable android:drawable="@drawable/icon" />
+    </item>
+    <item
+        android:width="80dp"
+        android:height="80dp"
+        android:top="140dp"
+        android:gravity="center_horizontal">
+        <drawable android:drawable="@drawable/msmg" />
+    </item>
+</layer-list>
