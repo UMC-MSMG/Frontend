@@ -13,25 +13,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/imgSplash"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:src="@drawable/icon"
             android:layout_marginBottom="15dp" />
-        <TextView
-            android:id="@+id/tvSplash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="만수무강"
-            android:textSize="30sp"
-            android:fontFamily="@font/pretendard_bold"
-            android:textColor="@color/color_primary" />
     </LinearLayout>
 
     <!-- 키 입력 -->
@@ -50,8 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="당신의 키를 알려주세요 (cm)"
+
             android:textSize="20sp"
-            android:fontFamily="@font/pretendard_medium"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
         <NumberPicker
             android:id="@+id/npHeight"
@@ -80,7 +73,7 @@
             android:layout_height="wrap_content"
             android:text="당신의 몸무게를 알려주세요 (kg)"
             android:textSize="20sp"
-            android:fontFamily="@font/pretendard_medium"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
         <NumberPicker
             android:id="@+id/npWeight"
@@ -110,7 +103,7 @@
             android:text="현재 복용중인 약이 있나요?"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:fontFamily="@font/pretendard_medium"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,7 +153,7 @@
             android:text="복용 주기를 선택해주세요"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:fontFamily="@font/pretendard_medium"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
         <!-- 요일 선택 -->
         <LinearLayout
@@ -395,17 +388,8 @@
             android:textColor="@color/black"
             android:textAlignment="center"
             android:lineSpacingExtra="8sp"
-            android:fontFamily="@font/pretendard_medium"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="차근차근 할 수 있는 운동을\n 추천해드릴게요."
-            android:padding="15dp"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:lineSpacingExtra="8sp"
-            android:fontFamily="@font/pretendard_medium"/>
+            android:fontFamily="@font/pretendard_bold"
+            android:layout_marginBottom="15dp"/>
 
         <LinearLayout
             android:id="@+id/bmi_box"
@@ -449,35 +433,17 @@
 
     <!-- 다음 버튼 -->
     <TextView
-        android:id="@+id/tvNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="다음"
-        android:textSize="20sp"
-        android:paddingHorizontal="100dp"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/color_primary"
-        android:textColor="@color/black"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- 나중에하기 버튼 -->
-    <TextView
-        android:id="@+id/btn_later"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="나중에 하기"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:paddingHorizontal="75dp"
-        android:fontFamily="@font/pretendard_medium"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/color_background"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    android:id="@+id/tvNext"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:text="다음"
+    android:textSize="24sp"
+    android:textColor="@color/white"
+    android:fontFamily="@font/pretendard_medium"
+    android:background="@drawable/round_corner_primary"
+    android:backgroundTint="@color/color_primary"
+    android:gravity="center"
+    android:layout_marginBottom="40dp"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

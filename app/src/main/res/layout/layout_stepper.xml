@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_background">
+    android:background="@color/color_background"
+    android:clickable="true"
+    android:focusable="true">
 
 
     <ImageView
@@ -16,7 +18,7 @@
             android:layout_height="309dp"
             android:layout_marginTop="70dp"
             android:background="@drawable/round_corner_secondary"
-            android:elevation="15dp"
+
             android:src="@color/color_secondary" />
 
         <TextView
@@ -26,12 +28,11 @@
             android:fontFamily="@font/pretendard_bold"
             app:layout_constraintTop_toTopOf="@id/area_1"
             app:layout_constraintStart_toStartOf="@id/area_1"
-            android:elevation="31dp"
             android:text="오늘의 걸음 수"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="45dp"
             android:layout_marginStart="35dp"
             android:paddingBottom="5dp"
-            android:textSize="20sp"
+            android:textSize="26sp"
             android:textColor="@color/black"
             />
 
@@ -43,7 +44,6 @@
             app:layout_constraintEnd_toEndOf="@id/area_1"
             app:layout_constraintBottom_toBottomOf="@id/a1_top_tv1"
             android:layout_marginEnd="35dp"
-            android:elevation="31dp"
             android:text="1201"
             android:textSize="36sp"
             android:textColor="@color/black"
@@ -56,20 +56,18 @@
             app:layout_constraintEnd_toStartOf="@id/a1_top_tv2"
             app:layout_constraintTop_toTopOf="@id/a1_top_tv2"
             app:layout_constraintBottom_toBottomOf="@id/a1_top_tv2"
-            android:elevation="32dp"
             android:layout_marginEnd="10dp"
             />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/a1_line_img_iv"
-            android:src="@drawable/chart_line"
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="280dp"
+        android:layout_height="110dp"
             app:layout_constraintStart_toStartOf="@id/area_1"
             app:layout_constraintEnd_toEndOf="@id/area_1"
             app:layout_constraintTop_toBottomOf="@id/a1_top_tv1"
-            android:elevation="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             />
 
         <TextView
@@ -77,73 +75,69 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_medium"
-            app:layout_constraintTop_toBottomOf="@id/a1_line_img_iv"
+            app:layout_constraintTop_toBottomOf="@id/barChart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:elevation="31dp"
-            android:text="이번주의 평균 걸음 수는 717 걸음 정도에요."
-
-            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:text="이번주의 평균 걸음 수는\n717 걸음 정도에요"
+            android:gravity="center"
+            android:textSize="20sp"
             android:textColor="@color/black"
             />
 
-    <ImageView
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:id="@+id/area_2"
-        android:layout_width="372dp"
-        android:layout_height="117dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/area_1"
+        android:layout_marginBottom="42dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/round_corner_primary"
-        android:elevation="15dp"
-        android:src="@color/color_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/area_1" />
-
+        android:background="@drawable/point_button"
+        android:orientation="vertical">
         <TextView
-                android:id="@+id/a2_top_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 포인트"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/pretendard_medium"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/coin"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/my_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_medium"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/area_2"
-                android:elevation="31dp"
-                android:text="내 포인트"
-                android:layout_marginTop="10dp"
-                android:textSize="13sp"
+                android:text="25"
                 android:textColor="@color/white"
-                />
+                android:textSize="36sp"
+                android:layout_marginStart="9dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/pretendard_bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/pretendard_bold"/>
+        </LinearLayout>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/a2_mid_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="31dp"
-            android:fontFamily="@font/pretendard_bold"
-            android:text="25 원"
-            android:textColor="@color/white"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toEndOf="@id/area_1"
-            app:layout_constraintStart_toStartOf="@id/area_1"
-            app:layout_constraintTop_toBottomOf="@id/a2_top_tv1" />
 
-        <TextView
-            android:id="@+id/a2_bottom_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/a2_mid_tv"
-            android:elevation="31dp"
-            android:text="미션 하러가기 >"
-            android:paddingBottom="5dp"
-            android:textSize="13sp"
-            android:textColor="@color/white"
-            />
 
     <ImageView
         app:layout_constraintStart_toStartOf="parent"
@@ -155,37 +149,34 @@
         android:layout_height="67dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
         android:src="@color/color_secondary" />
 
         <TextView
             android:id="@+id/a3_left_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="31dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="내 근처 걸어가고 10원 받기"
+            android:text="500 걸음 걷기"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/area_1"
             app:layout_constraintTop_toTopOf="@id/area_3"
             app:layout_constraintBottom_toBottomOf="@id/area_3"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             />
 
         <TextView
             android:id="@+id/a3_right_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="31dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="지도 보러가기 >"
+            android:text="5원 받기"
             android:textColor="#606060"
-            android:textSize="13sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@id/area_3"
             app:layout_constraintTop_toTopOf="@id/area_3"
             app:layout_constraintBottom_toBottomOf="@id/area_3"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             />
 
 
@@ -199,37 +190,34 @@
         android:layout_height="67dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/round_corner_secondary"
-        android:elevation="15dp"
         android:src="@color/color_secondary" />
 
         <TextView
             android:id="@+id/a4_left_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="31dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="500 걸음 걷기"
+            android:text="1000 걸음 걷기"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/area_1"
             app:layout_constraintTop_toTopOf="@id/area_4"
             app:layout_constraintBottom_toBottomOf="@id/area_4"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             />
 
         <TextView
             android:id="@+id/a4_right_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="31dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="지도 보러가기 >"
+            android:text="10원 받기"
             android:textColor="#606060"
-            android:textSize="13sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@id/area_4"
             app:layout_constraintTop_toTopOf="@id/area_4"
             app:layout_constraintBottom_toBottomOf="@id/area_4"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             />
 
 

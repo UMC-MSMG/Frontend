@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+glide = "4.16.0"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -13,8 +14,11 @@ fragment = "1.8.5"
 playServicesLocation = "21.3.0"
 material = "1.12.0"
 work = "2.7.1"
+firebaseAppdistributionGradle = "5.1.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -33,12 +37,20 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
 kakao-map = { group = "com.kakao.maps.open", name = "android", version = "2.12.8" }
 kakao-sdk = {group = "com.kakao.sdk", name = "v2-all", version = "2.20.1"}
+kotlin-parcelize-runtime = { module = "org.jetbrains.kotlin:kotlin-parcelize-runtime", version.ref = "kotlin" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0"}
 gson = {group = "com.squareup.retrofit2", name = "converter-gson", version = "2.9.0"}
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
 okhttp = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.9.3"}
+google = {group = "com.google.android.gms", name = "play-services-maps", version = "19.0.0"}
+googleLocation = {group = "com.google.android.gms", name = "play-services-location", version = "21.3.0"}
+googlePlaces = {group = "com.google.android.libraries.places", name = "places", version = "3.2.0"}
+firebase-appdistribution-gradle = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version.ref = "firebaseAppdistributionGradle" }
+chart = {group = "com.github.PhilJay", name = "MPAndroidChart", version = "v3.1.0"}
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

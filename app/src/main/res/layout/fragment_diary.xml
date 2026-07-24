@@ -1,233 +1,602 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        android:layout_marginStart="31dp"
-        android:elevation="16dp"
-        android:src="@drawable/back_button" />
+    android:background="#F0F0F0">
 
     <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shop_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginStart="29dp"
-                android:text="내 운동일지"
-                android:textSize="20sp"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:fontFamily="@font/pretendard_bold" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/calendarBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="57dp"
                 android:background="@drawable/diary_box"
-                android:layout_marginStart="33dp"
-                android:layout_marginEnd="33dp"
-                android:elevation="8dp">
+                android:padding="13dp">
 
-                <LinearLayout
-                    android:id="@+id/dateHeader"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/todayDate"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="37dp"
+                    android:layout_marginStart="25dp"
+                    android:text="오늘 날짜"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_medium" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="12dp">
-                    <TextView
-                        android:id="@+id/todayDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="09 / 05 / 1992"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/pretendard_light"/>
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/calendar" />
-                </LinearLayout>
-
+                    android:layout_marginTop="37dp"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/calendar" />
                 <View
-                    android:id="@+id/line"
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/todayDate"
+                    android:background="#EEF1F4" />
+
+                <com.umc_msmg.frontend.ui.view.CustomCalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/line1" />
+                <View
+                    android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginEnd="1dp"
-                    app:layout_constraintTop_toBottomOf="@id/dateHeader"
-                    android:background="#F0F0F0"/>
-
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.MaterialCalendar"
-                    app:layout_constraintTop_toBottomOf="@id/line"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/calendarView"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="19dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal">
+                    android:background="#EEF1F4" />
 
-                    <TextView
-                        android:id="@+id/exerciseDaysText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="7dp"
-                        android:layout_marginEnd="4dp"
-                        android:background="@drawable/diary_button"
-                        android:backgroundTint="#EEF1F4"
-                        android:padding="3dp"
-                        android:text="운동 일수\n3일"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:textColor="#545F71"
-                        android:fontFamily="@font/pretendard_bold"/>
-
-                    <TextView
-                        android:id="@+id/pointsText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="7dp"
-                        android:padding="3dp"
-                        android:text="번 돈\n25원"
-                        android:background="@drawable/diary_button"
-                        android:backgroundTint="#545F71"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/pretendard_bold" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="55dp">
                 <TextView
-                    android:id="@+id/totalPointsText"
+                    android:id="@+id/exerciseDays"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toTopOf="@id/points"
+                    app:layout_constraintBottom_toBottomOf="@id/points"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginStart="2dp"
-                    android:text="총 25원 모았어요."
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:gravity="center_horizontal" />
+                    app:layout_constraintEnd_toStartOf="@id/points"
+                    android:background="@drawable/circle_streak_days"
+                    android:text="0일"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/pretendard_bold" />
+
                 <TextView
-                    android:id="@+id/increasedPointsText1"
+                    android:id="@+id/points"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/totalPointsText"
-                    android:text="저번 달보다"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:fontFamily="@font/pretendard_medium"/>
-                <TextView
-                    android:id="@+id/increasedPointsText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/increasedPointsText1"
-                    android:text="25원 더 모았어요."
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:fontFamily="@font/pretendard_medium"/>
-                <ImageView
-                    android:id="@+id/statisticsGraphImageView"
-                    android:layout_width="121dp"
-                    android:layout_height="45dp"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toBottomOf="@id/calendarView"
+                    app:layout_constraintStart_toEndOf="@id/exerciseDays"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/graph" />
+                    android:layout_marginTop="22dp"
+                    android:text="0원"
+                    android:padding="5dp"
+                    android:background="@drawable/circle_earn_money"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:textColor="#2E2E2E"
+                    android:fontFamily="@font/pretendard_bold" />
+                <TextView
+                    android:id="@+id/exerciseDaysText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/exerciseDays"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/exerciseDays"
+                    app:layout_constraintEnd_toEndOf="@id/exerciseDays"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="22dp"
+                    android:text="운동 일수"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#606060"
+                    android:fontFamily="@font/pretendard_bold" />
+
+                <TextView
+                    android:id="@+id/pointsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/points"
+                    app:layout_constraintStart_toStartOf="@id/points"
+                    app:layout_constraintEnd_toEndOf="@id/points"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="22dp"
+                    android:text="번 돈"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#606060"
+                    android:fontFamily="@font/pretendard_bold" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/diary_button"
+                android:id="@+id/weekly_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/diary_box"
-                android:elevation="8dp"
-                android:padding="17dp">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/diary_box">
+
                 <TextView
                     android:id="@+id/consecutiveDaysText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="1dp"
-                    android:text="3일 연속 운동했어요."
-                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="42dp"
+                    android:text="0일 연속 운동했어요."
+                    android:textSize="24sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/pretendard_bold"/>
+                    android:fontFamily="@font/pretendard_bold" />
+
                 <TextView
+                    android:id="@+id/habitText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="매우 좋은 습관이에요."
+                    android:text="오늘부터 시작해보세요."
                     app:layout_constraintTop_toBottomOf="@id/consecutiveDaysText"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:gravity="center_horizontal"
-                    android:fontFamily="@font/pretendard_medium"/>
-                <TextView
+                    android:fontFamily="@font/pretendard_medium" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/week"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/habitText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="29dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginEnd="21dp"
+                    android:background="@drawable/diary_weekly_box">
+
+                    <TextView
+                        android:id="@+id/monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tuesday"
+                        android:layout_marginStart="15dp"
+                        android:text="월"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <TextView
+                        android:id="@+id/tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/monday"
+                        app:layout_constraintEnd_toStartOf="@id/wednesday"
+                        android:text="화"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <TextView
+                        android:id="@+id/wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tuesday"
+                        app:layout_constraintEnd_toStartOf="@id/thursday"
+                        android:text="수"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <TextView
+                        android:id="@+id/thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/wednesday"
+                        app:layout_constraintEnd_toStartOf="@id/friday"
+                        android:text="목"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <TextView
+                        android:id="@+id/friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/thursday"
+                        app:layout_constraintEnd_toStartOf="@id/saturday"
+                        android:text="금"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <TextView
+                        android:id="@+id/saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/friday"
+                        app:layout_constraintEnd_toStartOf="@id/sunday"
+                        android:text="토"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <TextView
+                        android:id="@+id/sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/saturday"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="15dp"
+                        android:text="일"
+                        android:textColor="#606060"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/pretendard_medium" />
+                    <ImageView
+                        android:id="@+id/calendar_check_monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/monday"
+                        app:layout_constraintStart_toStartOf="@id/monday"
+                        app:layout_constraintEnd_toEndOf="@id/monday"
+                        android:src="@drawable/calendar_unchecked" />
+                    <ImageView
+                        android:id="@+id/calendar_check_tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_unchecked"
+                        app:layout_constraintTop_toBottomOf="@id/tuesday"
+                        app:layout_constraintStart_toStartOf="@id/tuesday"
+                        app:layout_constraintEnd_toEndOf="@id/tuesday"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_unchecked"
+                        app:layout_constraintTop_toBottomOf="@id/wednesday"
+                        app:layout_constraintStart_toStartOf="@id/wednesday"
+                        app:layout_constraintEnd_toEndOf="@id/wednesday"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_unchecked"
+                        app:layout_constraintTop_toBottomOf="@id/thursday"
+                        app:layout_constraintStart_toStartOf="@id/thursday"
+                        app:layout_constraintEnd_toEndOf="@id/thursday"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_yet_checked"
+                        app:layout_constraintTop_toBottomOf="@id/friday"
+                        app:layout_constraintStart_toStartOf="@id/friday"
+                        app:layout_constraintEnd_toEndOf="@id/friday"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_yet_checked"
+                        app:layout_constraintTop_toBottomOf="@id/saturday"
+                        app:layout_constraintStart_toStartOf="@id/saturday"
+                        app:layout_constraintEnd_toEndOf="@id/saturday"/>
+                    <ImageView
+                        android:id="@+id/calendar_check_sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_yet_checked"
+                        app:layout_constraintTop_toBottomOf="@id/sunday"
+                        app:layout_constraintStart_toStartOf="@id/sunday"
+                        app:layout_constraintEnd_toEndOf="@id/sunday"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/diary_box"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/difficulty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="운동일지\n바로가기"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/pretendard_medium" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="운동 0일째 진행중"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/pretendard_bold"/>
 
+                    <TextView
+                        android:id="@+id/difficulty_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:background="@drawable/diary_difficulty"
+                        android:text="하"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/pretendard_bold"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/difficulty"
+                    android:layout_marginTop="8dp"
+                    android:text="2025-02-20 ~ 2025-02-20"
+                    android:textColor="#2E2E2E"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textSize="20sp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/period"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="33dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginEnd="21dp"
+                    android:background="@drawable/diary_weekly_box">
+                    <TextView
+                        android:id="@+id/list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="수행 운동 목록"
+                        android:layout_marginTop="3dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textSize="20sp"/>
+                    <View
+                        android:id="@+id/bar1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintTop_toBottomOf="@id/list"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/exercise1Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="18dp"
+                        android:text="유산소"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <TextView
+                        android:id="@+id/exercise1Time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="세트"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <View
+                        android:id="@+id/bar2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintTop_toBottomOf="@id/exercise1Name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/exercise2Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="18dp"
+                        android:text="근력"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <TextView
+                        android:id="@+id/exercise2Time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="세트"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <View
+                        android:id="@+id/bar3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintTop_toBottomOf="@id/exercise2Name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/exercise3Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="18dp"
+                        android:text="유연성"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <TextView
+                        android:id="@+id/exercise3Time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="세트"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <View
+                        android:id="@+id/bar4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintTop_toBottomOf="@id/exercise3Name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/exercise4Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="18dp"
+                        android:text="균형"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+                    <TextView
+                        android:id="@+id/exercise4Time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/bar4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="세트"
+                        android:textSize="20sp"
+                        android:textColor="#F0F0F0"
+                        android:fontFamily="@font/pretendard_medium"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/diary_box">
+
+                <TextView
+                    android:id="@+id/summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="42dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="AI 모의검진 결과 요약"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/summary_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/summary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="34dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="모의검진"
+                    android:textAlignment="center"
+                    android:textColor="#2E2E2E"
+                    android:textSize="20sp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
     <TextView
@@ -235,12 +604,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="31dp"
         android:text="만수무강 상점 바로가기"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:fontFamily="@font/pretendard_bold"
         android:gravity="center_horizontal|center_vertical"
         android:background="@drawable/point_button" />

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/color_background">
-
-
+    android:background="@color/color_background"
+    android:focusable="true"
+    android:clickable="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -168,13 +168,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/pretendard_bold"
-        android:text="의자에서 천천히 일어나기"
+        android:text="운동 이름"
         android:textColor="@color/black"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guide_title" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/exercise_set_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -224,7 +225,43 @@
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="1dp"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/exercise_comple_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="운동 완료!"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:fontFamily="@font/pretendard_bold"
+                android:background="@drawable/round_corner_primary"
+                android:layout_marginBottom="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:elevation="1dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView
+                android:id="@+id/skip_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/color_background"
+                android:layout_margin="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="1dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
